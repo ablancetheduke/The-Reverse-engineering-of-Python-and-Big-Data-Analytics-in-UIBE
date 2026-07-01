@@ -1,0 +1,4 @@
+/* Minimal code block style approximating GitHub Dark */
+pre, code { background:#0d1117; color:#c9d1d9; }
+pre { padding:12px; border-radius:10px; overflow:auto }
+code { padding:2px 4px; border-radius:6px }

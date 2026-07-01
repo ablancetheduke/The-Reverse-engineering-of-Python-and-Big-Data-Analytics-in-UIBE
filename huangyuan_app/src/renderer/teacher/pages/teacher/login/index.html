@@ -1,0 +1,47 @@
+<!-- 教师登录页面 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教师登录 - 期末考试系统</title>
+  <link rel="stylesheet" href="../../../../shared/styles/login.css">
+  <link rel="stylesheet" href="./teacher-login.css">
+</head>
+<body>
+  <div class="login-container">
+    <div class="login-header">
+      <h1>教师登录</h1>
+      <p>期末考试管理系统</p>
+    </div>
+    
+    <form id="teacherLoginForm" class="login-form">
+      <div class="form-group">
+        <input 
+          type="text" 
+          id="teacherId" 
+          placeholder="请输入教师工号" 
+          required
+          autocomplete="username"
+        />
+      </div>
+      
+      <button type="submit" id="loginBtn" class="login-btn">
+        <span>登录验证</span>
+      </button>
+    </form>
+
+    <!-- 消息提示 -->
+    <div id="message" class="message-box" style="display: none;"></div>
+
+    <!-- 角色切换 -->
+    <div class="role-switch">
+      <button type="button" id="switchToStudent" class="switch-btn">
+        切换到学生端
+      </button>
+    </div>
+  </div>
+
+  <script type="module" src="./teacher-login.js"></script>
+</body>
+</html>

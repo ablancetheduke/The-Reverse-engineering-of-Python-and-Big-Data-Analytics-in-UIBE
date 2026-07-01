@@ -1,0 +1,381 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>期中考试成绩</title>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    html { overflow: auto; background: var(--bg); }
+    body { margin: 0; min-height: 100vh; background: var(--bg); overflow-y: auto; }
+    .page { max-width: 1100px; margin: 0 auto; padding: 32px 24px 48px; }
+    .shell { background: #fff; border-radius: 28px; padding: 24px; box-shadow: 0 25px 60px rgba(15,23,42,0.12); width: 100%; margin: 12px 0 48px; }
+
+    /* ===== 概览栏 ===== */
+    .summary-bar { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 20px; }
+    .summary-item { flex: 1; min-width: 100px; text-align: center; padding: 14px 10px; background: #f8fafc; border-radius: 16px; }
+    .summary-num { font-size: 26px; font-weight: 700; line-height: 1.2; }
+    .summary-num.good { color: #16a34a; }
+    .summary-num.mid { color: #d97706; }
+    .summary-num.bad { color: #dc2626; }
+    .summary-label { font-size: 11px; color: #64748b; margin-top: 2px; }
+
+    /* ===== 成绩一览表 ===== */
+    .score-table { width: 100%; border-collapse: collapse; font-size: 14px; border-radius: 16px; overflow: hidden; margin-bottom: 20px; }
+    .score-table th { background: #f1f5f9; color: #0f172a; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.5px; padding: 10px 12px; text-align: center; border-bottom: 2px solid #e2e8f0; }
+    .score-table td { padding: 10px 12px; text-align: center; border-bottom: 1px solid #f1f5f9; }
+    .score-table tr:last-child td { border-bottom: none; }
+    .score-table tr:hover td { background: #f8fafc; }
+    .score-table .prob-id { font-weight: 600; color: #0f172a; }
+    .score-table .cell-score { font-weight: 700; }
+    .score-table .cell-pass { font-size: 13px; }
+
+    /* ===== 状态徽章 ===== */
+    .badge-score { display: inline-block; padding: 2px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+    .badge-pass { background: #dcfce7; color: #166534; }
+    .badge-fail { background: #fce4ec; color: #c62828; }
+    .badge-perfect { background: #dbeafe; color: #1e40af; }
+    .badge-error { background: #fef3c7; color: #92400e; }
+
+    /* ===== 卡片 ===== */
+    .prob-card { border: 1px solid #e2e8f0; border-radius: 16px; margin: 10px 0; overflow: hidden; }
+    .prob-card-header { display: flex; justify-content: space-between; align-items: center; padding: 12px 16px; cursor: pointer; user-select: none; transition: background 0.15s; }
+    .prob-card-header:hover { background: #f8fafc; }
+    .prob-card-header-left { display: flex; align-items: center; gap: 10px; flex: 1; }
+    .prob-card-header .prob-name { font-weight: 600; font-size: 14px; }
+    .prob-card-header .prob-score { font-size: 13px; color: #64748b; }
+    .prob-card-header .prob-arrow { font-size: 12px; color: #94a3b8; transition: transform 0.2s; }
+    .prob-card-header.open .prob-arrow { transform: rotate(180deg); }
+    .prob-card-body { display: none; padding: 0 16px 16px; border-top: 1px solid #f1f5f9; }
+
+    /* ===== 测试用例子表 ===== */
+    .tc-table { width: 100%; border-collapse: collapse; font-size: 12px; margin: 8px 0; border-radius: 10px; overflow: hidden; }
+    .tc-table th { background: #f8fafc; color: #475569; font-weight: 600; font-size: 11px; padding: 6px 8px; text-align: center; border-bottom: 1px solid #e2e8f0; }
+    .tc-table td { padding: 6px 8px; text-align: center; border-bottom: 1px solid #f1f5f9; vertical-align: top; }
+    .tc-table tr:last-child td { border-bottom: none; }
+    .tc-pass { color: #16a34a; font-weight: 600; }
+    .tc-fail { color: #dc2626; font-weight: 600; }
+    .tc-output { max-width: 200px; overflow: auto; white-space: pre-wrap; font-size: 11px; text-align: left; }
+
+    /* ===== 代码块 ===== */
+    .code-block { background: #0f172a; color: #e2e8f0; padding: 12px 16px; font-size: 12px; border-radius: 12px; overflow: auto; max-height: 250px; margin: 8px 0; white-space: pre-wrap; font-family: 'Courier New', monospace; }
+    .code-header { font-size: 12px; font-weight: 600; color: #64748b; margin: 12px 0 4px; }
+
+    /* ===== LLM 分析 ===== */
+    .analysis-box { margin: 12px 0 0; padding: 14px 16px; border-radius: 12px; background: linear-gradient(135deg, #f0f9ff 0%, #faf5ff 100%); border: 1px solid #e0e7ff; }
+    .analysis-title { font-size: 13px; font-weight: 600; color: #4338ca; margin-bottom: 8px; display: flex; align-items: center; gap: 6px; }
+    .analysis-text { font-size: 13px; line-height: 1.7; color: #334155; }
+    .analysis-section { margin-top: 8px; }
+    .analysis-section-title { font-size: 12px; font-weight: 600; color: #475569; margin-bottom: 4px; }
+    .analysis-suggestions { padding-left: 16px; margin: 4px 0; }
+    .analysis-suggestions li { font-size: 12px; line-height: 1.6; color: #475569; }
+    .strength-tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; background: #dcfce7; color: #166534; margin: 2px 3px; }
+    .weakness-tag { display: inline-block; padding: 2px 8px; border-radius: 999px; font-size: 11px; font-weight: 500; background: #fce4ec; color: #c62828; margin: 2px 3px; }
+
+    /* ===== 其他 ===== */
+    .empty-state { text-align: center; padding: 48px 24px; color: #94a3b8; }
+    .empty-state h3 { margin: 0 0 8px; font-size: 18px; color: #64748b; }
+    .error-state { text-align: center; padding: 48px 24px; color: #dc2626; }
+    .sep { border: none; border-top: 1px solid #e2e8f0; margin: 12px 0; }
+
+    /* ===== 问题反馈小条 ===== */
+    .feedback-banner { margin: 12px 0 18px; padding: 10px 16px; border-radius: 12px; background: #fff7ed; color: #9a3412; border: 1px solid #fdba74; font-size: 13px; line-height: 1.6; display: flex; align-items: center; gap: 8px; }
+    .feedback-banner .icon { font-size: 18px; }
+
+    /* ===== 加载动画 ===== */
+    .loading { display: flex; align-items: center; justify-content: center; padding: 60px 24px; flex-direction: column; gap: 12px; }
+    .spinner { width: 32px; height: 32px; border: 3px solid #e2e8f0; border-top-color: #3b82f6; border-radius: 50%; animation: spin 0.8s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ===== 班级分析入口 ===== */
+    .class-analysis-entry { margin: 16px 0; padding: 12px 16px; border-radius: 14px; background: #f0fdf4; border: 1px solid #bbf7d0; display: flex; align-items: center; justify-content: space-between; }
+    .class-analysis-entry .left { display: flex; align-items: center; gap: 8px; font-size: 14px; color: #166534; }
+    .class-analysis-entry .left .icon { font-size: 20px; }
+    .class-analysis-entry .btn { padding: 6px 16px; border-radius: 999px; border: none; background: #16a34a; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; }
+    .class-analysis-entry .btn:hover { background: #15803d; }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <div class="header with-back">
+      <a class="back-chip" href="./course.html">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2>期中考试成绩</h2>
+    </div>
+
+    <div id="mainContent" class="shell">
+      <div id="resultArea"></div>
+    </div>
+  </div>
+
+  <script>
+    // ==================== 工具函数 ====================
+    function getParam(name) {
+      return new URLSearchParams(location.search).get(name) || '';
+    }
+
+    function escapeHtml(str) {
+      if (!str) return '';
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    function scoreClass(score, full) {
+      if (!full) return 'mid';
+      const pct = score / full;
+      if (pct >= 0.8) return 'good';
+      if (pct >= 0.5) return 'mid';
+      return 'bad';
+    }
+
+    function scoreBadgeHtml(score, full) {
+      if (full == null || full === 0) return '<span class="badge-score badge-error">未判分</span>';
+      const pct = Math.round(score / full * 100);
+      if (pct >= 100) return '<span class="badge-score badge-perfect">满分</span>';
+      if (pct >= 80) return '<span class="badge-score badge-pass">' + pct + '%</span>';
+      if (pct >= 50) return '<span class="badge-score badge-error">' + pct + '%</span>';
+      return '<span class="badge-score badge-fail">' + pct + '%</span>';
+    }
+
+    function formatActual(val) {
+      if (val === undefined || val === null) return '';
+      const s = typeof val === 'object' ? JSON.stringify(val) : String(val);
+      return s.length > 120 ? s.substring(0, 120) + '…' : s;
+    }
+
+    // ==================== 渲染函数 ====================
+    function renderSummaryBar(totalScore, totalFull, passedCount, totalProblems) {
+      const pct = totalFull > 0 ? Math.round(totalScore / totalFull * 100) : 0;
+      const cls = scoreClass(totalScore, totalFull);
+      return '<div class="summary-bar">' +
+        '<div class="summary-item"><div class="summary-num ' + cls + '">' + totalScore + '</div><div class="summary-label">总分</div></div>' +
+        '<div class="summary-item"><div class="summary-num">' + totalFull + '</div><div class="summary-label">满分</div></div>' +
+        '<div class="summary-item"><div class="summary-num ' + cls + '">' + pct + '%</div><div class="summary-label">得分率</div></div>' +
+        '<div class="summary-item"><div class="summary-num">' + passedCount + '/' + totalProblems + '</div><div class="summary-label">通过题数</div></div>' +
+        '</div>';
+    }
+
+    function renderScoreTable(grades) {
+      let rows = grades.map(g => {
+        const pid = g.problem_id || g.filename || '?';
+        const score = g.score || 0;
+        const full = g.score_full || 100;
+        const passed = g.passed || 0;
+        const total = g.total || 0;
+        const passAll = g.pass || false;
+        return '<tr>' +
+          '<td class="prob-id">' + escapeHtml(pid) + '</td>' +
+          '<td class="cell-score">' + score + '/' + full + '</td>' +
+          '<td class="cell-pass">' + passed + '/' + total + '</td>' +
+          '<td>' + scoreBadgeHtml(score, full) + '</td>' +
+          '</tr>';
+      }).join('');
+
+      return '<table class="score-table">' +
+        '<thead><tr><th>题号</th><th>得分</th><th>通过用例</th><th>状态</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table>';
+    }
+
+    function renderTestCaseTable(testCases) {
+      if (!testCases || testCases.length === 0) return '<p style="color:#94a3b8;font-size:12px;margin:4px 0">无测试数据</p>';
+      let rows = testCases.map(tc => {
+        const passed = tc.passed ? true : false;
+        return '<tr>' +
+          '<td>' + escapeHtml(tc.name || '') + '</td>' +
+          '<td class="' + (passed ? 'tc-pass' : 'tc-fail') + '">' + (passed ? '✓ 通过' : '✗ 失败') + '</td>' +
+          '<td>' + (tc.score || 0) + '/' + (tc.score_full || tc.score || 0) + '</td>' +
+          '<td class="tc-output">' + escapeHtml(formatActual(tc.actual)) + '</td>' +
+          '<td class="tc-output" style="color:#dc2626">' + escapeHtml(tc.error || '') + '</td>' +
+          '</tr>';
+      }).join('');
+      return '<table class="tc-table">' +
+        '<thead><tr><th>用例</th><th>结果</th><th>得分</th><th>实际输出</th><th>错误</th></tr></thead>' +
+        '<tbody>' + rows + '</tbody></table>';
+    }
+
+    function renderAnalysis(analysis) {
+      if (!analysis || typeof analysis !== 'object') return '';
+      const text = analysis.analysis || '';
+      const suggestions = analysis.suggestions || [];
+      const strengths = analysis.strengths || [];
+      const weaknesses = analysis.weaknesses || [];
+      if (!text && suggestions.length === 0 && strengths.length === 0 && weaknesses.length === 0) return '';
+
+      let html = '<div class="analysis-box">' +
+        '<div class="analysis-title">🧠 AI 学习分析</div>' +
+        (text ? '<div class="analysis-text">' + escapeHtml(text) + '</div>' : '');
+
+      if (strengths.length > 0) {
+        html += '<div class="analysis-section"><div class="analysis-section-title">✅ 优点</div>';
+        html += strengths.map(s => '<span class="strength-tag">' + escapeHtml(s) + '</span>').join('');
+        html += '</div>';
+      }
+      if (weaknesses.length > 0) {
+        html += '<div class="analysis-section"><div class="analysis-section-title">⚠️ 不足</div>';
+        html += weaknesses.map(s => '<span class="weakness-tag">' + escapeHtml(s) + '</span>').join('');
+        html += '</div>';
+      }
+      if (suggestions.length > 0) {
+        html += '<div class="analysis-section"><div class="analysis-section-title">💡 改进建议</div>';
+        html += '<ul class="analysis-suggestions">' + suggestions.map(s => '<li>' + escapeHtml(s) + '</li>').join('') + '</ul>';
+        html += '</div>';
+      }
+
+      html += '</div>';
+      return html;
+    }
+
+    function renderProblemCards(grades) {
+      let html = '';
+      grades.forEach(g => {
+        const pid = g.problem_id || g.filename || '?';
+        const score = g.score || 0;
+        const full = g.score_full || 100;
+        const passed = g.passed || 0;
+        const total = g.total || 0;
+        const content = g.content || '';
+        const testCases = g.test_cases || [];
+        const analysis = g.analysis_feedback || null;
+        const err = g.error || null;
+
+        html += '<div class="prob-card">' +
+          '<div class="prob-card-header" onclick="toggleCard(this)">' +
+          '<div class="prob-card-header-left">' +
+          '<span class="prob-name">' + escapeHtml(pid) + '</span>' +
+          '<span class="prob-score">' + score + '/' + full + '　通过 ' + passed + '/' + total + '</span>' +
+          scoreBadgeHtml(score, full) +
+          '</div>' +
+          '<span class="prob-arrow">▼</span>' +
+          '</div>' +
+          '<div class="prob-card-body">' +
+          (err ? '<p style="color:#dc2626;font-size:13px">⚠️ ' + escapeHtml(err) + '</p>' : '') +
+          renderTestCaseTable(testCases) +
+          (content ? '<div class="code-header">📄 提交代码</div><div class="code-block">' + escapeHtml(content) + '</div>' : '') +
+          renderAnalysis(analysis) +
+          '</div>' +
+          '</div>';
+      });
+      return html;
+    }
+
+    function toggleCard(header) {
+      const body = header.nextElementSibling;
+      if (!body) return;
+      const isOpen = body.style.display === 'block';
+      body.style.display = isOpen ? 'none' : 'block';
+      header.classList.toggle('open', !isOpen);
+    }
+
+    // ==================== 主加载函数 ====================
+    async function loadResults() {
+      const sid = getParam('student_id') || sessionStorage.getItem('student_id') || '';
+      const cls = getParam('class_name') || sessionStorage.getItem('class_name') || '';
+      if (!sid || !cls) {
+        document.getElementById('resultArea').innerHTML = '<div class="error-state"><h3>缺少参数</h3><p>请从课程页面进入</p></div>';
+        return;
+      }
+
+      const area = document.getElementById('resultArea');
+      area.innerHTML = '<div class="loading"><div class="spinner"></div><div style="color:#64748b;font-size:14px">正在加载考试数据...</div></div>';
+
+      const base = await window.api.getBaseUrl();
+      const url = `${String(base).replace(/\/+$/, '')}/api/midtermResults?student_id=${encodeURIComponent(sid)}&class_name=${encodeURIComponent(cls)}`;
+
+      let data;
+      try {
+        const res = await fetch(url);
+        data = await res.json();
+      } catch (e) {
+        area.innerHTML = '<div class="error-state"><h3>加载失败</h3><p>' + (e.message || e) + '</p></div>';
+        return;
+      }
+
+      if (!data || !data.success) {
+        area.innerHTML = '<div class="error-state"><h3>查询失败</h3><p>' + (data && data.message || '未知错误') + '</p></div>';
+        return;
+      }
+
+      if (!data.submitted) {
+        area.innerHTML = '<div class="empty-state"><h3>📝 尚未提交期中考试</h3><p>期中考试提交后，成绩将在此显示</p></div>';
+        return;
+      }
+
+      // 使用 results.json 中的数据（已去重、含 content + analysis_feedback）
+      const grades = data.grades || [];
+
+      // 计算统计
+      let totalScore = 0, totalFull = 0, passedCount = 0;
+      grades.forEach(g => {
+        totalScore += (g.score || 0);
+        totalFull += (g.score_full || 100);
+        if (g.pass) passedCount++;
+      });
+
+      // 构建页面
+      let html = '';
+
+      // 概览栏
+      html += renderSummaryBar(totalScore, totalFull, passedCount, grades.length);
+
+      // 问题反馈条
+      html += '<div class="feedback-banner"><span class="icon">📧</span> 有问题请详细描述并附截图发送至 2567111611@qq.com</div>';
+
+      // 快速一览表
+      html += '<h3 style="font-size:15px;margin:0 0 8px;color:#0f172a">📊 成绩一览</h3>';
+      html += renderScoreTable(grades);
+
+      // 每题详情
+      html += '<h3 style="font-size:15px;margin:16px 0 8px;color:#0f172a">📋 题目详情</h3>';
+      html += renderProblemCards(grades);
+
+      // 班级分析入口
+      const classResultsUrl = `${String(base).replace(/\/+$/, '')}/api/static/${encodeURIComponent(cls)}_midtest_results.json`;
+      html += '<div class="class-analysis-entry" id="classAnalysisEntry" style="display:none">' +
+        '<div class="left"><span class="icon">📊</span> 查看班级整体分析报告</div>' +
+        '<button class="btn" onclick="openClassAnalysis()">查看</button>' +
+        '</div>';
+
+      area.innerHTML = html;
+
+      // 检查班级分析文件是否存在
+      try {
+        const cr = await fetch(classResultsUrl, { method: 'HEAD' });
+        if (cr.ok) {
+          document.getElementById('classAnalysisEntry').style.display = 'flex';
+          window._classAnalysisUrl = classResultsUrl;
+        }
+      } catch (e) { /* 不存在就隐藏 */ }
+    }
+
+    function openClassAnalysis() {
+      if (window._classAnalysisUrl) {
+        // 打开新窗口或弹窗显示班级分析
+        const w = window.open('', '_blank', 'width=800,height=600');
+        if (w) {
+          fetch(window._classAnalysisUrl)
+            .then(r => r.json())
+            .then(d => {
+              w.document.write('<html><head><meta charset="utf-8"><title>班级分析</title><style>body{font-family:-apple-system,sans-serif;padding:32px;max-width:800px;margin:0 auto;line-height:1.7;color:#1e293b}h2{color:#0f172a}.section{margin:20px 0;padding:16px;border-radius:12px;background:#f8fafc;border:1px solid #e2e8f0}.tag{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12px;margin:3px;background:#dbeafe;color:#1e40af}ul{line-height:1.8}</style></head><body>');
+              w.document.write('<h1>📊 ' + d.class_name || '班级分析' + '</h1>');
+              if (d.class_analysis) w.document.write('<div class="section"><p>' + d.class_analysis + '</p></div>');
+              if (d.teaching_suggestions) w.document.write('<div class="section><h3>💡 教学建议</h3><ul>' + d.teaching_suggestions.map(s => '<li>' + s + '</li>').join('') + '</ul></div>');
+              if (d.common_issues) w.document.write('<div class="section"><h3>⚠️ 共性问题</h3><ul>' + d.common_issues.map(s => '<li>' + s + '</li>').join('') + '</ul></div>');
+              if (d.summary) w.document.write('<div class="section"><p><strong>总结：</strong>' + d.summary + '</p></div>');
+              w.document.write('</body></html>');
+              w.document.close();
+            })
+            .catch(() => {});
+        }
+      }
+    }
+
+    loadResults();
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,2074 @@
+{
+  "success": true,
+  "submitted": true,
+  "files": [
+    {
+      "filename": "hwc106_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目\r\n给定一个整数数组，判断是否存在重复元素。\r\n如果存在一值在数组中出现至少两次，函数返回 True 。如果数组中每个元素都不相同，则返回 False 。\r\n\r\n示例 1:\r\n输入: [1,2,3,1]\r\n输出: True\r\n\r\n示例 2:\r\n输入: [1,2,3,4]\r\n输出: False\r\n\r\n示例3:\r\n输入: [1,1,1,3,3,4,3,2,4,2]\r\n输出: True\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    factorial = None\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return factorial\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,1]))\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,4]))\r\n    print(TEST_DO_NOT_CHANGE([1,1,1,3,3,4,3,2,4,2]))\r\n",
+      "size": 937
+    },
+    {
+      "filename": "hwc106_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目\r\n给定一个整数数组，判断是否存在重复元素。\r\n如果存在一值在数组中出现至少两次，函数返回 True 。如果数组中每个元素都不相同，则返回 False 。\r\n\r\n示例 1:\r\n输入: [1,2,3,1]\r\n输出: True\r\n\r\n示例 2:\r\n输入: [1,2,3,4]\r\n输出: False\r\n\r\n示例3:\r\n输入: [1,1,1,3,3,4,3,2,4,2]\r\n输出: True\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    factorial = None\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return factorial\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,1]))\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,4]))\r\n    print(TEST_DO_NOT_CHANGE([1,1,1,3,3,4,3,2,4,2]))\r\n",
+      "size": 937
+    },
+    {
+      "filename": "hwc106_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目\r\n给定一个整数数组，判断是否存在重复元素。\r\n如果存在一值在数组中出现至少两次，函数返回 True 。如果数组中每个元素都不相同，则返回 False 。\r\n\r\n示例 1:\r\n输入: [1,2,3,1]\r\n输出: True\r\n\r\n示例 2:\r\n输入: [1,2,3,4]\r\n输出: False\r\n\r\n示例3:\r\n输入: [1,1,1,3,3,4,3,2,4,2]\r\n输出: True\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    factorial = None\r\n    ##########start下面可以改动\r\n    factorial = False\r\n    for num in nums:\r\n        if nums.count(num)!=1:\r\n            factorial = True\r\n        \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return factorial\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,1]))\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,4]))\r\n    print(TEST_DO_NOT_CHANGE([1,1,1,3,3,4,3,2,4,2]))\r\n",
+      "size": 1054
+    },
+    {
+      "filename": "hwc106_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目\r\n给定一个整数数组，判断是否存在重复元素。\r\n如果存在一值在数组中出现至少两次，函数返回 True 。如果数组中每个元素都不相同，则返回 False 。\r\n\r\n示例 1:\r\n输入: [1,2,3,1]\r\n输出: True\r\n\r\n示例 2:\r\n输入: [1,2,3,4]\r\n输出: False\r\n\r\n示例3:\r\n输入: [1,1,1,3,3,4,3,2,4,2]\r\n输出: True\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    factorial = None\r\n    ##########start下面可以改动\r\n    factorial = False\r\n    for num in nums:\r\n        if nums.count(num)!=1:\r\n            factorial = True\r\n        \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return factorial\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,1]))\r\n    print(TEST_DO_NOT_CHANGE([1,2,3,4]))\r\n    print(TEST_DO_NOT_CHANGE([1,1,1,3,3,4,3,2,4,2]))\r\n",
+      "size": 1054
+    },
+    {
+      "filename": "hwc119_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n函数代码请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n两个 3 行 3 列的矩阵X、Y，实现其对应位置的数据相加，并返回一个新矩阵rlt_Z\r\nX = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\nY = [[5,8,1],[6,7,3],[4,5,9]] 　\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(X,Y):\r\n    print(X,Y)\r\n    rlt_Z = None\r\n    ##########start下面可以改动\r\n    \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return rlt_Z\r\n    \r\n\r\n    \r\nif __name__ == \"__main__\":\r\n    X = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\n    Y = [[5,8,1],[6,7,3],[4,5,9]] \r\n    print (TEST_DO_NOT_CHANGE(X,Y))\r\n    #######下面可以添加测试语句\r\n    \r\n",
+      "size": 809
+    },
+    {
+      "filename": "hwc119_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n函数代码请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n两个 3 行 3 列的矩阵X、Y，实现其对应位置的数据相加，并返回一个新矩阵rlt_Z\r\nX = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\nY = [[5,8,1],[6,7,3],[4,5,9]] 　\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(X,Y):\r\n    print(X,Y)\r\n    rlt_Z = None\r\n    ##########start下面可以改动\r\n    \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return rlt_Z\r\n    \r\n\r\n    \r\nif __name__ == \"__main__\":\r\n    X = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\n    Y = [[5,8,1],[6,7,3],[4,5,9]] \r\n    print (TEST_DO_NOT_CHANGE(X,Y))\r\n    #######下面可以添加测试语句\r\n    \r\n",
+      "size": 809
+    },
+    {
+      "filename": "hwc119_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n函数代码请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n两个 3 行 3 列的矩阵X、Y，实现其对应位置的数据相加，并返回一个新矩阵rlt_Z\r\nX = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\nY = [[5,8,1],[6,7,3],[4,5,9]] 　\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(X,Y):\r\n    print(X,Y)\r\n    rlt_Z = None\r\n    ##########start下面可以改动\r\n    m = len(X)\r\n    n = len(X[0])\r\n    rlt_Z = [[0]*n for _ in range(m)]\r\n    for i in range(m):\r\n        for j in range(n):\r\n            rlt_Z[i][j] = X[i][j]+Y[i][j]\r\n            \r\n        \r\n    \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return rlt_Z\r\n    \r\n\r\n    \r\nif __name__ == \"__main__\":\r\n    X = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\n    Y = [[5,8,1],[6,7,3],[4,5,9]] \r\n    print (TEST_DO_NOT_CHANGE(X,Y))\r\n    #######下面可以添加测试语句\r\n    \r\n",
+      "size": 1002
+    },
+    {
+      "filename": "hwc119_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n函数代码请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n两个 3 行 3 列的矩阵X、Y，实现其对应位置的数据相加，并返回一个新矩阵rlt_Z\r\nX = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\nY = [[5,8,1],[6,7,3],[4,5,9]] 　\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(X,Y):\r\n    print(X,Y)\r\n    rlt_Z = None\r\n    ##########start下面可以改动\r\n    m = len(X)\r\n    n = len(X[0])\r\n    rlt_Z = [[0]*n for _ in range(m)]\r\n    for i in range(m):\r\n        for j in range(n):\r\n            rlt_Z[i][j] = X[i][j]+Y[i][j]\r\n            \r\n        \r\n    \r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return rlt_Z\r\n    \r\n\r\n    \r\nif __name__ == \"__main__\":\r\n    X = [[12,7,3],[4 ,5,6],[7 ,8,9]]\r\n    Y = [[5,8,1],[6,7,3],[4,5,9]] \r\n    print (TEST_DO_NOT_CHANGE(X,Y))\r\n    #######下面可以添加测试语句\r\n    \r\n",
+      "size": 1002
+    },
+    {
+      "filename": "hwc201_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n给定一个整数数组 nums和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。\r\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\r\n你可以按任意顺序返回答案。\r\n\r\n示例：\r\n输入：nums = [2,7,11,15], target = 9\r\n输出：[0,1]\r\n解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE( nums, target):\r\n    print(nums, target)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([2,7,11,15],9))\r\n    print(TEST_DO_NOT_CHANGE([3,2,4],6))\r\n    print(TEST_DO_NOT_CHANGE([3,3],6))\r\n",
+      "size": 1045
+    },
+    {
+      "filename": "hwc201_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n给定一个整数数组 nums和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。\r\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\r\n你可以按任意顺序返回答案。\r\n\r\n示例：\r\n输入：nums = [2,7,11,15], target = 9\r\n输出：[0,1]\r\n解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE( nums, target):\r\n    print(nums, target)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([2,7,11,15],9))\r\n    print(TEST_DO_NOT_CHANGE([3,2,4],6))\r\n    print(TEST_DO_NOT_CHANGE([3,3],6))\r\n",
+      "size": 1045
+    },
+    {
+      "filename": "hwc201_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n给定一个整数数组 nums和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。\r\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\r\n你可以按任意顺序返回答案。\r\n\r\n示例：\r\n输入：nums = [2,7,11,15], target = 9\r\n输出：[0,1]\r\n解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE( nums, target):\r\n    print(nums, target)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n    for i in range(len(nums)):\r\n        for j in range(i+1,len(nums)):\r\n            if nums[i]+nums[j] == target:\r\n                lst_rlt.append(i)\r\n                lst_rlt.append(j)\r\n                break\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([2,7,11,15],9))\r\n    print(TEST_DO_NOT_CHANGE([3,2,4],6))\r\n    print(TEST_DO_NOT_CHANGE([3,3],6))\r\n",
+      "size": 1245
+    },
+    {
+      "filename": "hwc201_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n给定一个整数数组 nums和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。\r\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\r\n你可以按任意顺序返回答案。\r\n\r\n示例：\r\n输入：nums = [2,7,11,15], target = 9\r\n输出：[0,1]\r\n解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE( nums, target):\r\n    print(nums, target)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n    for i in range(len(nums)):\r\n        for j in range(i+1,len(nums)):\r\n            if nums[i]+nums[j] == target:\r\n                lst_rlt.append(i)\r\n                lst_rlt.append(j)\r\n                break\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([2,7,11,15],9))\r\n    print(TEST_DO_NOT_CHANGE([3,2,4],6))\r\n    print(TEST_DO_NOT_CHANGE([3,3],6))\r\n",
+      "size": 1245
+    },
+    {
+      "filename": "hwc239_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n寻找峰值，给出峰值在列表中的索引值; 峰值元素是指其值严格大于左右相邻值的元素，峰值元素不会出现在首尾。\r\n例如nums = [1, 2, 1, 3, 5, 6, 4, 3, 7, 3, 8]，其中峰值为2、6、7这三个元素，最后输出这三个峰值的索引值即 :[1, 5, 8]。\r\n现有以下几个列表，分别找出其中的峰值并输出峰值在其列表中的索引号。\r\nnum1 = [2,4,3,1,3,5,8,1,4,1,2]\r\nnum2 = [2,1,3,1,2,7,2,3,2,5,6]\r\nnum3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n   \r\n    \r\n    return result\r\nif __name__ == \"__main__\":\r\n    num1 = [2,4,3,1,3,5,8,1,4,1,2]\r\n    num2 = [2,1,3,1,2,7,2,3,2,5,6]\r\n    num3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n    print(TEST_DO_NOT_CHANGE(num1)) \r\n    print(TEST_DO_NOT_CHANGE(num2)) \r\n    print(TEST_DO_NOT_CHANGE(num3)) ",
+      "size": 1147
+    },
+    {
+      "filename": "hwc239_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n寻找峰值，给出峰值在列表中的索引值; 峰值元素是指其值严格大于左右相邻值的元素，峰值元素不会出现在首尾。\r\n例如nums = [1, 2, 1, 3, 5, 6, 4, 3, 7, 3, 8]，其中峰值为2、6、7这三个元素，最后输出这三个峰值的索引值即 :[1, 5, 8]。\r\n现有以下几个列表，分别找出其中的峰值并输出峰值在其列表中的索引号。\r\nnum1 = [2,4,3,1,3,5,8,1,4,1,2]\r\nnum2 = [2,1,3,1,2,7,2,3,2,5,6]\r\nnum3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    ##########start下面可以改动\r\n    result = []\r\n    for i in range(1,len(nums)-1):\r\n        if nums[i-1]<nums[i] and nums[i]>nums[i+1]:\r\n            result.append(i)\r\n\r\n   \r\n    \r\n    return result\r\nif __name__ == \"__main__\":\r\n    num1 = [2,4,3,1,3,5,8,1,4,1,2]\r\n    num2 = [2,1,3,1,2,7,2,3,2,5,6]\r\n    num3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n    print(TEST_DO_NOT_CHANGE(num1)) \r\n    print(TEST_DO_NOT_CHANGE(num2)) \r\n    print(TEST_DO_NOT_CHANGE(num3)) ",
+      "size": 1273
+    },
+    {
+      "filename": "hwc239_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n寻找峰值，给出峰值在列表中的索引值; 峰值元素是指其值严格大于左右相邻值的元素，峰值元素不会出现在首尾。\r\n例如nums = [1, 2, 1, 3, 5, 6, 4, 3, 7, 3, 8]，其中峰值为2、6、7这三个元素，最后输出这三个峰值的索引值即 :[1, 5, 8]。\r\n现有以下几个列表，分别找出其中的峰值并输出峰值在其列表中的索引号。\r\nnum1 = [2,4,3,1,3,5,8,1,4,1,2]\r\nnum2 = [2,1,3,1,2,7,2,3,2,5,6]\r\nnum3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    ##########start下面可以改动\r\n    result = []\r\n    for i in range(1,len(nums)-1):\r\n        if nums[i-1]<nums[i] and nums[i]>nums[i+1]:\r\n            result.append(i)\r\n\r\n   \r\n    \r\n    return result\r\nif __name__ == \"__main__\":\r\n    num1 = [2,4,3,1,3,5,8,1,4,1,2]\r\n    num2 = [2,1,3,1,2,7,2,3,2,5,6]\r\n    num3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n    print(TEST_DO_NOT_CHANGE(num1)) \r\n    print(TEST_DO_NOT_CHANGE(num2)) \r\n    print(TEST_DO_NOT_CHANGE(num3)) ",
+      "size": 1273
+    },
+    {
+      "filename": "hwc239_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目:\r\n寻找峰值，给出峰值在列表中的索引值; 峰值元素是指其值严格大于左右相邻值的元素，峰值元素不会出现在首尾。\r\n例如nums = [1, 2, 1, 3, 5, 6, 4, 3, 7, 3, 8]，其中峰值为2、6、7这三个元素，最后输出这三个峰值的索引值即 :[1, 5, 8]。\r\n现有以下几个列表，分别找出其中的峰值并输出峰值在其列表中的索引号。\r\nnum1 = [2,4,3,1,3,5,8,1,4,1,2]\r\nnum2 = [2,1,3,1,2,7,2,3,2,5,6]\r\nnum3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    ##########start下面可以改动\r\n    result = []\r\n    for i in range(1,len(nums)-1):\r\n        if nums[i-1]<nums[i] and nums[i]>nums[i+1]:\r\n            result.append(i)\r\n\r\n   \r\n    \r\n    return result\r\nif __name__ == \"__main__\":\r\n    num1 = [2,4,3,1,3,5,8,1,4,1,2]\r\n    num2 = [2,1,3,1,2,7,2,3,2,5,6]\r\n    num3 = [9,2,1,1,3,2,8,1,1,3,6]\r\n    print(TEST_DO_NOT_CHANGE(num1)) \r\n    print(TEST_DO_NOT_CHANGE(num2)) \r\n    print(TEST_DO_NOT_CHANGE(num3)) ",
+      "size": 1273
+    },
+    {
+      "filename": "hwc316_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个二进制数组， 计算其中最大连续 1 的个数。\r\n\r\n \r\n\r\n示例：\r\n\r\n输入：[1,1,0,1,1,1]\r\n输出：3\r\n解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.\r\n\r\n\r\n\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    rlt = None\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,1,0,1,1,1]))\r\n",
+      "size": 691
+    },
+    {
+      "filename": "hwc316_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个二进制数组， 计算其中最大连续 1 的个数。\r\n\r\n \r\n\r\n示例：\r\n\r\n输入：[1,1,0,1,1,1]\r\n输出：3\r\n解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.\r\n\r\n\r\n\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    rlt = None\r\n    ##########start下面可以改动\r\n    cur_len ,max_len = 0,0\r\n    for num in nums:\r\n        if num ==1:\r\n            cur_len +=1\r\n            max_len= max(max_len,cur_len)\r\n        else:\r\n            cur_len = 0\r\n            max_len = max_len\r\n\r\n\r\n\r\n    rlt = max_len\r\n    \r\n    return rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,1,0,1,1,1]))\r\n",
+      "size": 914
+    },
+    {
+      "filename": "hwc316_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个二进制数组， 计算其中最大连续 1 的个数。\r\n\r\n \r\n\r\n示例：\r\n\r\n输入：[1,1,0,1,1,1]\r\n输出：3\r\n解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.\r\n\r\n\r\n\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    rlt = None\r\n    ##########start下面可以改动\r\n    cur_len ,max_len = 0,0\r\n    for num in nums:\r\n        if num ==1:\r\n            cur_len +=1\r\n            max_len= max(max_len,cur_len)\r\n        else:\r\n            cur_len = 0\r\n            max_len = max_len\r\n\r\n\r\n\r\n    rlt = max_len\r\n    \r\n    return rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,1,0,1,1,1]))\r\n",
+      "size": 914
+    },
+    {
+      "filename": "hwc316_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个二进制数组， 计算其中最大连续 1 的个数。\r\n\r\n \r\n\r\n示例：\r\n\r\n输入：[1,1,0,1,1,1]\r\n输出：3\r\n解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.\r\n\r\n\r\n\r\n\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(nums):\r\n    print(nums)\r\n    rlt = None\r\n    ##########start下面可以改动\r\n    cur_len ,max_len = 0,0\r\n    for num in nums:\r\n        if num ==1:\r\n            cur_len +=1\r\n            max_len= max(max_len,cur_len)\r\n        else:\r\n            cur_len = 0\r\n            max_len = max_len\r\n\r\n\r\n\r\n    rlt = max_len\r\n    \r\n    return rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([1,1,0,1,1,1]))\r\n",
+      "size": 914
+    },
+    {
+      "filename": "hwc317_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。\r\n在杨辉三角中，每个数是它左上方和右上方的数的和。\r\n\r\n示例:\r\n输入: 5\r\n输出:\r\n[\r\n     [1],\r\n    [1,1],\r\n   [1,2,1],\r\n  [1,3,3,1],\r\n [1,4,6,4,1]\r\n]\r\n\r\n注意 上面的输出只是为了好看，无需输出的list打印出来像上面一样。当然如果你有空，也可以尝试一下!\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(numRows):\r\n    print(numRows)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE(5))\r\n    print(TEST_DO_NOT_CHANGE(1))\r\n\r\n",
+      "size": 881
+    },
+    {
+      "filename": "hwc317_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。\r\n在杨辉三角中，每个数是它左上方和右上方的数的和。\r\n\r\n示例:\r\n输入: 5\r\n输出:\r\n[\r\n     [1],\r\n    [1,1],\r\n   [1,2,1],\r\n  [1,3,3,1],\r\n [1,4,6,4,1]\r\n]\r\n\r\n注意 上面的输出只是为了好看，无需输出的list打印出来像上面一样。当然如果你有空，也可以尝试一下!\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(numRows):\r\n    print(numRows)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n    for i in range(numRows):\r\n        row = [1]*(i+1)\r\n        for j in range(1,i):\r\n            row[j] = lst_rlt[i-1][j-1]+lst_rlt[i-1][j]\r\n        lst_rlt.append(row)\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE(5))\r\n    print(TEST_DO_NOT_CHANGE(1))\r\n\r\n",
+      "size": 1051
+    },
+    {
+      "filename": "hwc317_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。\r\n在杨辉三角中，每个数是它左上方和右上方的数的和。\r\n\r\n示例:\r\n输入: 5\r\n输出:\r\n[\r\n     [1],\r\n    [1,1],\r\n   [1,2,1],\r\n  [1,3,3,1],\r\n [1,4,6,4,1]\r\n]\r\n\r\n注意 上面的输出只是为了好看，无需输出的list打印出来像上面一样。当然如果你有空，也可以尝试一下!\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(numRows):\r\n    print(numRows)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n    for i in range(numRows):\r\n        row = [1]*(i+1)\r\n        for j in range(1,i):\r\n            row[j] = lst_rlt[i-1][j-1]+lst_rlt[i-1][j]\r\n        lst_rlt.append(row)\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE(5))\r\n    print(TEST_DO_NOT_CHANGE(1))\r\n\r\n",
+      "size": 1051
+    },
+    {
+      "filename": "hwc317_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n\r\n题目\r\n给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。\r\n在杨辉三角中，每个数是它左上方和右上方的数的和。\r\n\r\n示例:\r\n输入: 5\r\n输出:\r\n[\r\n     [1],\r\n    [1,1],\r\n   [1,2,1],\r\n  [1,3,3,1],\r\n [1,4,6,4,1]\r\n]\r\n\r\n注意 上面的输出只是为了好看，无需输出的list打印出来像上面一样。当然如果你有空，也可以尝试一下!\r\n'''\r\n\r\n\r\n\r\ndef TEST_DO_NOT_CHANGE(numRows):\r\n    print(numRows)\r\n    lst_rlt = []\r\n    ##########start下面可以改动\r\n    for i in range(numRows):\r\n        row = [1]*(i+1)\r\n        for j in range(1,i):\r\n            row[j] = lst_rlt[i-1][j-1]+lst_rlt[i-1][j]\r\n        lst_rlt.append(row)\r\n\r\n\r\n\r\n    \r\n    return lst_rlt\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE(5))\r\n    print(TEST_DO_NOT_CHANGE(1))\r\n\r\n",
+      "size": 1051
+    },
+    {
+      "filename": "hwc412_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。\r\n请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。\r\n任何误差小于 10-5 的答案都将被视为正确答案。\r\n\r\n示例 1:\r\n\r\n输入: nums = [1,12,-5,-6,50,3], k = 4\r\n输出: 12.75\r\n解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75\r\n\r\n示例 2:\r\n\r\n输入: nums = [5], k = 1\r\n输出: 5.0\r\n'''\r\ndef TEST_DO_NOT_CHANGE(nums, k):\r\n    res=0.0\r\n    ##########start 下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n\r\n    ##########end 上面可以改动 \r\n    return res\r\n\r\nif __name__ == \"__main__\":\r\n\t\r\n\tprint(TEST_DO_NOT_CHANGE([1,12,-5,-6,50,3],4))\r\n\tprint(TEST_DO_NOT_CHANGE([5],1))\r\n",
+      "size": 877
+    },
+    {
+      "filename": "hwc412_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。\r\n请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。\r\n任何误差小于 10-5 的答案都将被视为正确答案。\r\n\r\n示例 1:\r\n\r\n输入: nums = [1,12,-5,-6,50,3], k = 4\r\n输出: 12.75\r\n解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75\r\n\r\n示例 2:\r\n\r\n输入: nums = [5], k = 1\r\n输出: 5.0\r\n'''\r\ndef TEST_DO_NOT_CHANGE(nums, k):\r\n    res=0.0\r\n    ##########start 下面可以改动\r\n    fo\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n\r\n    ##########end 上面可以改动 \r\n    return res\r\n\r\nif __name__ == \"__main__\":\r\n\t\r\n\tprint(TEST_DO_NOT_CHANGE([1,12,-5,-6,50,3],4))\r\n\tprint(TEST_DO_NOT_CHANGE([5],1))\r\n",
+      "size": 885
+    },
+    {
+      "filename": "hwc412_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。\r\n请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。\r\n任何误差小于 10-5 的答案都将被视为正确答案。\r\n\r\n示例 1:\r\n\r\n输入: nums = [1,12,-5,-6,50,3], k = 4\r\n输出: 12.75\r\n解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75\r\n\r\n示例 2:\r\n\r\n输入: nums = [5], k = 1\r\n输出: 5.0\r\n'''\r\ndef TEST_DO_NOT_CHANGE(nums, k):\r\n    res=0.0\r\n    ##########start 下面可以改动\r\n    cur_sum,max_sum = sum(nums[:k]),sum(nums[:k])\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n\r\n    ##########end 上面可以改动 \r\n    return res\r\n\r\nif __name__ == \"__main__\":\r\n\t\r\n\tprint(TEST_DO_NOT_CHANGE([1,12,-5,-6,50,3],4))\r\n\tprint(TEST_DO_NOT_CHANGE([5],1))\r\n",
+      "size": 928
+    },
+    {
+      "filename": "hwc412_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n\r\n\r\n中间部分作答，作答行数自由调整\r\n请不要使用 input函数 \r\n\r\n题目：\r\n给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。\r\n请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。\r\n任何误差小于 10-5 的答案都将被视为正确答案。\r\n\r\n示例 1:\r\n\r\n输入: nums = [1,12,-5,-6,50,3], k = 4\r\n输出: 12.75\r\n解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75\r\n\r\n示例 2:\r\n\r\n输入: nums = [5], k = 1\r\n输出: 5.0\r\n'''\r\ndef TEST_DO_NOT_CHANGE(nums, k):\r\n    res=0.0\r\n    ##########start 下面可以改动\r\n    cur_sum,max_sum = sum(nums[:k]),sum(nums[:k])\r\n    for i in range(k,len(nums)):\r\n        cur_sum = cur_sum+nums[i]-nums[i-k-1]\r\n        max_sum = max(max_sum,cur_sum)\r\n    res = max_sum/k\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n\r\n    ##########end 上面可以改动 \r\n    return res\r\n\r\nif __name__ == \"__main__\":\r\n\t\r\n\tprint(TEST_DO_NOT_CHANGE([1,12,-5,-6,50,3],4))\r\n\tprint(TEST_DO_NOT_CHANGE([5],1))\r\n",
+      "size": 1070
+    },
+    {
+      "filename": "hwc536_1779791420582_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n请不要使用 input函数 \r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n题目：数组列表中的最大距离\r\n给定m个数组,每个数组都已经按照升序排好序了。\r\n现在你需要从两个不同的数组中选择两个整数(每个数组选一个)并且计算它们的距离。两个整数a和b之间的距离定义为它们差的绝对值|a-b|。\r\n返回最大距离。\r\n\r\n示例：\r\n输入：[[1,2,3],[4,5],[1,2,3]]输出:4解释:一种得到答案 4 的方法是从第一个数组或者第三个数组中选择 1，同时从第二个数组中选择 5 。\r\n\r\n提示：\r\nm == arrays.length\r\n2 <= m <= 105\r\n1 <= arrays[i].length <= 500\r\n-104 <= arrays[i][j] <= 104\r\narrays[i]以升序排序。\r\n所有数组中最多有105个整数。\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(num):\r\n    result =None\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return result\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([\r\n        [1, 2, 3],\r\n        [4,5],\r\n        [1, 2, 3],\r\n    ]))\r\n",
+      "size": 1196
+    },
+    {
+      "filename": "hwc536_1779792020576_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n请不要使用 input函数 \r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n题目：数组列表中的最大距离\r\n给定m个数组,每个数组都已经按照升序排好序了。\r\n现在你需要从两个不同的数组中选择两个整数(每个数组选一个)并且计算它们的距离。两个整数a和b之间的距离定义为它们差的绝对值|a-b|。\r\n返回最大距离。\r\n\r\n示例：\r\n输入：[[1,2,3],[4,5],[1,2,3]]输出:4解释:一种得到答案 4 的方法是从第一个数组或者第三个数组中选择 1，同时从第二个数组中选择 5 。\r\n\r\n提示：\r\nm == arrays.length\r\n2 <= m <= 105\r\n1 <= arrays[i].length <= 500\r\n-104 <= arrays[i][j] <= 104\r\narrays[i]以升序排序。\r\n所有数组中最多有105个整数。\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(num):\r\n    result =None\r\n    ##########start下面可以改动\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return result\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([\r\n        [1, 2, 3],\r\n        [4,5],\r\n        [1, 2, 3],\r\n    ]))\r\n",
+      "size": 1196
+    },
+    {
+      "filename": "hwc536_1779792620635_autosave.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n请不要使用 input函数 \r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n题目：数组列表中的最大距离\r\n给定m个数组,每个数组都已经按照升序排好序了。\r\n现在你需要从两个不同的数组中选择两个整数(每个数组选一个)并且计算它们的距离。两个整数a和b之间的距离定义为它们差的绝对值|a-b|。\r\n返回最大距离。\r\n\r\n示例：\r\n输入：[[1,2,3],[4,5],[1,2,3]]输出:4解释:一种得到答案 4 的方法是从第一个数组或者第三个数组中选择 1，同时从第二个数组中选择 5 。\r\n\r\n提示：\r\nm == arrays.length\r\n2 <= m <= 105\r\n1 <= arrays[i].length <= 500\r\n-104 <= arrays[i][j] <= 104\r\narrays[i]以升序排序。\r\n所有数组中最多有105个整数。\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(num):\r\n    result =None\r\n    ##########start下面可以改动\r\n    global_min = num[0][0]\r\n    global_max = num[0][-1]\r\n    result = 0\r\n\r\n    for i in range(1, len(num)):\r\n        cur_min = num[i][0]  \r\n        cur_max = num[i][-1]  \r\n\r\n        \r\n        result = max(result, abs(cur_max - global_min))\r\n        \r\n        result = max(result, abs(cur_min - global_max))\r\n\r\n        \r\n        global_min = min(global_min, cur_min)\r\n        global_max = max(global_max, cur_max)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return result\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([\r\n        [1, 2, 3],\r\n        [4,5],\r\n        [1, 2, 3],\r\n    ]))\r\n",
+      "size": 1610
+    },
+    {
+      "filename": "hwc536_202605261859.py",
+      "content": "# -*- coding: utf-8 -*-\r\n'''\r\n请只在 \"\r\n##########start 下面可以改动\r\n\r\n##########end 上面可以改动 \"\r\n此题在期中考试考察范围内，作业需提交\r\n请不要使用 input函数 \r\n\r\n中间部分作答，作答行数自由调整\r\n\r\n题目：数组列表中的最大距离\r\n给定m个数组,每个数组都已经按照升序排好序了。\r\n现在你需要从两个不同的数组中选择两个整数(每个数组选一个)并且计算它们的距离。两个整数a和b之间的距离定义为它们差的绝对值|a-b|。\r\n返回最大距离。\r\n\r\n示例：\r\n输入：[[1,2,3],[4,5],[1,2,3]]输出:4解释:一种得到答案 4 的方法是从第一个数组或者第三个数组中选择 1，同时从第二个数组中选择 5 。\r\n\r\n提示：\r\nm == arrays.length\r\n2 <= m <= 105\r\n1 <= arrays[i].length <= 500\r\n-104 <= arrays[i][j] <= 104\r\narrays[i]以升序排序。\r\n所有数组中最多有105个整数。\r\n\r\n'''\r\n\r\ndef TEST_DO_NOT_CHANGE(num):\r\n    result =None\r\n    ##########start下面可以改动\r\n    global_min = num[0][0]\r\n    global_max = num[0][-1]\r\n    result = 0\r\n\r\n    for i in range(1, len(num)):\r\n        cur_min = num[i][0]  \r\n        cur_max = num[i][-1]  \r\n\r\n        \r\n        result = max(result, abs(cur_max - global_min))\r\n        \r\n        result = max(result, abs(cur_min - global_max))\r\n\r\n        \r\n        global_min = min(global_min, cur_min)\r\n        global_max = max(global_max, cur_max)\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n    \r\n    return result\r\n\r\nif __name__ == \"__main__\":\r\n    print(TEST_DO_NOT_CHANGE([\r\n        [1, 2, 3],\r\n        [4,5],\r\n        [1, 2, 3],\r\n    ]))\r\n",
+      "size": 1610
+    }
+  ],
+  "grades": [
+    {
+      "filename": "hwc106_202605261859.py",
+      "problem_id": "hwc106",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "case_1",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              1
+            ]
+          ],
+          "output": true,
+          "actual": true,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": true
+          },
+          "error": null,
+          "stdout": "[1, 2, 3, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 27.47
+        },
+        {
+          "name": "case_2",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              4
+            ]
+          ],
+          "output": false,
+          "actual": false,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": false
+          },
+          "error": null,
+          "stdout": "[1, 2, 3, 4]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 48.67
+        },
+        {
+          "name": "case_3",
+          "args": [
+            [
+              1,
+              1,
+              1,
+              3,
+              3,
+              4,
+              3,
+              2,
+              4,
+              2
+            ]
+          ],
+          "output": true,
+          "actual": true,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": true
+          },
+          "error": null,
+          "stdout": "[1, 1, 1, 3, 3, 4, 3, 2, 4, 2]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 25.05
+        },
+        {
+          "name": "case_4",
+          "args": [
+            [
+              5,
+              6,
+              7,
+              8,
+              9
+            ]
+          ],
+          "output": false,
+          "actual": false,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": false
+          },
+          "error": null,
+          "stdout": "[5, 6, 7, 8, 9]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 23.13
+        },
+        {
+          "name": "case_5",
+          "args": [
+            [
+              10,
+              10,
+              10
+            ]
+          ],
+          "output": true,
+          "actual": true,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": true
+          },
+          "error": null,
+          "stdout": "[10, 10, 10]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 47.6
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n请不要使用 input函数 \n\n题目\n给定一个整数数组，判断是否存在重复元素。\n如果存在一值在数组中出现至少两次，函数返回 True 。如果数组中每个元素都不相同，则返回 False 。\n\n示例 1:\n输入: [1,2,3,1]\n输出: True\n\n示例 2:\n输入: [1,2,3,4]\n输出: False\n\n示例3:\n输入: [1,1,1,3,3,4,3,2,4,2]\n输出: True\n\n\n'''\n\ndef TEST_DO_NOT_CHANGE(nums):\n    print(nums)\n    factorial = None\n    ##########start下面可以改动\n    factorial = False\n    for num in nums:\n        if nums.count(num)!=1:\n            factorial = True\n        \n\n\n\n\n\n\n    \n    return factorial\n\nif __name__ == \"__main__\":\n    print(TEST_DO_NOT_CHANGE([1,2,3,1]))\n    print(TEST_DO_NOT_CHANGE([1,2,3,4]))\n    print(TEST_DO_NOT_CHANGE([1,1,1,3,3,4,3,2,4,2]))\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc119_202605261859.py",
+      "problem_id": "hwc119",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "base",
+          "args": [
+            [
+              [
+                12,
+                7,
+                3
+              ],
+              [
+                4,
+                5,
+                6
+              ],
+              [
+                7,
+                8,
+                9
+              ]
+            ],
+            [
+              [
+                5,
+                8,
+                1
+              ],
+              [
+                6,
+                7,
+                3
+              ],
+              [
+                4,
+                5,
+                9
+              ]
+            ]
+          ],
+          "output": [
+            [
+              17,
+              15,
+              4
+            ],
+            [
+              10,
+              12,
+              9
+            ],
+            [
+              11,
+              13,
+              18
+            ]
+          ],
+          "actual": [
+            [
+              17,
+              15,
+              4
+            ],
+            [
+              10,
+              12,
+              9
+            ],
+            [
+              11,
+              13,
+              18
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                17,
+                15,
+                4
+              ],
+              [
+                10,
+                12,
+                9
+              ],
+              [
+                11,
+                13,
+                18
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "[[12, 7, 3], [4, 5, 6], [7, 8, 9]] [[5, 8, 1], [6, 7, 3], [4, 5, 9]]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 39.62
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ],
+              [
+                0,
+                0,
+                0
+              ]
+            ],
+            [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                4,
+                5,
+                6
+              ],
+              [
+                7,
+                8,
+                9
+              ]
+            ]
+          ],
+          "output": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ],
+          "actual": [
+            [
+              1,
+              2,
+              3
+            ],
+            [
+              4,
+              5,
+              6
+            ],
+            [
+              7,
+              8,
+              9
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                4,
+                5,
+                6
+              ],
+              [
+                7,
+                8,
+                9
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "[[0, 0, 0], [0, 0, 0], [0, 0, 0]] [[1, 2, 3], [4, 5, 6], [7, 8, 9]]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 37.88
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              [
+                -1,
+                -2,
+                -3
+              ],
+              [
+                -4,
+                -5,
+                -6
+              ],
+              [
+                -7,
+                -8,
+                -9
+              ]
+            ],
+            [
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ],
+              [
+                1,
+                1,
+                1
+              ]
+            ]
+          ],
+          "output": [
+            [
+              0,
+              -1,
+              -2
+            ],
+            [
+              -3,
+              -4,
+              -5
+            ],
+            [
+              -6,
+              -7,
+              -8
+            ]
+          ],
+          "actual": [
+            [
+              0,
+              -1,
+              -2
+            ],
+            [
+              -3,
+              -4,
+              -5
+            ],
+            [
+              -6,
+              -7,
+              -8
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                0,
+                -1,
+                -2
+              ],
+              [
+                -3,
+                -4,
+                -5
+              ],
+              [
+                -6,
+                -7,
+                -8
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "[[-1, -2, -3], [-4, -5, -6], [-7, -8, -9]] [[1, 1, 1], [1, 1, 1], [1, 1, 1]]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 50.36
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                2,
+                3,
+                4
+              ],
+              [
+                3,
+                4,
+                5
+              ]
+            ],
+            [
+              [
+                5,
+                4,
+                3
+              ],
+              [
+                4,
+                3,
+                2
+              ],
+              [
+                3,
+                2,
+                1
+              ]
+            ]
+          ],
+          "output": [
+            [
+              6,
+              6,
+              6
+            ],
+            [
+              6,
+              6,
+              6
+            ],
+            [
+              6,
+              6,
+              6
+            ]
+          ],
+          "actual": [
+            [
+              6,
+              6,
+              6
+            ],
+            [
+              6,
+              6,
+              6
+            ],
+            [
+              6,
+              6,
+              6
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                6,
+                6,
+                6
+              ],
+              [
+                6,
+                6,
+                6
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "[[1, 2, 3], [2, 3, 4], [3, 4, 5]] [[5, 4, 3], [4, 3, 2], [3, 2, 1]]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 46.81
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              [
+                100,
+                200,
+                300
+              ],
+              [
+                400,
+                500,
+                600
+              ],
+              [
+                700,
+                800,
+                900
+              ]
+            ],
+            [
+              [
+                900,
+                800,
+                700
+              ],
+              [
+                600,
+                500,
+                400
+              ],
+              [
+                300,
+                200,
+                100
+              ]
+            ]
+          ],
+          "output": [
+            [
+              1000,
+              1000,
+              1000
+            ],
+            [
+              1000,
+              1000,
+              1000
+            ],
+            [
+              1000,
+              1000,
+              1000
+            ]
+          ],
+          "actual": [
+            [
+              1000,
+              1000,
+              1000
+            ],
+            [
+              1000,
+              1000,
+              1000
+            ],
+            [
+              1000,
+              1000,
+              1000
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1000,
+                1000,
+                1000
+              ],
+              [
+                1000,
+                1000,
+                1000
+              ],
+              [
+                1000,
+                1000,
+                1000
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "[[100, 200, 300], [400, 500, 600], [700, 800, 900]] [[900, 800, 700], [600, 500, 400], [300, 200, 100]]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 27.93
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n函数代码请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n请不要使用 input函数 \n\n题目：\n两个 3 行 3 列的矩阵X、Y，实现其对应位置的数据相加，并返回一个新矩阵rlt_Z\nX = [[12,7,3],[4 ,5,6],[7 ,8,9]]\nY = [[5,8,1],[6,7,3],[4,5,9]] 　\n'''\n\n\n\ndef TEST_DO_NOT_CHANGE(X,Y):\n    print(X,Y)\n    rlt_Z = None\n    ##########start下面可以改动\n    m = len(X)\n    n = len(X[0])\n    rlt_Z = [[0]*n for _ in range(m)]\n    for i in range(m):\n        for j in range(n):\n            rlt_Z[i][j] = X[i][j]+Y[i][j]\n            \n        \n    \n\n\n\n\n\n\n    \n    return rlt_Z\n    \n\n    \nif __name__ == \"__main__\":\n    X = [[12,7,3],[4 ,5,6],[7 ,8,9]]\n    Y = [[5,8,1],[6,7,3],[4,5,9]] \n    print (TEST_DO_NOT_CHANGE(X,Y))\n    #######下面可以添加测试语句\n    \n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc201_202605261859.py",
+      "problem_id": "hwc201",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "base",
+          "args": [
+            [
+              2,
+              7,
+              11,
+              15
+            ],
+            9
+          ],
+          "output": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              0,
+              1
+            ]
+          },
+          "error": null,
+          "stdout": "[2, 7, 11, 15] 9\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 34.96
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              3,
+              2,
+              4
+            ],
+            6
+          ],
+          "output": [
+            1,
+            2
+          ],
+          "actual": [
+            1,
+            2
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              1,
+              2
+            ]
+          },
+          "error": null,
+          "stdout": "[3, 2, 4] 6\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 37.58
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              3,
+              3
+            ],
+            6
+          ],
+          "output": [
+            0,
+            1
+          ],
+          "actual": [
+            0,
+            1
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              0,
+              1
+            ]
+          },
+          "error": null,
+          "stdout": "[3, 3] 6\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 38.88
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              -1,
+              0,
+              1,
+              2,
+              -4
+            ],
+            0
+          ],
+          "output": [
+            0,
+            2
+          ],
+          "actual": [
+            0,
+            2
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              0,
+              2
+            ]
+          },
+          "error": null,
+          "stdout": "[-1, 0, 1, 2, -4] 0\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 22.92
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              1,
+              5,
+              2,
+              7
+            ],
+            8
+          ],
+          "output": [
+            0,
+            3
+          ],
+          "actual": [
+            0,
+            3
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              0,
+              3
+            ]
+          },
+          "error": null,
+          "stdout": "[1, 5, 2, 7] 8\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 21.33
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n请不要使用 input函数 \n\n题目:\n给定一个整数数组 nums和一个整数目标值 target，请你在该数组中找出和为目标值的那两个整数，并返回它们的数组下标。\n你可以假设每种输入只会对应一个答案。但是，数组中同一个元素在答案里不能重复出现。\n你可以按任意顺序返回答案。\n\n示例：\n输入：nums = [2,7,11,15], target = 9\n输出：[0,1]\n解释：因为 nums[0] + nums[1] == 9 ，返回 [0, 1] 。\n'''\n\ndef TEST_DO_NOT_CHANGE( nums, target):\n    print(nums, target)\n    lst_rlt = []\n    ##########start下面可以改动\n    for i in range(len(nums)):\n        for j in range(i+1,len(nums)):\n            if nums[i]+nums[j] == target:\n                lst_rlt.append(i)\n                lst_rlt.append(j)\n                break\n\n\n\n    \n    return lst_rlt\n\nif __name__ == \"__main__\":\n    print(TEST_DO_NOT_CHANGE([2,7,11,15],9))\n    print(TEST_DO_NOT_CHANGE([3,2,4],6))\n    print(TEST_DO_NOT_CHANGE([3,3],6))\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc239_202605261859.py",
+      "problem_id": "hwc239",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "base",
+          "args": [
+            [
+              2,
+              4,
+              3,
+              1,
+              3,
+              5,
+              8,
+              1,
+              4,
+              1,
+              2
+            ]
+          ],
+          "output": [
+            1,
+            6,
+            8
+          ],
+          "actual": [
+            1,
+            6,
+            8
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              1,
+              6,
+              8
+            ]
+          },
+          "error": null,
+          "stdout": "[2, 4, 3, 1, 3, 5, 8, 1, 4, 1, 2]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 34.16
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              2,
+              1,
+              3,
+              1,
+              2,
+              7,
+              2,
+              3,
+              2,
+              5,
+              6
+            ]
+          ],
+          "output": [
+            2,
+            5,
+            7
+          ],
+          "actual": [
+            2,
+            5,
+            7
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              2,
+              5,
+              7
+            ]
+          },
+          "error": null,
+          "stdout": "[2, 1, 3, 1, 2, 7, 2, 3, 2, 5, 6]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 38.32
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              9,
+              2,
+              1,
+              1,
+              3,
+              2,
+              8,
+              1,
+              1,
+              3,
+              6
+            ]
+          ],
+          "output": [
+            4,
+            6
+          ],
+          "actual": [
+            4,
+            6
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              4,
+              6
+            ]
+          },
+          "error": null,
+          "stdout": "[9, 2, 1, 1, 3, 2, 8, 1, 1, 3, 6]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 54.39
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              1,
+              2,
+              3,
+              2,
+              1
+            ]
+          ],
+          "output": [
+            2
+          ],
+          "actual": [
+            2
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              2
+            ]
+          },
+          "error": null,
+          "stdout": "[1, 2, 3, 2, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 28.41
+        },
+        {
+          "name": "base",
+          "args": [
+            [
+              1,
+              1,
+              1
+            ]
+          ],
+          "output": [],
+          "actual": [],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": []
+          },
+          "error": null,
+          "stdout": "[1, 1, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 37.88
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n请不要使用 input函数 \n\n题目:\n寻找峰值，给出峰值在列表中的索引值; 峰值元素是指其值严格大于左右相邻值的元素，峰值元素不会出现在首尾。\n例如nums = [1, 2, 1, 3, 5, 6, 4, 3, 7, 3, 8]，其中峰值为2、6、7这三个元素，最后输出这三个峰值的索引值即 :[1, 5, 8]。\n现有以下几个列表，分别找出其中的峰值并输出峰值在其列表中的索引号。\nnum1 = [2,4,3,1,3,5,8,1,4,1,2]\nnum2 = [2,1,3,1,2,7,2,3,2,5,6]\nnum3 = [9,2,1,1,3,2,8,1,1,3,6]\n'''\n\ndef TEST_DO_NOT_CHANGE(nums):\n    print(nums)\n    ##########start下面可以改动\n    result = []\n    for i in range(1,len(nums)-1):\n        if nums[i-1]<nums[i] and nums[i]>nums[i+1]:\n            result.append(i)\n\n   \n    \n    return result\nif __name__ == \"__main__\":\n    num1 = [2,4,3,1,3,5,8,1,4,1,2]\n    num2 = [2,1,3,1,2,7,2,3,2,5,6]\n    num3 = [9,2,1,1,3,2,8,1,1,3,6]\n    print(TEST_DO_NOT_CHANGE(num1)) \n    print(TEST_DO_NOT_CHANGE(num2)) \n    print(TEST_DO_NOT_CHANGE(num3)) ",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc316_202605261859.py",
+      "problem_id": "hwc316",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "ex1",
+          "args": [
+            [
+              1,
+              1,
+              0,
+              1,
+              1,
+              1
+            ]
+          ],
+          "output": 3,
+          "actual": 3,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 3
+          },
+          "error": null,
+          "stdout": "[1, 1, 0, 1, 1, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 53.99
+        },
+        {
+          "name": "all_ones",
+          "args": [
+            [
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          "output": 4,
+          "actual": 4,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 4
+          },
+          "error": null,
+          "stdout": "[1, 1, 1, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 35.51
+        },
+        {
+          "name": "all_zeros",
+          "args": [
+            [
+              0,
+              0,
+              0
+            ]
+          ],
+          "output": 0,
+          "actual": 0,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 0
+          },
+          "error": null,
+          "stdout": "[0, 0, 0]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 21.91
+        },
+        {
+          "name": "alternating",
+          "args": [
+            [
+              1,
+              0,
+              1,
+              0,
+              1,
+              0,
+              1
+            ]
+          ],
+          "output": 1,
+          "actual": 1,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 1
+          },
+          "error": null,
+          "stdout": "[1, 0, 1, 0, 1, 0, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 21.17
+        },
+        {
+          "name": "tail_run",
+          "args": [
+            [
+              0,
+              0,
+              1,
+              1,
+              1,
+              1,
+              1
+            ]
+          ],
+          "output": 5,
+          "actual": 5,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 5
+          },
+          "error": null,
+          "stdout": "[0, 0, 1, 1, 1, 1, 1]\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 21.13
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n\n\n题目\n给定一个二进制数组， 计算其中最大连续 1 的个数。\n\n \n\n示例：\n\n输入：[1,1,0,1,1,1]\n输出：3\n解释：开头的两位和最后的三位都是连续 1 ，所以最大连续 1 的个数是 3.\n\n\n\n\n\n'''\n\ndef TEST_DO_NOT_CHANGE(nums):\n    print(nums)\n    rlt = None\n    ##########start下面可以改动\n    cur_len ,max_len = 0,0\n    for num in nums:\n        if num ==1:\n            cur_len +=1\n            max_len= max(max_len,cur_len)\n        else:\n            cur_len = 0\n            max_len = max_len\n\n\n\n    rlt = max_len\n    \n    return rlt\n\nif __name__ == \"__main__\":\n    print(TEST_DO_NOT_CHANGE([1,1,0,1,1,1]))\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc317_202605261859.py",
+      "problem_id": "hwc317",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "ex5",
+          "args": [
+            5
+          ],
+          "output": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              3,
+              1
+            ],
+            [
+              1,
+              4,
+              6,
+              4,
+              1
+            ]
+          ],
+          "actual": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              3,
+              1
+            ],
+            [
+              1,
+              4,
+              6,
+              4,
+              1
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2,
+                1
+              ],
+              [
+                1,
+                3,
+                3,
+                1
+              ],
+              [
+                1,
+                4,
+                6,
+                4,
+                1
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "5\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 28.04
+        },
+        {
+          "name": "one_row",
+          "args": [
+            1
+          ],
+          "output": [
+            [
+              1
+            ]
+          ],
+          "actual": [
+            [
+              1
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "1\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 21.32
+        },
+        {
+          "name": "two_rows",
+          "args": [
+            2
+          ],
+          "output": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "actual": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1
+              ],
+              [
+                1,
+                1
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "2\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 40.26
+        },
+        {
+          "name": "three_rows",
+          "args": [
+            3
+          ],
+          "output": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          "actual": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2,
+                1
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "3\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 64.98
+        },
+        {
+          "name": "four_rows",
+          "args": [
+            4
+          ],
+          "output": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              3,
+              1
+            ]
+          ],
+          "actual": [
+            [
+              1
+            ],
+            [
+              1,
+              1
+            ],
+            [
+              1,
+              2,
+              1
+            ],
+            [
+              1,
+              3,
+              3,
+              1
+            ]
+          ],
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": [
+              [
+                1
+              ],
+              [
+                1,
+                1
+              ],
+              [
+                1,
+                2,
+                1
+              ],
+              [
+                1,
+                3,
+                3,
+                1
+              ]
+            ]
+          },
+          "error": null,
+          "stdout": "4\n",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 52.7
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n\n中间部分作答，作答行数自由调整\n\n\n题目\n给定一个非负整数 numRows，生成杨辉三角的前 numRows 行。\n在杨辉三角中，每个数是它左上方和右上方的数的和。\n\n示例:\n输入: 5\n输出:\n[\n     [1],\n    [1,1],\n   [1,2,1],\n  [1,3,3,1],\n [1,4,6,4,1]\n]\n\n注意 上面的输出只是为了好看，无需输出的list打印出来像上面一样。当然如果你有空，也可以尝试一下!\n'''\n\n\n\ndef TEST_DO_NOT_CHANGE(numRows):\n    print(numRows)\n    lst_rlt = []\n    ##########start下面可以改动\n    for i in range(numRows):\n        row = [1]*(i+1)\n        for j in range(1,i):\n            row[j] = lst_rlt[i-1][j-1]+lst_rlt[i-1][j]\n        lst_rlt.append(row)\n\n\n\n    \n    return lst_rlt\n\nif __name__ == \"__main__\":\n    print(TEST_DO_NOT_CHANGE(5))\n    print(TEST_DO_NOT_CHANGE(1))\n\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc412_202605261859.py",
+      "problem_id": "hwc412",
+      "score": 60,
+      "score_full": 100,
+      "passed": 3,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "case_1",
+          "args": [
+            [
+              1,
+              12,
+              -5,
+              -6,
+              50,
+              3
+            ],
+            4
+          ],
+          "output": 12.75,
+          "actual": 12.75,
+          "passed": true,
+          "expected": {
+            "type": "float_close",
+            "value": 12.75,
+            "tol": "1e-5"
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 49.11
+        },
+        {
+          "name": "case_2",
+          "args": [
+            [
+              5
+            ],
+            1
+          ],
+          "output": 5.0,
+          "actual": 5.0,
+          "passed": true,
+          "expected": {
+            "type": "float_close",
+            "value": 5.0,
+            "tol": "1e-5"
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 28.97
+        },
+        {
+          "name": "case_3",
+          "args": [
+            [
+              0,
+              4,
+              0,
+              3,
+              2
+            ],
+            1
+          ],
+          "output": 3.0,
+          "actual": 3.0,
+          "passed": false,
+          "expected": {
+            "type": "float_close",
+            "value": 4.0,
+            "tol": "1e-5"
+          },
+          "error": null,
+          "stdout": "",
+          "score": 0.0,
+          "score_full": 20.0,
+          "duration_ms": 42.52
+        },
+        {
+          "name": "case_4",
+          "args": [
+            [
+              1,
+              12,
+              -5,
+              -6,
+              50,
+              3
+            ],
+            5
+          ],
+          "output": 10.4,
+          "actual": 10.4,
+          "passed": false,
+          "expected": {
+            "type": "float_close",
+            "value": 10.8,
+            "tol": "1e-5"
+          },
+          "error": null,
+          "stdout": "",
+          "score": 0.0,
+          "score_full": 20.0,
+          "duration_ms": 40.55
+        },
+        {
+          "name": "case_5",
+          "args": [
+            [
+              9,
+              7,
+              3,
+              5,
+              6,
+              2,
+              0,
+              8,
+              1,
+              9
+            ],
+            6
+          ],
+          "output": 5.333333333333333,
+          "actual": 5.333333333333333,
+          "passed": true,
+          "expected": {
+            "type": "float_close",
+            "value": 5.333333333333333,
+            "tol": "1e-5"
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 28.29
+        }
+      ],
+      "pass": false,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n\n\n中间部分作答，作答行数自由调整\n请不要使用 input函数 \n\n题目：\n给你一个由 n 个元素组成的整数数组 nums 和一个整数 k 。\n请你找出平均数最大且 长度为 k 的连续子数组，并输出该最大平均数。\n任何误差小于 10-5 的答案都将被视为正确答案。\n\n示例 1:\n\n输入: nums = [1,12,-5,-6,50,3], k = 4\n输出: 12.75\n解释: 最大平均数 (12-5-6+50)/4 = 51/4 = 12.75\n\n示例 2:\n\n输入: nums = [5], k = 1\n输出: 5.0\n'''\ndef TEST_DO_NOT_CHANGE(nums, k):\n    res=0.0\n    ##########start 下面可以改动\n    cur_sum,max_sum = sum(nums[:k]),sum(nums[:k])\n    for i in range(k,len(nums)):\n        cur_sum = cur_sum+nums[i]-nums[i-k-1]\n        max_sum = max(max_sum,cur_sum)\n    res = max_sum/k\n\n\n\n\n\n\n    \n\n    ##########end 上面可以改动 \n    return res\n\nif __name__ == \"__main__\":\n\t\n\tprint(TEST_DO_NOT_CHANGE([1,12,-5,-6,50,3],4))\n\tprint(TEST_DO_NOT_CHANGE([5],1))\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    },
+    {
+      "filename": "hwc536_202605261859.py",
+      "problem_id": "hwc536",
+      "score": 100,
+      "score_full": 100,
+      "passed": 5,
+      "total": 5,
+      "test_cases": [
+        {
+          "name": "case_1",
+          "args": [
+            [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                4,
+                5
+              ],
+              [
+                1,
+                2,
+                3
+              ]
+            ]
+          ],
+          "output": 4,
+          "actual": 4,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 4
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 50.97
+        },
+        {
+          "name": "case_2",
+          "args": [
+            [
+              [
+                10,
+                20,
+                30
+              ],
+              [
+                5,
+                10
+              ],
+              [
+                25,
+                35,
+                40
+              ]
+            ]
+          ],
+          "output": 35,
+          "actual": 35,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 35
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 41.45
+        },
+        {
+          "name": "case_3",
+          "args": [
+            [
+              [
+                1
+              ],
+              [
+                4
+              ],
+              [
+                7
+              ]
+            ]
+          ],
+          "output": 6,
+          "actual": 6,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 6
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 38.11
+        },
+        {
+          "name": "case_4",
+          "args": [
+            [
+              [
+                1,
+                3
+              ],
+              [
+                5,
+                7
+              ],
+              [
+                2,
+                4
+              ]
+            ]
+          ],
+          "output": 6,
+          "actual": 6,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 6
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 49.04
+        },
+        {
+          "name": "case_5",
+          "args": [
+            [
+              [
+                1,
+                2,
+                3
+              ],
+              [
+                7,
+                8
+              ],
+              [
+                5,
+                6
+              ]
+            ]
+          ],
+          "output": 7,
+          "actual": 7,
+          "passed": true,
+          "expected": {
+            "type": "equals",
+            "value": 7
+          },
+          "error": null,
+          "stdout": "",
+          "score": 20.0,
+          "score_full": 20.0,
+          "duration_ms": 45.66
+        }
+      ],
+      "pass": true,
+      "error": null,
+      "content": "# -*- coding: utf-8 -*-\n'''\n请只在 \"\n##########start 下面可以改动\n\n##########end 上面可以改动 \"\n此题在期中考试考察范围内，作业需提交\n请不要使用 input函数 \n\n中间部分作答，作答行数自由调整\n\n题目：数组列表中的最大距离\n给定m个数组,每个数组都已经按照升序排好序了。\n现在你需要从两个不同的数组中选择两个整数(每个数组选一个)并且计算它们的距离。两个整数a和b之间的距离定义为它们差的绝对值|a-b|。\n返回最大距离。\n\n示例：\n输入：[[1,2,3],[4,5],[1,2,3]]输出:4解释:一种得到答案 4 的方法是从第一个数组或者第三个数组中选择 1，同时从第二个数组中选择 5 。\n\n提示：\nm == arrays.length\n2 <= m <= 105\n1 <= arrays[i].length <= 500\n-104 <= arrays[i][j] <= 104\narrays[i]以升序排序。\n所有数组中最多有105个整数。\n\n'''\n\ndef TEST_DO_NOT_CHANGE(num):\n    result =None\n    ##########start下面可以改动\n    global_min = num[0][0]\n    global_max = num[0][-1]\n    result = 0\n\n    for i in range(1, len(num)):\n        cur_min = num[i][0]  \n        cur_max = num[i][-1]  \n\n        \n        result = max(result, abs(cur_max - global_min))\n        \n        result = max(result, abs(cur_min - global_max))\n\n        \n        global_min = min(global_min, cur_min)\n        global_max = max(global_max, cur_max)\n\n\n\n\n\n\n\n    \n    return result\n\nif __name__ == \"__main__\":\n    print(TEST_DO_NOT_CHANGE([\n        [1, 2, 3],\n        [4,5],\n        [1, 2, 3],\n    ]))\n",
+      "submissions_count": 4,
+      "analysis_feedback": {
+        "analysis": "该生在期中考试中表现优异，总分760/800，通过率达87.5%（7/8题）。其中hwc106、hwc119、hwc201、hwc239、hwc316、hwc317、hwc536七题均获得满分100分，展现出扎实的基础知识掌握能力。唯一失分点为hwc412题，得分60/100，仅通过3/5个测试用例，说明该题涉及的核心概念或算法实现存在理解偏差。考虑到hwc412的失分幅度较大（40分），且通过率仅为60%，这可能是影响最终成绩的关键因素。整体来看，该生基础扎实，但在某些特定知识点的应用上需要加强。",
+        "suggestions": [
+          "针对hwc412题进行专项复习，重点分析该题涉及的知识点和算法逻辑，建议重新阅读相关章节并尝试不同的解题思路",
+          "对hwc412题的3个通过用例和2个失败用例进行对比分析，找出失败原因，可能是边界条件处理不当或算法实现有遗漏",
+          "在后续学习中，建议对类似hwc412的综合性题目进行额外练习，提升复杂问题的分析和解决能力"
+        ],
+        "strengths": [
+          "基础知识掌握牢固，7道题目获得满分，显示出良好的学习能力和知识吸收能力",
+          "整体表现稳定，总分达到95%的高水平，说明在Python与大数据分析课程中具备较强的综合应用能力"
+        ],
+        "weaknesses": [
+          "hwc412题得分偏低，通过率仅60%，可能存在对该题涉及知识点的理解不够深入",
+          "在复杂问题的处理上可能存在薄弱环节，需要加强对特定知识点的深度理解和应用"
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,550 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <title>课堂报告</title>
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="../shared/logger.js"></script>
+  <style>
+    .page-reports {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 20px;
+      height: 100vh;
+      overflow-y: auto;
+    }
+    .report-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .report-card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .report-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(15,23,42,.12);
+    }
+    .report-card .left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .report-card .week-badge {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #4f46e5;
+    }
+    .report-card .info .title {
+      font-weight: 600;
+      font-size: 16px;
+      color: var(--text);
+    }
+    .report-card .info .sub {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+    .report-card .status-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .status-tag.complete { background: #dcfce7; color: #166534; }
+    .status-tag.partial { background: #fef3c7; color: #92400e; }
+    .status-tag.processing {
+      background: #e0e7ff; color: #4338ca;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .status-tag.processing::before {
+      content: ''; display: inline-block;
+      width: 10px; height: 10px;
+      border: 2px solid #4338ca; border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+
+    /* 详情视图 */
+    .detail-view {
+      display: none;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .detail-view.active { display: flex; }
+    .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.85);
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s ease;
+    }
+    .detail-back:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(15,23,42,.1); }
+    .detail-title { font-weight: 700; font-size: 20px; color: var(--text); }
+
+    /* 内容区域 */
+    .content-block {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+    }
+    .content-block h3 {
+      margin: 0 0 16px 0;
+      font-size: 17px;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .content-block .text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    .content-block .text.empty {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    /* 知识图谱可视化 */
+    .kg-container {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-top: 16px;
+    }
+    .kg-container h3 {
+      margin: 0 0 16px 0;
+      font-size: 17px;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .kg-canvas-wrap {
+      width: 100%;
+      height: 420px;
+      background: #fafbfc;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .kg-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+    }
+
+    /* 知识点列表 */
+    .kp-list { list-style: none; padding: 0; margin: 0; }
+    .kp-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    .kp-item:last-child { border-bottom: none; }
+    .kp-item .kp-name { font-weight: 600; font-size: 15px; color: var(--text); }
+    .kp-item .kp-mastery {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    .mastery-优 { background: #dcfce7; color: #166534; }
+    .mastery-良 { background: #dbeafe; color: #1e40af; }
+    .mastery-中 { background: #fef3c7; color: #92400e; }
+    .mastery-需加强 { background: #fee2e2; color: #991b1b; }
+    .kp-item .kp-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+
+    /* 难点列表 */
+    .diff-item {
+      padding: 12px 16px;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .diff-item:last-child { border-bottom: none; }
+    .diff-item .diff-point { font-weight: 600; font-size: 15px; color: var(--text); }
+    .diff-item .diff-analysis,
+    .diff-item .diff-suggestion { font-size: 13px; color: var(--muted); margin-top: 4px; }
+
+    /* 教学建议 */
+    .suggest-list { list-style: none; padding: 0; margin: 0; }
+    .suggest-list li {
+      padding: 8px 0 8px 20px;
+      position: relative;
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.5;
+    }
+    .suggest-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #4f46e5;
+    }
+
+    /* 摘要折叠面板 */
+    .collapse-toggle {
+      font-size: 13px;
+      color: #4f46e5;
+      cursor: pointer;
+      padding: 8px 0;
+      user-select: none;
+    }
+    .collapse-toggle:hover { opacity: 0.7; }
+
+    /* 加载 / 空状态 */
+    .state-box {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+    }
+    .state-box .emoji { font-size: 64px; margin-bottom: 16px; }
+    .state-box .msg { font-size: 16px; }
+    .spinner {
+      width: 36px;
+      height: 36px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #4f46e5;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 16px auto;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ═══════ 双栏布局 ═══════ */
+    .detail-view.active {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 40px);
+      overflow: hidden;
+    }
+    .split-container {
+      display: flex;
+      flex: 1;
+      gap: 16px;
+      overflow: hidden;
+      min-height: 0;
+    }
+    .panel {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .panel-header {
+      padding: 16px 20px 12px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #4f46e5;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    .panel-content .content-block {
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 20px;
+      background: transparent;
+    }
+    .panel-content .content-block h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .panel-content .kg-container {
+      padding: 0;
+      margin-top: 0;
+      margin-bottom: 20px;
+      background: transparent;
+    }
+    .panel-content .kg-container h3 {
+      font-size: 15px;
+      margin-bottom: 10px;
+    }
+    .panel-content .kg-canvas-wrap {
+      height: 320px;
+    }
+    .panel-content .kp-item {
+      padding: 10px 0;
+    }
+    .panel-content .diff-item {
+      padding: 10px 0;
+    }
+    .panel-content .suggest-list li {
+      font-size: 13px;
+    }
+    .panel-content .text {
+      font-size: 14px;
+    }
+  </style>
+</head>
+
+<body>
+  <a href="#main-content" class="skip-link">跳过导航直接进入主要内容</a>
+  <div class="page-reports" id="main-content" role="main">
+    <!-- 列表头 -->
+    <div class="header with-back" id="listHeader">
+      <a href="./course.html" class="back-chip">
+        <span aria-hidden="true">←</span>
+        <span>返回课程</span>
+      </a>
+      <h2 id="listTitle">课堂报告</h2>
+    </div>
+
+    <!-- 加载中 -->
+    <div class="state-box" id="loadingBox">
+      <div class="spinner"></div>
+      <div class="msg">正在加载课堂报告...</div>
+    </div>
+
+    <!-- 报告列表 -->
+    <div class="report-list" id="reportList" style="display:none;"></div>
+
+    <!-- 空状态 -->
+    <div class="state-box" id="emptyBox" style="display:none;">
+      <div class="emoji">📭</div>
+      <div class="msg">暂无课堂报告</div>
+      <div style="font-size:13px; margin-top:8px;">该课程还没有录音转写或AI分析记录</div>
+    </div>
+
+    <!-- 错误状态 -->
+    <div class="state-box" id="errorBox" style="display:none;">
+      <div class="emoji">⚠️</div>
+      <div class="msg" id="errorMsg">加载失败</div>
+      <div style="margin-top:14px;">
+        <button onclick="loadReports()" style="padding:8px 24px; border-radius:12px; border:1px solid #4f46e5; background:#eef2ff; color:#4f46e5; font-size:14px; cursor:pointer;">重试</button>
+      </div>
+    </div>
+
+    <!-- 详情视图 -->
+    <div class="detail-view" id="detailView">
+      <div class="detail-header">
+        <button class="detail-back" onclick="backToList()">
+          <span aria-hidden="true">←</span> 返回列表
+        </button>
+        <span class="detail-title" id="detailTitle">第 N 周</span>
+      </div>
+
+      <div class="split-container" style="flex-direction:column;">
+        <!-- iframe 嵌入 HTML 报告 -->
+        <div class="panel" style="flex:1;overflow:hidden;">
+          <div class="panel-header">📄 学生学习报告</div>
+          <div style="flex:1;overflow:hidden;position:relative;">
+            <div id="iframeLoading" style="display:none;text-align:center;padding:60px 20px;color:#6b7280;">
+              <div class="spinner" style="margin:0 auto 16px;"></div>
+              <div class="msg">正在加载课堂报告...</div>
+            </div>
+            <iframe id="reportIframe"
+              style="display:none;width:100%;height:100%;border:none;"
+              sandbox="allow-scripts allow-same-origin"
+              title="课堂报告">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const log = window.Logger ? window.Logger.create('reports') : { info: console.log, warn: console.warn, error: console.error };
+
+    const className = sessionStorage.getItem('class_name') || localStorage.getItem('className') || '';
+    document.getElementById('listTitle').textContent = className ? className + ' · 课堂报告' : '课堂报告';
+
+    let reportsData = [];
+
+    async function getBaseUrl() {
+      try { return await window.api.getBaseUrl(); } catch { return ''; }
+    }
+
+    // ═══════════ 报告列表 ═══════════
+
+    async function loadReports() {
+      showState('loading');
+      try {
+        const base = await getBaseUrl();
+        // 使用周度报告列表 API
+        const url = `${base}/api/recording/report/list?class_name=${encodeURIComponent(className)}`;
+        log.info('Fetching weekly reports', { url });
+        const resp = await fetch(url);
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        const data = await resp.json();
+        reportsData = data.reports || [];
+        log.info('Reports loaded', { count: reportsData.length });
+
+        if (reportsData.length === 0) {
+          showState('empty');
+        } else {
+          renderList();
+          showState('list');
+        }
+      } catch (err) {
+        log.error('Failed to load reports', err);
+        document.getElementById('errorMsg').textContent = `加载失败：${err.message}`;
+        showState('error');
+      }
+    }
+
+    let autoRefreshTimer = null;
+    
+    function renderList() {
+      const container = document.getElementById('reportList');
+      container.innerHTML = reportsData.map((r, i) => {
+        const dateStr = r.created_at ? new Date(r.created_at).toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' }) : '';
+        const hasReport = r.has_report;
+        const status = r.status || '';
+        const isProcessing = !hasReport && (status === 'generating' || status === 'transcribing' || status === 'summarizing');
+        const tagClass = hasReport ? 'complete' : (isProcessing ? 'processing' : 'partial');
+        const tagText = hasReport ? '已生成' : (isProcessing ? 'AI 分析中' : '等待处理');
+        return `
+          <div class="report-card" onclick="viewDetail(${i})" role="button" tabindex="0">
+            <div class="left">
+              <div class="week-badge">${r.week_no || '?'}</div>
+              <div class="info">
+                <div class="title">第 ${r.week_no || '?'} 周</div>
+                <div class="sub">${dateStr}${r.recording_count ? ' · ' + r.recording_count + ' 段录音' : ''}</div>
+              </div>
+            </div>
+            <span class="status-tag ${tagClass}">${tagText}</span>
+          </div>`;
+      }).join('');
+    
+      // 自动刷新：如果有任何报告在处理中，每 10 秒刷新列表
+      const hasProcessing = reportsData.some(r => !r.has_report && (r.status === 'generating' || r.status === 'transcribing' || r.status === 'summarizing'));
+      if (hasProcessing && !autoRefreshTimer) {
+        autoRefreshTimer = setInterval(async () => {
+          try {
+            const base = await getBaseUrl();
+            const url = `${base}/api/recording/report/list?class_name=${encodeURIComponent(className)}`;
+            const resp = await fetch(url);
+            if (resp.ok) {
+              const data = await resp.json();
+              reportsData = data.reports || [];
+              renderList();
+              // 如果全部完成，停止自动刷新
+              const stillProcessing = reportsData.some(r => !r.has_report && (r.status === 'generating' || r.status === 'transcribing' || r.status === 'summarizing'));
+              if (!stillProcessing) { clearInterval(autoRefreshTimer); autoRefreshTimer = null; }
+            }
+          } catch (e) { log.warn('Auto-refresh failed', e); }
+        }, 10000);
+      }
+    }
+
+    // ═══════════ 报告详情（iframe 嵌入 HTML 报告） ═══════════
+
+    async function viewDetail(index) {
+      const r = reportsData[index];
+      if (!r) return;
+      const weekNo = r.week_no;
+      document.getElementById('detailTitle').textContent = `第 ${weekNo} 周 · 课堂报告`;
+      document.getElementById('listHeader').style.display = 'none';
+      document.getElementById('reportList').style.display = 'none';
+      document.getElementById('detailView').classList.add('active');
+
+      const iframe = document.getElementById('reportIframe');
+      const loading = document.getElementById('iframeLoading');
+
+      loading.style.display = 'block';
+      iframe.style.display = 'none';
+
+      try {
+        const base = await getBaseUrl();
+        // 生成学生 HTML 报告 URL，通过 iframe srcdoc 加载
+        const reportUrl = `${base}/api/recording/report/html/${encodeURIComponent(className)}/${weekNo}?report_type=student`;
+        log.info('Loading HTML report', { url: reportUrl });
+
+        const resp = await fetch(reportUrl);
+        if (!resp.ok) {
+          if (resp.status === 404) {
+            throw new Error('该周报告尚未生成，请等待处理完成');
+          }
+          throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        }
+
+        const htmlContent = await resp.text();
+        // 使用 srcdoc 嵌入 HTML 报告，避免样式污染
+        iframe.srcdoc = htmlContent;
+        iframe.style.display = 'block';
+        loading.style.display = 'none';
+      } catch (err) {
+        log.error('Failed to load HTML report', err);
+        loading.innerHTML = `
+          <div style="text-align:center;padding:40px 20px;color:#6b7280;">
+            <div style="font-size:48px;margin-bottom:16px;">⚠️</div>
+            <div style="font-size:16px;margin-bottom:8px;">加载失败</div>
+            <div style="font-size:14px;color:#9ca3af;">${err.message}</div>
+            <button onclick="viewDetail(${index})" style="margin-top:20px;padding:8px 24px;border-radius:12px;border:1px solid #4f46e5;background:#eef2ff;color:#4f46e5;font-size:14px;cursor:pointer;">重试</button>
+          </div>`;
+      }
+    }
+
+    function backToList() {
+      document.getElementById('detailView').classList.remove('active');
+      document.getElementById('listHeader').style.display = '';
+      document.getElementById('reportList').style.display = '';
+    }
+
+    function showState(state) {
+      document.getElementById('loadingBox').style.display = state === 'loading' ? '' : 'none';
+      document.getElementById('reportList').style.display = state === 'list' ? '' : 'none';
+      document.getElementById('emptyBox').style.display = state === 'empty' ? '' : 'none';
+      document.getElementById('errorBox').style.display = state === 'error' ? '' : 'none';
+      if (state !== 'detail') {
+        document.getElementById('detailView').classList.remove('active');
+        document.getElementById('listHeader').style.display = state === 'list' || state === 'empty' ? '' : 'none';
+      }
+    }
+
+    // ═══════════ 启动 ═══════════
+    loadReports();
+  </script>
+</body>
+
+</html>

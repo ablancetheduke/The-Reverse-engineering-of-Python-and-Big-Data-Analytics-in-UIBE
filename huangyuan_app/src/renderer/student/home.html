@@ -1,0 +1,605 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <title>首页</title>
+  <!-- 新增 favicon -->
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <!-- 新增：四列正方形卡片样式 -->
+  <style>
+    /* 四列网格，左到右排列 */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      align-content: start;
+      justify-items: center;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    /* 正方形卡片 */
+    .tile {
+      aspect-ratio: 1 / 1;
+      width: min(100%, 230px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #fefefe, #f1f2f6);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tile::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .tile:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 22px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    .tile:hover::before {
+      opacity: 1;
+    }
+
+    .tile:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px);
+    }
+
+    .icon-bubble {
+      width: 106px;
+      height: 106px;
+      border-radius: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+      background: rgba(255, 255, 255, 0.35);
+      color: #0f172a;
+    }
+
+    /* 屏幕阅读器专用样式 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .tile .title {
+      font-weight: 700;
+      font-size: 18px;
+      color: #0f172a;
+      line-height: 1.3;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .tile .meta {
+      color: #4b5563;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      line-height: 1.65;
+    }
+
+    @media (max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    /* 新增：底部图片文本框样式 */
+    .footer-note {
+      position: fixed;
+      bottom: 72px;
+      /* 位于图片上方 */
+      left: 20%;
+      transform: translateX(-50%);
+      max-width: 260px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      background: #ffffff;
+      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.12);
+      color: #0f172a;
+      font-size: 14px;
+      line-height: 1.6;
+      z-index: 999;
+      display: none;
+      /* 默认隐藏 */
+      animation: fadeIn 160ms ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(6px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+      }
+    }
+
+    /* 新增：跳过链接样式 */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 1000;
+      transition: top 0.3s ease;
+    }
+
+    .skip-link:focus {
+      top: 10px;
+      outline: 2px solid #1d4ed8;
+      outline-offset: 2px;
+    }
+
+    /* 新增：加载指示器样式 */
+    .loading-indicator {
+      display: none;
+      margin: 40px auto;
+      width: 32px;
+      height: 32px;
+      border: 4px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* 新增：页面淡入动画 */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .page {
+      animation: fadeInUp 0.6s ease-out;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 跳过导航链接，为键盘用户和屏幕阅读器用户提供便利 -->
+  <a href="#main-content" class="skip-link">跳过导航直接进入主要内容</a>
+
+  <div class="page" id="main-content">
+    <div class="header centered">
+      <h2>我的课程及APP</h2>
+    </div>
+    <div id="grid" class="grid">
+      <div class="loading-indicator" role="status" aria-label="课程数据加载中，请稍候"></div>
+    </div>
+  </div>
+  <script>
+    const sid = sessionStorage.getItem('student_id') || localStorage.getItem('studentId') || '';
+    if (sid) sessionStorage.setItem('student_id', sid);
+    if (!sid) location.replace('../login/index.html');
+    // 已登录，无需在页面显示学号
+
+    const palette = [
+      { bg: 'linear-gradient(135deg, #fef6e4, #fde7c8)', tint: 'rgba(255, 255, 255, 0.65)', border: 'rgba(255, 221, 179, 0.6)' },
+      { bg: 'linear-gradient(135deg, #e0f2ff, #cfe5ff)', tint: 'rgba(255, 255, 255, 0.7)', border: 'rgba(174, 198, 255, 0.6)' },
+      { bg: 'linear-gradient(135deg, #fce7f3, #fbcfe8)', tint: 'rgba(255, 255, 255, 0.6)', border: 'rgba(251, 207, 232, 0.8)' },
+      { bg: 'linear-gradient(135deg, #ecfccb, #d9f99d)', tint: 'rgba(255, 255, 255, 0.55)', border: 'rgba(202, 247, 120, 0.7)' }
+    ];
+
+    const iconPool = ['🦊', '🐼', '🦋', '🐧', '🦄', '🌵', '🌸', '🍃', '🦜', '🌙', '🍀', '🦔', '🌈', '🐠', '🦚', '🍊', '🍇'];
+    const iconBag = [...iconPool];
+    function pullIcon() {
+      if (!iconBag.length) iconBag.push(...iconPool);
+      const idx = Math.floor(Math.random() * iconBag.length);
+      return iconBag.splice(idx, 1)[0];
+    }
+
+    // 统一抽取课程数组：优先当前学期，其次全部课程
+    function extractCourses(payload) {
+      if (!payload) return [];
+
+      // 兼容接口外壳：{ success: true, data: { current_semester_classes... } }
+      if (payload && payload.data && typeof payload.data === 'object') {
+        const d = payload.data;
+        if (d.current_semester_classes || d.all_classes || d.courses) payload = d;
+        else if (d.data && typeof d.data === 'object') {
+          const dd = d.data;
+          if (dd.current_semester_classes || dd.all_classes || dd.courses) payload = dd;
+        }
+      }
+
+      // 优先 current_semester_classes
+      const curr = payload.current_semester_classes;
+      if (Array.isArray(curr) && curr.length) return curr;
+      if (curr && !Array.isArray(curr)) return [curr];
+
+      // 回退 all_classes，先筛选 is_current_semester
+      const all = payload.all_classes;
+      if (Array.isArray(all)) {
+        const current = all.filter(x => x && x.is_current_semester === true);
+        return current.length ? current : all;
+      }
+
+      // 兼容其他形态
+      if (Array.isArray(payload.courses)) return payload.courses;
+      if (payload.data) {
+        if (Array.isArray(payload.data)) return payload.data;
+        if (Array.isArray(payload.data?.courses)) return payload.data.courses;
+      }
+      return [];
+    }
+
+    function getCourseFullName(course) {
+      if (course == null) return '';
+      if (typeof course === 'string' || typeof course === 'number') return String(course);
+      if (typeof course !== 'object') return '';
+      const full = course.class_name || course.className || course.full_name || course.fullName;
+      return full ? String(full) : '';
+    }
+
+    function getCourseDisplayName(course) {
+      const full = getCourseFullName(course);
+      if (full) return full;
+      if (course && typeof course === 'object') {
+        const fallback = course.course_name || course.name || course.courseName || course.course_id || course.id;
+        if (fallback != null && String(fallback).trim()) return String(fallback);
+      }
+      return '课程';
+    }
+
+    function getCourseKey(course) {
+      const full = getCourseFullName(course);
+      if (full) return full;
+      // 最后兜底：使用展示名作为 key，避免写入空字符串
+      return getCourseDisplayName(course);
+    }
+
+    // 规范化班级名：去掉所有非字母数字汉字字符并小写，
+    // 用于识别 "CMP245-1-Python..." 与 "CMP245-1Python..." 这类格式差异导致的重复
+    function normalizeClassName(name) {
+      if (!name) return '';
+      return String(name).replace(/[^\w\u4e00-\u9fa5]/g, '').toLowerCase();
+    }
+
+    // 对课程列表按规范化班级名去重，保留第一条，并在控制台提示被合并的项
+    function dedupeCourses(list) {
+      const seen = new Map();
+      const out = [];
+      for (const c of list) {
+        if (!c || typeof c !== 'object') continue;
+        const full = getCourseFullName(c) || getCourseDisplayName(c);
+        const key = normalizeClassName(full);
+        if (!key) {
+          // 没有可识别的 key，原样保留
+          out.push(c);
+          continue;
+        }
+        if (seen.has(key)) {
+          const kept = seen.get(key);
+          console.warn(
+            '[courses] 跳过重复班级，已合并为同一条：',
+            '丢弃 =', JSON.stringify(full),
+            '保留 =', JSON.stringify(getCourseFullName(kept) || getCourseDisplayName(kept))
+          );
+          continue;
+        }
+        seen.set(key, c);
+        out.push(c);
+      }
+      return out;
+    }
+
+    (async () => {
+      const grid = document.getElementById('grid');
+
+      let data = null;
+      try {
+        const content = await window.api.cacheRead(sid, 'courses.json');
+        if (content) data = JSON.parse(content);
+      } catch (e) {
+        console.warn('读取课程缓存失败:', e);
+      }
+      // 回退：刚登录时存入的会话
+      if (!data) {
+        const raw = sessionStorage.getItem('validate_payload');
+        if (raw) {
+          try { data = JSON.parse(raw); } catch (e) { }
+        }
+      }
+
+      if (!data) {
+        grid.innerHTML = '<div class="note">找不到课程缓存，请返回重新登录</div>';
+        return;
+      }
+
+      const courses = dedupeCourses(extractCourses(data));
+      if (!courses.length) {
+        try {
+          const keys = data && typeof data === 'object' ? Object.keys(data) : [];
+          console.warn('[courses] empty after extractCourses', {
+            type: typeof data,
+            keys,
+            hasDataWrapper: !!(data && data.data && typeof data.data === 'object'),
+            innerKeys:
+              data && data.data && typeof data.data === 'object'
+                ? Object.keys(data.data)
+                : []
+          });
+        } catch (e) {
+          // ignore
+        }
+        grid.innerHTML = '<div class="note">未查询到当前学期课程</div>';
+        return;
+      }
+
+      grid.innerHTML = '';
+      courses.forEach((c, index) => {
+        const name = getCourseDisplayName(c);
+        const classKey = getCourseKey(c);
+        const teacher = c.teacher || c.teacher_name || '未知';
+        const absent = (c.absent_count ?? c.absent ?? 0);
+        const emoji = c.emoji || pullIcon();
+        const colors = palette[index % palette.length];
+
+        const el = document.createElement('div');
+        el.className = 'tile';
+        el.style.background = colors.bg;
+        el.style.borderColor = colors.border;
+        el.setAttribute('role', 'button');
+        el.setAttribute('tabindex', '0');
+        el.setAttribute('aria-label', `${name}课程，缺勤次数：${absent}，点击进入课程页面`);
+
+        el.innerHTML = `
+        <div class="icon-bubble" style="background:${colors.tint}" role="img" aria-label="${emoji}图标">${emoji}</div>
+        <div class="title">${name}</div>
+        <div class="meta">缺勤次数：${absent}</div>
+        <div class="sr-only">教师：${teacher}</div>
+      `;
+
+        el.onclick = () => {
+          sessionStorage.setItem('class_name', classKey);
+          localStorage.setItem('className', classKey);
+          window.location.href = './course.html';
+        };
+
+        el.onkeydown = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            el.click();
+          }
+        };
+
+        grid.appendChild(el);
+      });
+
+      // ===== 新增「问题或建议」卡片 =====
+      (function addSuggestionTile() {
+        const tile = document.createElement('div');
+        tile.className = 'tile';
+        const colors = palette[0]; // 使用第一套配色
+        tile.style.background = colors.bg;
+        tile.style.borderColor = colors.border;
+        tile.setAttribute('role', 'button');
+        tile.setAttribute('tabindex', '0');
+        tile.setAttribute('aria-label', '问题或建议，点击提交反馈');
+
+        tile.innerHTML = `
+        <div class="icon-bubble" style="background:${colors.tint}">💬</div>
+        <div class="title">问题或建议</div>
+        <div class="meta">告诉我们你的想法</div>
+      `;
+
+        tile.onclick = () => {
+          window.location.href = './suggestion.html';
+        };
+        tile.onkeydown = (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            tile.click();
+          }
+        };
+        grid.appendChild(tile);
+      })();
+
+      // 隐藏加载指示器
+      const loadingIndicator = document.querySelector('.loading-indicator');
+      if (loadingIndicator) {
+        loadingIndicator.style.display = 'none';
+      }
+
+    })();
+
+    // 新增：底部图片点击显示/隐藏文本框逻辑
+    window.addEventListener('DOMContentLoaded', () => {
+      const imgs = document.querySelectorAll('img.footer-tip');
+      const notes = document.querySelectorAll('.footer-note');
+      const hideAll = () => notes.forEach(n => n.style.display = 'none');
+
+      // 点击空白处隐藏全部
+      document.addEventListener('click', hideAll);
+
+      imgs.forEach(img => {
+        const noteId = img.getAttribute('data-note');
+        const note = document.getElementById(noteId);
+        if (!note) return;
+
+        img.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const visible = note.style.display === 'block';
+          hideAll();
+          note.style.display = visible ? 'none' : 'block';
+        });
+
+        // 防止点击文本框自身关闭
+        note.addEventListener('click', (e) => e.stopPropagation());
+      });
+    });
+  </script>
+
+  <!-- 访问计数器 -->
+  <div id="visitCounterDisplay" style="text-align: center; margin-bottom: 8px; font-size: 13px; color: #6b7280;"></div>
+  <script>
+    (async function loadVisitCounter() {
+      try {
+        let fingerprint = sessionStorage.getItem('visit_fingerprint');
+        if (!fingerprint) {
+          fingerprint = crypto.randomUUID
+            ? crypto.randomUUID()
+            : Math.random().toString(36).slice(2);
+          sessionStorage.setItem('visit_fingerprint', fingerprint);
+        }
+
+        const PRIMARY_URL = 'https://lab.uibe.edu.cn';
+        const BACKUP_URL = 'https://www.uibe.online';
+        let data;
+        try {
+          const res = await fetch(PRIMARY_URL + '/api/stats/visits/increment', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ fingerprint }),
+          });
+          data = await res.json();
+        } catch {
+          try {
+            const res = await fetch(BACKUP_URL + '/api/stats/visits/increment', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ fingerprint }),
+            });
+            data = await res.json();
+          } catch {
+            const res = await fetch(PRIMARY_URL + '/api/stats/visits');
+            data = await res.json();
+          }
+        }
+
+        const el = document.getElementById('visitCounterDisplay');
+        if (el && data && data.total_visits) {
+          el.textContent = '累计服务 ' + Number(data.total_visits).toLocaleString('en-US') + ' 次';
+        }
+      } catch (e) {
+        // 静默失败
+      }
+    })();
+  </script>
+
+  <!-- 致谢相关开发人员 -->
+  <div style="position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 900; text-align: center;">
+    <div style="
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      ">
+
+      <!-- 图片变大一点 -->
+      <img id="footer-img-1" class="footer-tip" src="../../image/wxf.jpg" alt="footer image" data-note="footer-note-1"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-2" class="footer-tip" src="../../image/wy.jpg" alt="footer image" data-note="footer-note-2"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-9" class="footer-tip" src="../../image/ly.jpg" alt="footer image" data-note="footer-note-9"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-3" class="footer-tip" src="../../image/hht.jpg" alt="footer image" data-note="footer-note-3"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-5" class="footer-tip" src="../../image/gjw.jpg" alt="footer image" data-note="footer-note-5"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-6" class="footer-tip" src="../../image/zdy.jpg" alt="footer image" data-note="footer-note-6"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-10" class="footer-tip" src="../../image/gyjh.jpg" alt="footer image" data-note="footer-note-10"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-7" class="footer-tip" src="../../image/lff.jpg" alt="footer image" data-note="footer-note-7"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-8" class="footer-tip" src="../../image/cx.jpg" alt="footer image" data-note="footer-note-8"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-4" class="footer-tip" src="../../image/lnn.jpg" alt="footer image" data-note="footer-note-4"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+    </div>
+  </div>
+
+  <!-- 文本固定在图片上方：通过 top 相对 bottom 调整到图片上方 -->
+  <div id="footer-note-1" class="footer-note" style="left: 50%; bottom: 110px;">智数学院王兴富本科生</div>
+  <div id="footer-note-2" class="footer-note" style="left: 50%; bottom: 110px;">智数学院王也研究生</div>
+  <div id="footer-note-3" class="footer-note" style="left: 50%; bottom: 110px;">智数学院何海通本科生</div>
+  <div id="footer-note-4" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘宁宁老师</div>
+  <div id="footer-note-5" class="footer-note" style="left: 50%; bottom: 110px;">智数学院巩金玮研究生</div>
+
+  <div id="footer-note-6" class="footer-note" style="left: 50%; bottom: 110px;">智数学院郑渡元研究生</div>
+  <div id="footer-note-10" class="footer-note" style="left: 50%; bottom: 110px;">智数学院高玥久惠本科生</div>
+  <div id="footer-note-7" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘芳菲本科生</div>
+  <div id="footer-note-8" class="footer-note" style="left: 50%; bottom: 110px;">智数学院曹煦本科生</div>
+  <div id="footer-note-9" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘雁本科生</div>
+
+</body>
+
+</html>

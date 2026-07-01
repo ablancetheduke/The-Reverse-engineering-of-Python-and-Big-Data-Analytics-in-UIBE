@@ -1,0 +1,13 @@
+# Electron 完整解包 (含 Chromium 运行时，体积巨大)
+huangyuan_extracted/
+hyjx_1_1_0_extract/
+
+# 安装包
+*.exe
+
+# 依赖
+node_modules/
+
+# 系统文件
+desktop.ini
+__MACOSX/

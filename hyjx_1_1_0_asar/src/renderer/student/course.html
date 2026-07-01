@@ -1,0 +1,415 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <title>课程</title>
+  <!-- 新增 favicon -->
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="../shared/logger.js"></script>
+  <style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 18px;
+      align-content: start;
+      justify-items: center;
+      max-width: 1120px;
+      margin: 0 auto;
+    }
+
+    .grid .tile {
+      aspect-ratio: 1 / 1;
+      width: min(100%, 230px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      padding: 20px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #fefefe, #f1f2f6);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      text-align: center;
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .grid .tile::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .grid .tile:hover {
+      transform: translateY(-6px) scale(1.02);
+      box-shadow: 0 22px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    .grid .tile:hover::before {
+      opacity: 1;
+    }
+
+    .grid .tile:focus {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 8px 24px rgba(15, 23, 42, 0.18);
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 1200px) {
+      .grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .grid .tile[style*='display:none'] {
+      display: none !important;
+    }
+
+    .grid .tile .title {
+      font-weight: 700;
+      font-size: 18px;
+      color: #0f172a;
+      line-height: 1.3;
+      white-space: normal;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .grid .tile .meta {
+      color: #4b5563;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      line-height: 1.65;
+    }
+
+    .grid .tile .top {
+      width: 106px;
+      height: 106px;
+      border-radius: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 58px;
+      background: rgba(255, 255, 255, 0.35);
+      color: #0f172a;
+      position: relative;
+      z-index: 1;
+    }
+
+    .grid .tile .title,
+    .grid .tile .meta {
+      position: relative;
+      z-index: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 跳过导航链接 -->
+  <a href="#main-content" class="skip-link">跳过导航直接进入主要内容</a>
+  <div class="page" id="main-content" role="main">
+    <div class="header with-back">
+      <a href="./home.html" class="back-chip">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2 id="cname">课程详情</h2>
+    </div>
+    <div class="grid">
+      <a class="tile" href="./homework.html" id="hwEntry" aria-label="进入平时作业，查看与提交">
+        <div class="top">🧩</div>
+        <div class="title">平时作业</div>
+        <div class="meta">查看与提交</div>
+      </a>
+      <a class="tile" href="./reports.html" id="reportEntry" aria-label="查看课堂录音与AI分析报告">
+        <div class="top">🎙️</div>
+        <div class="title">课堂报告</div>
+        <div class="meta">录音转写与AI概要</div>
+      </a>
+      <a class="tile" href="#" id="mockMidtermEntry" aria-label="生成期中模拟考试题包" style="display:none">
+        <div class="top">🎯</div>
+        <div class="title">期中模拟考试</div>
+        <div class="meta">随机抽题并下载</div>
+      </a>
+      <a class="tile" href="#" id="scoreQueryEntry" aria-label="查看期中考试成绩" style="display:none">
+        <div class="top">📊</div>
+        <div class="title">成绩查询</div>
+        <div class="meta">查看提交内容与判分</div>
+      </a>
+      <a class="tile" href="#" id="finalEntry" aria-label="进入期末大作业提交页面" style="display:none">
+        <div class="top">📝</div>
+        <div class="title">期末大作业</div>
+        <div class="meta">提交大作业文件</div>
+      </a>
+    </div>
+  </div>
+  <script>
+    const log = window.Logger ? window.Logger.create('course') : {
+      info: (...args) => console.log('[course]', ...args),
+      warn: (...args) => console.warn('[course]', ...args),
+      error: (...args) => console.error('[course]', ...args),
+      debug: (...args) => console.debug('[course]', ...args)
+    };
+
+    const sid = sessionStorage.getItem('student_id') || localStorage.getItem('studentId') || '';
+    if (sid) sessionStorage.setItem('student_id', sid);
+    const className = sessionStorage.getItem('class_name') || localStorage.getItem('className') || '';
+    if (className) {
+      sessionStorage.setItem('class_name', className);
+      localStorage.setItem('className', className);
+    }
+    if (!sid) location.replace('../login/index.html');
+    document.getElementById('cname').textContent = className || '课程详情';
+    log.info('Course page loaded', { className, hasStudent: !!sid });
+
+    // 防止 bfcache 导致 JavaScript 内存状态过期
+    // 如果页面从 bfcache 恢复（浏览器前进/后退），强制重新加载以确保 className 最新
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) {
+        log.info('Page restored from bfcache, reloading');
+        window.location.reload();
+      }
+    });
+
+    const actionIconPool = ['🦊', '🐻', '🦋', '🐧', '🦄', '🌵', '🌸', '🍃', '🦜', '🌙', '🍀', '🦔', '🌈', '🐠', '🦚', '🍊', '🍇'];
+    const actionIconBag = [...actionIconPool];
+    function drawActionIcon() {
+      if (!actionIconBag.length) actionIconBag.push(...actionIconPool);
+      const idx = Math.floor(Math.random() * actionIconBag.length);
+      return actionIconBag.splice(idx, 1)[0];
+    }
+
+    document.querySelectorAll('.grid .tile .top').forEach((el) => {
+      el.textContent = drawActionIcon();
+    });
+
+    // 已有：进入平时作业前请求作业包
+    const hwEntry = document.getElementById('hwEntry');
+    hwEntry.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const sid = sessionStorage.getItem('student_id');
+      if (!sid || !className) { window.location.href = './homework.html?class_name=' + encodeURIComponent(className || ''); return; }
+      log.info('Preparing homework entry', { sid, className });
+      hwEntry.style.pointerEvents = 'none';
+      hwEntry.style.opacity = '0.7';
+      try {
+        // 每次进入平时作业前，都重新下载作业包并覆盖本地副本
+        // 这确保教师新上传的作业文件能被学生看到，避免因本地已有旧文件而跳过更新
+        const extractedDir = await window.api.getExtractedDir(sid, className);
+        log.info('准备重新下载作业包覆盖本地副本', { extractedDir });
+
+        // 备份已修改的文件（学生已修改的内容不被覆盖）
+        try { await window.api.backupModifiedFiles(extractedDir); } catch (e) { log.warn('备份失败', e); }
+
+        // 下载作业包
+        const dl = await window.api.downloadHomeworkZip(sid, className);
+        if (dl && dl.ok) {
+          // 解压覆盖到副本目录
+          const ex = await window.api.unzipFile(dl.file, extractedDir);
+          if (!ex || !ex.ok) {
+            log.warn('解压覆盖副本失败', { error: ex && ex.error });
+          }
+          // 恢复已修改的文件
+          try { await window.api.restoreModifiedFiles(extractedDir); } catch (e) { log.warn('恢复失败', e); }
+          log.info('作业包下载并解压完成', { method: ex && ex.method });
+        } else {
+          log.warn('下载作业包失败', { error: dl && dl.error });
+        }
+      } catch (err) {
+        log.error('处理副本目录时出现异常', err);
+      } finally {
+        // 将 className 作为 URL 参数传递，确保 homework.html 获取到权威的课程名
+        // 避免依赖 sessionStorage/localStorage 可能出现的同步问题
+        window.location.href = './homework.html?class_name=' + encodeURIComponent(className);
+      }
+    });
+
+    const mockMidtermEntry = document.getElementById('mockMidtermEntry');
+
+    if (/python/i.test(className || '')) {
+      mockMidtermEntry.style.display = '';
+    }
+
+    mockMidtermEntry.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const sidVal = sessionStorage.getItem('student_id') || '';
+      const clsVal = sessionStorage.getItem('class_name') || className || '';
+      if (!sidVal || !clsVal) return;
+
+      mockMidtermEntry.style.opacity = '0.7';
+      mockMidtermEntry.style.pointerEvents = 'none';
+      try {
+        const res = await window.api.downloadMockMidtermZip(sidVal, clsVal);
+        if (res && res.ok) {
+          await window.api.showItem(res.file);
+          const detail = res.filename ? `\n\n文件：${res.filename}` : '';
+          const source = res.fallback === 'local' ? '\n\n说明：当前后端接口不可用，已自动使用本地题库生成。' : '';
+          alert(`期中模拟考试题包已保存。${detail}${source}`);
+        } else if (res && res.error && res.error !== '用户取消保存') {
+          alert(`下载失败：${res.error}`);
+        }
+      } catch (err) {
+        log.error('下载期中模拟考试题包失败', err);
+        alert(`下载失败：${err.message || '未知错误'}`);
+      } finally {
+        mockMidtermEntry.style.opacity = '';
+        mockMidtermEntry.style.pointerEvents = '';
+      }
+    });
+
+    // 成绩查询入口
+    const scoreQueryEntry = document.getElementById('scoreQueryEntry');
+    if (/python/i.test(className || '')) {
+      scoreQueryEntry.style.display = '';
+    }
+
+    scoreQueryEntry.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const sidVal = sessionStorage.getItem('student_id') || '';
+      const clsVal = sessionStorage.getItem('class_name') || className || '';
+      if (!sidVal || !clsVal) return;
+      window.location.href = `./midterm-score.html?student_id=${encodeURIComponent(sidVal)}&class_name=${encodeURIComponent(clsVal)}`;
+    });
+
+    // 期末大作业入口
+    const finalEntry = document.getElementById('finalEntry');
+    if (/python/i.test(className || '')) {
+      finalEntry.style.display = '';
+    }
+
+    finalEntry.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const sidVal = sessionStorage.getItem('student_id') || '';
+      const clsVal = sessionStorage.getItem('class_name') || className || '';
+      if (!sidVal || !clsVal) return;
+
+      finalEntry.style.pointerEvents = 'none';
+      finalEntry.style.opacity = '0.7';
+      try {
+        // 获取期末大作业时间信息并写入 sessionStorage，供 final-submit.html 使用
+        const res = await window.api.finalExamMarkdown({ className: clsVal, studentId: sidVal });
+        if (res && res.ok) {
+          const fmtTs = (iso) => {
+            if (!iso) return '';
+            try {
+              const d = new Date(iso);
+              if (isNaN(d.getTime())) return '';
+              const pad = (n) => String(n).padStart(2, '0');
+              return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`;
+            } catch { return ''; }
+          };
+          const startIso = res.final_assignment_start || res.start_time || '';
+          const endIso = res.final_assignment_end || res.end_time || '';
+          sessionStorage.setItem('final_start_raw', startIso);
+          sessionStorage.setItem('final_ddl_raw', endIso);
+          sessionStorage.setItem('final_start_fmt', fmtTs(startIso));
+          sessionStorage.setItem('final_ddl_fmt', fmtTs(endIso));
+        }
+      } catch (err) {
+        log.warn('获取期末大作业时间失败', err);
+      } finally {
+        window.location.href = `./final-submit.html?class_name=${encodeURIComponent(clsVal)}`;
+      }
+    });
+
+    // 新增：根据登录返回的 has_homeworks / has_finaltests 控制卡片显示
+    (async () => {
+      try {
+        const sid = sessionStorage.getItem('student_id');
+        if (!sid) {
+          log.warn('Missing student id when parsing cached courses');
+          return;
+        }
+        const content = await window.api.cacheRead(sid, 'courses.json');
+        if (!content) {
+          log.warn('No cached course payload found');
+          return;
+        }
+        const payload = JSON.parse(content);
+
+        // 统一抽取课程
+        function extractCourses(p) {
+          if (!p) return [];
+          // 兼容接口外壳：{ success: true, data: { ... } }
+          if (p && p.data && typeof p.data === 'object') {
+            const d = p.data;
+            if (d.current_semester_classes || d.all_classes || d.courses) p = d;
+            else if (d.data && typeof d.data === 'object') {
+              const dd = d.data;
+              if (dd.current_semester_classes || dd.all_classes || dd.courses) p = dd;
+            }
+          }
+          const curr = p.current_semester_classes;
+          if (Array.isArray(curr) && curr.length) return curr;
+          if (curr && !Array.isArray(curr)) return [curr];
+          const all = p.all_classes;
+          if (Array.isArray(all)) {
+            const current = all.filter(x => x && x.is_current_semester === true);
+            return current.length ? current : all;
+          }
+          if (Array.isArray(p.courses)) return p.courses;
+          if (p.data) {
+            if (Array.isArray(p.data)) return p.data;
+            if (Array.isArray(p.data?.courses)) return p.data.courses;
+          }
+          return [];
+        }
+
+        const courses = extractCourses(payload);
+        // 按 class_name 优先匹配，其次按 course_name 兜底
+        const course = courses.find(c => (c.class_name || '') === className)
+          || courses.find(c => (c.course_name || '') === className);
+
+        if (!course) {
+          log.warn('No matching course found in cache', { className });
+          return;
+        }
+
+        const hasHomeworks = course.has_homeworks !== false; // 默认显示，只有为 false 才隐藏
+        const hasFinaltests = course.has_finaltests !== false;
+
+        if (!hasHomeworks) {
+          const el = document.getElementById('hwEntry');
+          if (el) el.style.display = 'none';
+          const mockEl = document.getElementById('mockMidtermEntry');
+          if (mockEl) mockEl.style.display = 'none';
+        }
+        if (!hasFinaltests) {
+          const el = document.getElementById('finalEntry');
+          if (el) el.style.display = 'none';
+        }
+      } catch (err) {
+        log.warn('解析课程标记失败', err);
+      }
+    })();
+  </script>
+</body>
+
+</html>

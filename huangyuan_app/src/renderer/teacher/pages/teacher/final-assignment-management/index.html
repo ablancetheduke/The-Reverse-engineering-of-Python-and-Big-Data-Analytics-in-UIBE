@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>期末考试管理 - 智能教育评阅系统</title>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+  <link rel="stylesheet" href="./final-assignment-management.css">
+</head>
+<body>
+  <div id="app-container">
+    <div class="header with-back">
+      <a href="../class-detail/index.html" class="back-chip">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2 id="pageTitle">期末考试管理</h2>
+    </div>
+
+    <main id="page-container" class="fam-main">
+      <!-- 班级信息 -->
+      <section class="class-info-section">
+        <div class="info-card">
+          <div class="info-header">
+            <span class="class-emoji">📚</span>
+            <div class="class-details">
+              <h3 class="class-name" id="className">--</h3>
+              <p class="class-meta">
+                共享子目录: <code id="sharedSubdir">--</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 状态汇总 -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">👥</div>
+            <div class="stat-content">
+              <div class="stat-value" id="studentCount">0</div>
+              <div class="stat-label">班级人数</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <div class="stat-value" id="submittedCount">0</div>
+              <div class="stat-label">已提交</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">📊</div>
+            <div class="stat-content">
+              <div class="stat-value" id="submissionRate">0%</div>
+              <div class="stat-label">提交率</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏰</div>
+            <div class="stat-content">
+              <div class="stat-value" id="windowState">未设置</div>
+              <div class="stat-label">时间窗</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 时间窗设置 -->
+      <section class="section-card">
+        <h3>⏰ 时间窗设置</h3>
+        <p class="section-hint">
+          设置后,该班级所有 <code>2025-2026-2-CMP245-*</code> 学生都按此时间窗下载 test.csv / 上传结果。
+        </p>
+        <div class="time-form">
+          <div>
+            <label for="startTime">开始时间</label>
+            <input type="datetime-local" id="startTime" />
+          </div>
+          <div>
+            <label for="endTime">结束时间</label>
+            <input type="datetime-local" id="endTime" />
+          </div>
+          <div class="time-form-actions">
+            <button id="saveTimeBtn" class="primary-btn">保存</button>
+            <button id="clearTimeBtn" class="ghost-btn">清空</button>
+            <span id="timeState" class="time-state"></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 文件上传区 -->
+      <section class="section-card">
+        <h3>📁 教学材料(覆盖式上传)</h3>
+        <p class="section-hint">
+          任何时间可上传。重新出题后,旧学生提交会被清空。
+        </p>
+        <div class="files-grid">
+          <div class="file-card" data-role="zip">
+            <div class="file-icon">🗂️</div>
+            <div class="file-title">期末大作业.zip</div>
+            <div class="file-meta" id="meta-zip">未上传</div>
+            <div class="file-actions">
+              <button class="upload-btn" data-role="zip">上传</button>
+              <button class="delete-btn" data-role="zip" disabled>删除</button>
+            </div>
+          </div>
+          <div class="file-card" data-role="html">
+            <div class="file-icon">📝</div>
+            <div class="file-title">大作业描述.html</div>
+            <div class="file-meta" id="meta-html">未上传</div>
+            <div class="file-actions">
+              <button class="upload-btn" data-role="html">上传</button>
+              <button class="delete-btn" data-role="html" disabled>删除</button>
+            </div>
+          </div>
+          <div class="file-card" data-role="test_csv">
+            <div class="file-icon">📥</div>
+            <div class="file-title">test.csv</div>
+            <div class="file-meta" id="meta-test_csv">未上传</div>
+            <div class="file-actions">
+              <button class="upload-btn" data-role="test_csv">上传</button>
+              <button class="delete-btn" data-role="test_csv" disabled>删除</button>
+            </div>
+          </div>
+          <div class="file-card" data-role="true_y">
+            <div class="file-icon">🔑</div>
+            <div class="file-title">Test_True_Y.csv</div>
+            <div class="file-meta" id="meta-true_y">未上传</div>
+            <div class="file-hint">仅教师端可见,用于判分</div>
+            <div class="file-actions">
+              <button class="upload-btn" data-role="true_y">上传</button>
+              <button class="delete-btn" data-role="true_y" disabled>删除</button>
+            </div>
+          </div>
+        </div>
+        <input type="file" id="hiddenFileInput" hidden />
+      </section>
+
+      <!-- 应用到所有班级 -->
+      <section class="section-card sync-section">
+        <h3>🔄 同步到同课程所有班级</h3>
+        <p class="section-hint">
+          将当前班级的<strong>所有设置</strong>（大作业文件、时间窗）应用到同课程的所有班级（如 <code>CMP245-*</code>）。
+          文件已存储在共享目录无需重复上传，将自动同步时间窗并清空其他班级学生的旧提交。
+        </p>
+        <button id="applyToAllBtn" class="primary-btn sync-btn">📤 应用到所有相同班级</button>
+        <span id="applyToAllState" class="time-state"></span>
+      </section>
+
+      <!-- 学生提交情况 -->
+      <section class="section-card">
+        <div class="section-header">
+          <h3>📋 学生提交情况</h3>
+          <div class="filter-controls">
+            <select id="statusFilter">
+              <option value="all">全部学生</option>
+              <option value="submitted">已提交</option>
+              <option value="pending">未提交</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="搜索学号..." />
+            <button id="downloadAllBtn" class="primary-btn">批量下载提交</button>
+          </div>
+        </div>
+        <div class="submissions-table-container">
+          <table class="submissions-table">
+            <thead>
+              <tr>
+                <th>学号</th>
+                <th>提交次数</th>
+                <th>最后提交时间</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              <tr><td colspan="5" class="loading-cell">加载中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p id="loadingText">正在加载数据...</p>
+      </div>
+    </div>
+
+    <!-- HTML 预览 modal -->
+    <div id="htmlPreviewModal" class="modal" style="display:none">
+      <div class="modal-content" style="max-width:800px; max-height:80vh; overflow:auto;">
+        <button class="close-btn" data-close="htmlPreviewModal">✕</button>
+        <h2>大作业描述预览</h2>
+        <div id="htmlPreviewBody" class="html-preview-body"></div>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./final-assignment-management.js"></script>
+</body>
+</html>

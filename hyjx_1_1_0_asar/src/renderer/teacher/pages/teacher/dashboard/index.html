@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>教师控制台</title>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="./dashboard.css">
+</head>
+
+<body>
+  <div class="page">
+    <div class="header centered">
+      <h2>我的课程及APP</h2>
+    </div>
+    <div class="grid" id="classesGrid"></div>
+
+    <!-- 访问计数器 -->
+    <div id="visitCounterDisplay" style="text-align: center; margin-top: 24px; font-size: 13px; color: #6b7280;"></div>
+  </div>
+
+  <!-- 底部开发人员信息 -->
+  <div style="position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 900; text-align: center;">
+    <div style="
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      padding: 10px 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      ">
+
+      <!-- 图片路径需要调整，指向我们刚才复制的 images 目录 -->
+      <img id="footer-img-1" class="footer-tip" src="../../../../../image/wxf.jpg" alt="footer image"
+        data-note="footer-note-1"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+      <img id="footer-img-2" class="footer-tip" src="../../../../../image/wy.jpg" alt="footer image"
+        data-note="footer-note-2"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+      
+        <img id="footer-img-9" class="footer-tip" src="../../../../../image/ly.jpg" alt="footer image"
+        data-note="footer-note-9"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+        
+      <img id="footer-img-3" class="footer-tip" src="../../../../../image/hht.jpg" alt="footer image"
+        data-note="footer-note-3"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+      
+        <img id="footer-img-5" class="footer-tip" src="../../../../../image/gjw.jpg" alt="footer image"
+        data-note="footer-note-5"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+      
+        <img id="footer-img-6" class="footer-tip" src="../../../../../image/zdy.jpg" alt="footer image"
+        data-note="footer-note-6"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+        <img id="footer-img-10" class="footer-tip" src="../../../../../image/gyjh.jpg" alt="footer image"
+        data-note="footer-note-10"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+
+        <img id="footer-img-7" class="footer-tip" src="../../../../../image/lff.jpg" alt="footer image"
+        data-note="footer-note-7"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+        
+        <img id="footer-img-8" class="footer-tip" src="../../../../../image/cx.jpg" alt="footer image"
+        data-note="footer-note-8"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+                               
+      <img id="footer-img-4" class="footer-tip" src="../../../../../image/lnn.jpg" alt="footer image"
+        data-note="footer-note-4"
+        style="width: 54px; height: 54px; border-radius: 18px; object-fit: cover; box-shadow: 0 6px 14px rgba(15, 23, 42, 0.22); cursor: pointer;" />
+    </div>
+  </div>
+
+  <!-- 文本固定在图片上方 -->
+  <div id="footer-note-1" class="footer-note" style="left: 50%; bottom: 110px;">智数学院王兴富本科生</div>
+  <div id="footer-note-2" class="footer-note" style="left: 50%; bottom: 110px;">智数学院王也研究生</div>
+  <div id="footer-note-3" class="footer-note" style="left: 50%; bottom: 110px;">智数学院何海通本科生</div>
+  <div id="footer-note-4" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘宁宁老师</div>
+  <div id="footer-note-5" class="footer-note" style="left: 50%; bottom: 110px;">智数学院巩金玮研究生</div>
+  
+  <div id="footer-note-6" class="footer-note" style="left: 50%; bottom: 110px;">智数学院郑渡元研究生</div>
+  <div id="footer-note-10" class="footer-note" style="left: 50%; bottom: 110px;">智数学院高玥久惠本科生</div>
+  <div id="footer-note-7" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘芳菲本科生</div>
+  <div id="footer-note-8" class="footer-note" style="left: 50%; bottom: 110px;">智数学院曹煦本科生</div>
+  <div id="footer-note-9" class="footer-note" style="left: 50%; bottom: 110px;">智数学院刘雁本科生</div>
+
+  <div id="loadingOverlay" class="loading-overlay">
+    <div class="loading-content">
+      <div class="loading-spinner"></div>
+      <p>正在加载数据...</p>
+    </div>
+  </div>
+
+  <script type="module" src="./dashboard.js"></script>
+</body>
+
+</html>

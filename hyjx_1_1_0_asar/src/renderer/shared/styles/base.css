@@ -1,0 +1,320 @@
+:root {
+  /* Apple-style Colors */
+  --blue: #007aff;
+  --blue-light: #5ac8fa;
+  --bg: #f5f5f7;
+  --card: #ffffff;
+  --text: #1d1d1f;
+  --text-secondary: #86868b;
+  --muted: #6e6e73;
+  --border: rgba(0, 0, 0, 0.1);
+  --separator: rgba(0, 0, 0, 0.08);
+
+  /* Border Radius - Apple uses larger, more generous radii */
+  --radius-sm: 12px;
+  --radius: 16px;
+  --radius-md: 20px;
+  --radius-lg: 24px;
+  --radius-xl: 28px;
+  --radius-2xl: 32px;
+
+  /* Shadows - Multi-level elevation system */
+  --shadow-xs: 0 1px 2px rgba(0, 0, 0, 0.04);
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+  --shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.12);
+  --shadow-xl: 0 20px 48px rgba(0, 0, 0, 0.15);
+
+  /* Spacing - Apple's generous spacing system */
+  --gap-xs: 8px;
+  --gap-sm: 12px;
+  --gap: 16px;
+  --gap-md: 20px;
+  --gap-lg: 24px;
+  --gap-xl: 32px;
+  --gap-2xl: 40px;
+
+  /* Transitions */
+  --transition-fast: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
+
+h1, h2, h3, h4, p {
+  margin: 0;
+}
+
+a {
+  color: var(--blue);
+  text-decoration: none;
+}
+
+/* Layout Utilities */
+.container-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 24px;
+  -webkit-app-region: drag;
+}
+
+.container-center .card {
+  -webkit-app-region: no-drag;
+}
+
+.card {
+  background: var(--card);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  padding: var(--gap-2xl) 48px;
+  min-width: 420px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--gap-sm);
+  border: 1px solid var(--separator);
+  transition: var(--transition);
+}
+
+.emoji {
+  font-size: 4rem;
+  line-height: 1;
+  margin-bottom: 16px;
+}
+
+.brand-title {
+  margin-top: -32px;
+  margin-bottom: 6px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  line-height: 1.2;
+  background: linear-gradient(90deg, #3b82f6, #10b981);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .brand-title {
+    font-size: 32px;
+    margin-top: 10px;
+  }
+}
+
+.input {
+  width: 320px;
+  height: 48px;
+  padding: 0 var(--gap);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  font-size: 17px;
+  outline: none;
+  transition: var(--transition);
+  background: var(--card);
+  color: var(--text);
+  font-family: inherit;
+}
+
+.input:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 4px rgba(0, 122, 255, 0.12);
+}
+
+.input:hover:not(:focus) {
+  border-color: rgba(0, 0, 0, 0.15);
+}
+
+.button {
+  height: 48px;
+  padding: 0 var(--gap-lg);
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--blue);
+  color: #fff;
+  cursor: pointer;
+  font-size: 17px;
+  font-weight: 600;
+  margin-top: var(--gap);
+  width: 100%;
+  max-width: 320px;
+  transition: var(--transition);
+  font-family: inherit;
+  letter-spacing: -0.01em;
+}
+
+.button:hover:not(:disabled) {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.button:disabled {
+  opacity: .6;
+  cursor: not-allowed;
+}
+
+.note, .message-box {
+  margin-top: 10px;
+  color: #d43f3a;
+  font-size: 13px;
+  min-height: 18px;
+  display: none; /* Default hidden for message-box logic */
+}
+
+.message-box.show {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.message-box.success {
+  color: #19be6b;
+}
+
+.message-box.error {
+  color: #f5222d;
+}
+
+/* ============ Header ============ */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 52px;
+  margin-bottom: 20px;
+  -webkit-app-region: drag;
+}
+/* macOS 交通灯按钮避让(hiddenInset 模式:交通灯高度 ~28px) */
+@supports (-webkit-touch-callout: none) {
+  .header,
+  .header.with-back {
+    padding-left: 80px;     /* 让出红绿灯水平 */
+    padding-top: 30px;      /* 头部内容完全在红绿灯下方(28→30) */
+    min-height: 80px;       /* 整体高度增加,确保内容在红绿灯下方 */
+  }
+}
+.header.centered { justify-content: center; text-align: center; }
+
+.back-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--gap-xs);
+  margin-top: 5px;
+  padding: 10px var(--gap-md);
+  border-radius: 999px;
+  border: 1px solid var(--separator);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  color: var(--text);
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+  -webkit-app-region: no-drag;
+}
+
+.back-chip:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  background: rgba(255, 255, 255, 1);
+}
+
+.back-chip:active {
+  transform: translateY(0);
+}
+
+.header.with-back {
+  position: relative;
+  justify-content: center;
+  gap: 16px;
+  padding-top: 6px;
+}
+
+.header.with-back .back-chip {
+  position: absolute;
+  left: 80px;
+  top: 50%;
+  transform: translateY(calc(-50% + 15px));   /* 配合 30px 顶内边距,与 h2 垂直对齐 */
+}
+/* 非 mac 平台:left/top 归零 */
+@supports not (-webkit-touch-callout: none) {
+  .header.with-back .back-chip {
+    left: 0;
+    top: 50%;
+    transform: translateY(calc(-50% + 5px));
+  }
+}
+
+.header.with-back h2 {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+/* Page Layout */
+.page {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  -webkit-app-region: drag;
+}
+
+.page > *:not(.header) {
+  -webkit-app-region: no-drag;
+}
+
+/* Utility */
+.ver-badge {
+  margin-left: 6px;
+  font-size: 0.35em;
+  font-weight: 700;
+  color: #64748b;
+  vertical-align: middle;
+}
+
+.loading {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255,255,255,0.5);
+  border-radius: 50%;
+  border-top-color: #fff;
+  animation: spin 1s ease-in-out infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

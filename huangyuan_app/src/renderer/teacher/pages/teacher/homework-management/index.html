@@ -1,0 +1,117 @@
+<!-- 作业管理页面 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>作业管理 - 智能教育评阅系统</title>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+  <link rel="stylesheet" href="./homework-management.css">
+</head>
+<body>
+  <div id="app-container">
+    <!-- Header with Back Button -->
+    <div class="header with-back">
+      <a href="../class-detail/index.html" class="back-chip">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2 id="pageTitle">作业管理</h2>
+    </div>
+
+    <main id="page-container" class="homework-main">
+      <!-- Class Info Card -->
+      <section class="class-info-section">
+        <div class="info-card">
+          <div class="info-header">
+            <span class="class-emoji" id="classEmoji">📚</span>
+            <div class="class-details">
+              <h3 class="class-name" id="className">--</h3>
+              <p class="class-meta">共 <span id="totalStudents">0</span> 名学生</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Homework Statistics -->
+      <section class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon">📝</div>
+            <div class="stat-content">
+              <div class="stat-value" id="submittedCount">0</div>
+              <div class="stat-label">已提交人数</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+            <div class="stat-content">
+              <div class="stat-value" id="pendingCount">0</div>
+              <div class="stat-label">未提交人数</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">✅</div>
+            <div class="stat-content">
+              <div class="stat-value" id="submissionRate">0%</div>
+              <div class="stat-label">提交率</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon">⭐</div>
+            <div class="stat-content">
+              <div class="stat-value" id="avgScore">--</div>
+              <div class="stat-label">平均分</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Student Submission List -->
+      <section class="submissions-section">
+        <div class="section-header">
+          <h3>学生提交情况</h3>
+          <div class="filter-controls">
+            <select id="statusFilter">
+              <option value="all">全部学生</option>
+              <option value="submitted">已提交</option>
+              <option value="pending">未提交</option>
+            </select>
+            <input type="text" id="searchInput" placeholder="搜索学号..." />
+          </div>
+        </div>
+
+        <div class="submissions-table-container">
+          <table class="submissions-table">
+            <thead>
+              <tr>
+                <th>学号</th>
+                <th>作业数量</th>
+                <th>最后提交时间</th>
+                <th>平均分数</th>
+                <th>状态</th>
+                <th>操作</th>
+              </tr>
+            </thead>
+            <tbody id="submissionsTableBody">
+              <tr>
+                <td colspan="6" class="loading-cell">加载中...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Loading Overlay -->
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p>正在加载数据...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./homework-management.js"></script>
+</body>
+</html>

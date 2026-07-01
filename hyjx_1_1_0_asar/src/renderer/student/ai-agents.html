@@ -1,0 +1,156 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <!-- 单行 CSP：允许嵌入 8999，若将来改用本地代理把域换成你的代理地址 -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; frame-src 'self' https://lab.uibe.edu.cn:8999 http://127.0.0.1:8999; child-src 'self' https://lab.uibe.edu.cn:8999 http://127.0.0.1:8999;
+                 img-src 'self' data: https:; style-src 'self' 'unsafe-inline';
+                 script-src 'self' 'unsafe-inline'; font-src 'self' data:;
+                 connect-src 'self' https: http:;">
+    <title>智能体平台</title>
+    <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+    <link rel="stylesheet" href="./styles.css">
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+        }
+
+        .agent-page {
+            width: 100%;
+            max-width: 1100px;
+            padding: 24px 24px 0;
+            margin: 0 auto;
+        }
+
+        .agent-shell {
+            flex: 1;
+            width: 100%;
+            max-width: 1100px;
+            margin: 0 auto 32px;
+            border-radius: 30px;
+            box-shadow: 0 25px 60px rgba(15, 23, 42, 0.18);
+            background: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .agent-shell iframe {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            border: 0;
+            background: #fff;
+        }
+
+        .agent-fail {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-size: 15px;
+            color: #3f3f46;
+            padding: 32px;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .agent-fail.hidden {
+            display: none;
+        }
+
+        .hint-btn {
+            margin-top: 14px;
+            padding: 8px 18px;
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            background: #fff;
+            color: #2563eb;
+            cursor: pointer;
+            border-radius: 999px;
+            font-size: 15px;
+            font-weight: 600;
+            box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .hint-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 26px rgba(37, 99, 235, 0.25);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page agent-page">
+        <div class="header with-back">
+            <a class="back-chip" href="./home.html" id="backBtn">
+                <span aria-hidden="true">←</span>
+                <span>返回</span>
+            </a>
+            <h2>智能体平台</h2>
+        </div>
+    </div>
+    <div class="agent-shell">
+        <!-- 直接尝试远端；若后续建代理，替换 src 为 http://127.0.0.1:8999 -->
+        <iframe id="agentFrame" src="https://lab.uibe.edu.cn:8999" title="智能体平台"></iframe>
+        <div id="failMsg" class="agent-fail hidden">
+            <div>无法在 iframe 中加载远端页面。可能原因：X-Frame-Options 或 frame-ancestors 限制。</div>
+            <button class="hint-btn" id="openExternalBtn" type="button">改为新窗口打开</button>
+        </div>
+    </div>
+    <script>
+        const backBtn = document.getElementById('backBtn');
+        backBtn.addEventListener('click', () => {
+            window.location.href = './home.html';
+        });
+
+        const frame = document.getElementById('agentFrame');
+        const fail = document.getElementById('failMsg');
+        const openExternalBtn = document.getElementById('openExternalBtn');
+
+        // 简单检测阻断：尝试访问 frame.contentWindow，若 1.5 秒后仍为空或抛异常，显示失败提示
+        function checkFrame() {
+            setTimeout(() => {
+                let blocked = false;
+                try {
+                    // 受跨域限制不能读内容，但若被完全拦截可能没有 contentWindow
+                    if (!frame.contentWindow) blocked = true;
+                } catch (e) {
+                    blocked = true;
+                }
+                if (blocked) fail.classList.remove('hidden');
+            }, 1500);
+        }
+
+        frame.addEventListener('load', () => {
+            // 到达 load 但仍可能是被替换为 about:blank；再延迟检查
+            checkFrame();
+        });
+
+        openExternalBtn.addEventListener('click', () => {
+            // 如果已在 preload 暴露 openAiAgents，可以调用；否则 fallback 用 window.open
+            if (window.api?.openAiAgents) {
+                window.api.openAiAgents();
+            } else {
+                window.open('https://lab.uibe.edu.cn:8999', '_blank');
+            }
+        });
+
+        // 若从缓存瞬间加载不到 load 事件，也做兜底
+        setTimeout(() => { if (fail.classList.contains('hidden')) checkFrame(); }, 3000);
+    </script>
+</body>
+
+</html>

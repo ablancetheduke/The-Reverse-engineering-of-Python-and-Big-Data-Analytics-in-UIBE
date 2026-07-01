@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https: ws: wss:;">
+  <title>惠园教学助手</title>
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="../../shared/styles/base.css">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+  <div class="container-center">
+    <div class="card">
+      <div class="emoji" id="logo" aria-label="教学助手图标">
+        <span class="emoji-cycle" id="logoEmoji">🌿</span>
+      </div>
+      <div class="brand-title">
+        惠园教学助手
+        <span class="ver-badge">v<span id="app-ver"></span></span>
+      </div>
+
+      <div class="form-group">
+        <input id="userId" class="input" maxlength="20" placeholder="学号 / 教师工号" autocomplete="off" inputmode="numeric"
+          aria-label="学号或教师工号" aria-describedby="err">
+      </div>
+
+      <div id="err" class="note" aria-live="polite" aria-atomic="true"></div>
+      <div id="loading" class="loading-indicator" aria-hidden="true" role="status"></div>
+    </div>
+  </div>
+
+  <script src="./login.js"></script>
+  <script>
+    // 🌿 logo 优雅 emoji 轮播(慢节奏)
+    (function () {
+      const pool = ['🌿', '🌸', '🌾', '🪷', '🦋', '🌷', '🌺', '🌼', '🕊️', '🌻'];
+      const el = document.getElementById('logoEmoji');
+      if (!el) return;
+      let i = pool.indexOf(el.textContent.trim()) >= 0 ? pool.indexOf(el.textContent.trim()) : 0;
+      el.textContent = pool[i];
+      setInterval(() => {
+        i = (i + 1) % pool.length;
+        el.style.animation = 'none';
+        void el.offsetWidth;
+        el.style.animation = '';
+        el.textContent = pool[i];
+      }, 4500);   // 2.2s → 4.5s
+    })();
+  </script>
+</body>
+
+</html>

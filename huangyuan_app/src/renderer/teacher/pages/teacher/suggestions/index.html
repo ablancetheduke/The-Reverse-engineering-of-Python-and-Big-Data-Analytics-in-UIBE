@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>学生建议反馈</title>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css">
+  <link rel="stylesheet" href="./suggestions.css">
+</head>
+<body>
+  <div class="page">
+    <div class="page-header">
+      <button class="back-btn" onclick="history.back()" aria-label="返回">← 返回</button>
+      <h2>📋 学生建议与反馈</h2>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="all">全部</button>
+        <button class="filter-btn" data-filter="pending">待处理</button>
+        <button class="filter-btn" data-filter="reviewed">已处理</button>
+      </div>
+    </div>
+
+    <div id="loadingIndicator" class="loading-state">
+      <div class="loading-spinner"></div>
+      <p>正在加载建议...</p>
+    </div>
+
+    <div id="emptyState" class="empty-state" style="display:none">
+      <div class="empty-icon">📭</div>
+      <p>暂无建议反馈</p>
+    </div>
+
+    <div id="suggestionsList" class="suggestions-list"></div>
+  </div>
+
+  <!-- 图片放大弹窗 -->
+  <div id="imageModal" class="modal" style="display:none" onclick="closeImageModal()">
+    <span class="modal-close">✕</span>
+    <img class="modal-content" id="modalImage" src="" alt="放大预览">
+  </div>
+
+  <script>
+    async function init() {
+      const listEl = document.getElementById('suggestionsList');
+      const loadingEl = document.getElementById('loadingIndicator');
+      const emptyEl = document.getElementById('emptyState');
+      let currentFilter = 'all';
+
+      async function loadSuggestions(filter) {
+        loadingEl.style.display = 'flex';
+        listEl.innerHTML = '';
+        emptyEl.style.display = 'none';
+
+        try {
+          const status = filter === 'all' ? null : filter;
+          const res = await window.api.getSuggestions(status);
+          
+          loadingEl.style.display = 'none';
+
+          if (!res || !res.ok || !res.data || !res.data.suggestions || res.data.suggestions.length === 0) {
+            emptyEl.style.display = 'flex';
+            return;
+          }
+
+          renderSuggestions(res.data.suggestions);
+        } catch (e) {
+          loadingEl.style.display = 'none';
+          listEl.innerHTML = `<div class="error-state">❌ 加载失败: ${e.message || '请检查网络'}</div>`;
+        }
+      }
+
+      function renderSuggestions(suggestions) {
+        listEl.innerHTML = '';
+        suggestions.forEach(s => {
+          const card = document.createElement('div');
+          card.className = 'suggestion-card' + (s.status === 'pending' ? ' pending' : ' reviewed');
+
+          const time = s.created_at ? new Date(s.created_at).toLocaleString('zh-CN') : '未知时间';
+
+          card.innerHTML = `
+            <div class="card-header">
+              <span class="student-id">🎓 ${escapeHtml(s.student_id)}</span>
+              <span class="status-badge ${s.status}">${s.status === 'pending' ? '待处理' : '已处理'}</span>
+              <span class="time">${time}</span>
+            </div>
+            <div class="card-content">${escapeHtml(s.content)}</div>
+            ${s.image_url ? `<div class="card-image"><img src="${s.image_url}" alt="建议图片" onclick="openImageModal(this.src)" loading="lazy"></div>` : ''}
+            <div class="card-actions">
+              ${s.status === 'pending' 
+                ? `<button class="review-btn" onclick="markReviewed(${s.id}, this)">✓ 标记已处理</button>` 
+                : '<span class="reviewed-label">✅ 已处理</span>'
+              }
+            </div>
+          `;
+          listEl.appendChild(card);
+        });
+      }
+
+      // 过滤按钮
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          currentFilter = btn.dataset.filter;
+          loadSuggestions(currentFilter);
+        });
+      });
+
+      // 暴露到全局
+      window.markReviewed = async (suggestionId, btnEl) => {
+        btnEl.disabled = true;
+        btnEl.textContent = '...';
+        try {
+          const res = await window.api.reviewSuggestion(suggestionId);
+          if (res && res.ok) {
+            // 重新加载当前列表
+            loadSuggestions(currentFilter);
+          } else {
+            alert('操作失败: ' + (res?.error || '未知错误'));
+            btnEl.disabled = false;
+            btnEl.textContent = '✓ 标记已处理';
+          }
+        } catch (e) {
+          alert('网络异常: ' + e.message);
+          btnEl.disabled = false;
+          btnEl.textContent = '✓ 标记已处理';
+        }
+      };
+
+      window.openImageModal = (src) => {
+        const modal = document.getElementById('imageModal');
+        const img = document.getElementById('modalImage');
+        img.src = src;
+        modal.style.display = 'flex';
+      };
+
+      window.closeImageModal = () => {
+        document.getElementById('imageModal').style.display = 'none';
+      };
+
+      // ESC 键关闭弹窗
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeImageModal();
+      });
+
+      function escapeHtml(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      }
+
+      // 初始化加载
+      loadSuggestions('all');
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+  </script>
+</body>
+</html>

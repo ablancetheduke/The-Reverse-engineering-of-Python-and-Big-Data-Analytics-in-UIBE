@@ -1,0 +1,547 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <title>登录</title>
+  <!-- 新增 favicon -->
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <!-- 新增样式：品牌标题（学生端） -->
+  <style>
+    .brand-title {
+      margin-top: 0;
+      margin-bottom: 6px;
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+      line-height: 1.2;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.06);
+      text-align: center;
+    }
+
+    @media (min-width: 480px) {
+      .brand-title {
+        font-size: 32px;
+      }
+    }
+
+    .card {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* 新增：放大emoji图标 */
+    .card .emoji {
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .ver-badge {
+      margin-left: 6px;
+      font-size: 0.35em;
+      /* 调整：从 0.4em 减小到 0.35em */
+      font-weight: 700;
+      color: #64748b;
+      vertical-align: middle;
+    }
+
+    /* 新增：仅拉近 "学生图标" 与 "惠园学生" 的上下距离 */
+    .card .emoji+.brand-title {
+      margin-top: -32px;
+      /* 调整：从 -24px 改为 -32px */
+    }
+
+    @media (min-width: 480px) {
+      .card .emoji+.brand-title {
+        margin-top: -36px;
+        /* 调整：从 -28px 改为 -36px */
+      }
+    }
+
+    /* 新增：改进的品牌标题渐变效果 */
+    .brand-title {
+      background: linear-gradient(90deg, #2563eb, #059669);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    /* 新增：表单组样式 */
+    .form-group {
+      width: 100%;
+      max-width: 280px;
+      margin-top: 8px;
+    }
+
+    .form-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 14px;
+      color: #4b5563;
+      font-weight: 500;
+    }
+
+    /* 新增：输入框状态样式 */
+    .input.valid {
+      border-color: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1);
+    }
+
+    .input.invalid {
+      border-color: #ef4444;
+      box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1);
+      animation: shake 0.5s ease;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-4px);
+      }
+
+      75% {
+        transform: translateX(4px);
+      }
+    }
+
+    /* 新增：记住我选项 */
+    .remember-me {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 12px;
+      font-size: 14px;
+      color: #64748b;
+      width: 100%;
+      max-width: 280px;
+      justify-content: flex-start;
+    }
+
+    .remember-me input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      border: 1px solid #cbd5e1;
+      cursor: pointer;
+      accent-color: #3b82f6;
+    }
+
+    .remember-me label {
+      cursor: pointer;
+      user-select: none;
+    }
+
+    /* 新增：焦点状态优化 */
+    .input:focus,
+    .input:focus-visible {
+      outline: 2px solid #3b82f6;
+      outline-offset: 2px;
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.1);
+    }
+
+    /* 新增：跳过链接样式 */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 10px;
+      background: #3b82f6;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 4px;
+      text-decoration: none;
+      font-weight: 600;
+      z-index: 1000;
+      transition: top 0.3s ease;
+    }
+
+    .skip-link:focus {
+      top: 10px;
+      outline: 2px solid #1d4ed8;
+      outline-offset: 2px;
+    }
+
+    /* 新增：现代化卡片样式优化 */
+    .container-center .card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+      border-radius: 24px;
+      box-shadow:
+        0 20px 60px rgba(59, 130, 246, 0.08),
+        0 8px 20px rgba(15, 23, 42, 0.04),
+        inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      border: 1px solid rgba(255, 255, 255, 0.9);
+      padding: 48px 56px;
+      min-width: 400px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .container-center .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #3b82f6, #10b981);
+      border-radius: 24px 24px 0 0;
+    }
+
+    /* 优化卡片内元素间距 */
+    .container-center .card .emoji {
+      margin-bottom: 24px;
+    }
+
+    .container-center .card .input {
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .container-center .card .input:focus {
+      box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.15), 0 4px 12px rgba(59, 130, 246, 0.1);
+    }
+
+    /* 新增：加载指示器样式 */
+    .loading-indicator {
+      display: none;
+      margin: 12px auto 0;
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(59, 130, 246, 0.2);
+      border-radius: 50%;
+      border-top-color: #3b82f6;
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 新增：触摸优化 */
+    .container-center .card {
+      animation: fadeInUp 0.6s ease-out;
+      touch-action: manipulation;
+    }
+
+    .container-center .card .input,
+    .container-center .card .remember-me label,
+    .container-center .card .remember-me input[type="checkbox"] {
+      touch-action: manipulation;
+    }
+
+    .container-center .card .remember-me label {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      padding-left: 8px;
+      cursor: pointer;
+    }
+
+    .container-center .card .remember-me input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+      cursor: pointer;
+    }
+
+    /* 新增：屏幕阅读器专用样式 */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 跳过导航链接，为键盘用户和屏幕阅读器用户提供便利 -->
+  <a href="#main-content" class="skip-link">跳过导航直接进入登录表单</a>
+
+  <div class="container-center" id="main-content">
+    <div class="card">
+      <div class="emoji" id="logo" aria-label="学生图标"></div>
+      <script>
+        (function () {
+          var students = [
+            '🧑‍🎓', '👨‍🎓', '👩‍🎓',
+            '🧑🏻‍🎓', '🧑🏼‍🎓', '🧑🏽‍🎓', '🧑🏾‍🎓', '🧑🏿‍🎓',
+            '👨🏻‍🎓', '👨🏼‍🎓', '👨🏽‍🎓', '👨🏾‍🎓', '👨🏿‍🎓',
+            '👩🏻‍🎓', '👩🏼‍🎓', '👩🏽‍🎓', '👩🏾‍🎓', '👩🏿‍🎓',
+            '👨‍💻', '👩‍💻'
+          ];
+          var el = document.getElementById('logo');
+          if (el) el.textContent = students[Math.floor(Math.random() * students.length)];
+        })();
+      </script>
+      <!-- 新增：在“学生端”旁显示版本号 -->
+      <div class="brand-title" aria-label="学生端">
+        惠园学生
+        <span class="ver-badge" style="display:block;margin-left:0;font-size:0.56em;">版本V<span id="app-ver"
+            aria-label="版本"></span></span>
+      </div>
+      <input id="sid" class="input" maxlength="12" placeholder="请输入学号" inputmode="numeric" aria-label="学号"
+        aria-describedby="err">
+      <div class="remember-me">
+        <input type="checkbox" id="remember" aria-label="记住我的学号">
+        <label for="remember">记住我</label>
+      </div>
+      <div id="err" class="note" aria-live="polite" aria-atomic="true"></div>
+      <div id="loading" class="loading-indicator" aria-hidden="true" role="status" aria-label="正在验证，请稍候">
+      </div>
+    </div>
+    <script src="../shared/updateBanner.js"></script>
+    <script>
+      // C 方案:在每个页面挂载更新提示
+      try { mountUpdateBanner && mountUpdateBanner(); } catch (_) {}
+    </script>
+    <script>
+      (async () => {
+        try {
+          // 检查API是否可用
+          if (window.api && typeof window.api.getAppVersion === 'function') {
+            const v = await window.api.getAppVersion();
+            const el = document.getElementById('app-ver');
+            if (el && v) el.textContent = v;
+          } else {
+            // API不可用时显示默认版本
+            const el = document.getElementById('app-ver');
+            if (el) el.textContent = '1.0.0';
+            console.warn('Electron API不可用，使用默认版本号');
+          }
+        } catch (e) {
+          console.warn('获取版本号失败(index):', e);
+          // 出错时显示默认版本
+          const el = document.getElementById('app-ver');
+          if (el) el.textContent = '1.0.0';
+        }
+      })();
+
+      const sid = document.getElementById('sid');
+      const err = document.getElementById('err');
+      const rememberCheckbox = document.getElementById('remember');
+      let updatePromptOpen = false; // 新增：标记更新提示框是否打开
+      let updateCheckedThisSession = false; // 新增：本次应用启动是否已检查过更新
+
+      // 新增：加载上次保存的学号和记住我设置
+      const savedSid = localStorage.getItem('saved_sid');
+      const rememberMe = localStorage.getItem('remember_me') === 'true';
+
+      if (savedSid) {
+        sid.value = savedSid;
+        updateInputState(); // 更新输入框状态
+      }
+
+      if (rememberCheckbox) {
+        rememberCheckbox.checked = rememberMe;
+      }
+
+      // 改进的验证函数
+      function isValid(v) {
+        const isValid = /^\d{1,12}$/.test(v);
+        return {
+          valid: isValid,
+          message: isValid ? '' : '学号格式错误：请输入1-12位数字'
+        };
+      }
+
+      // 新增：更新输入框状态
+      function updateInputState() {
+        const v = sid.value.trim();
+        const validation = isValid(v);
+
+        sid.classList.remove('valid', 'invalid');
+        err.textContent = '';
+
+        if (v === '') {
+          return;
+        }
+
+        if (validation.valid) {
+          sid.classList.add('valid');
+        } else {
+          sid.classList.add('invalid');
+          err.textContent = validation.message;
+        }
+      }
+
+      // 新增：实时验证
+      sid.addEventListener('input', () => {
+        updateInputState();
+      });
+
+      function pickPayload(res) {
+        if (!res) return null;
+        if (res.payload) return res.payload;
+        if (res.data) {
+          const d = res.data;
+          // 兼容 validateStudentMachine 返回外壳：{ success, data: { ... } }
+          if (d && d.data && typeof d.data === 'object') {
+            const inner = d.data;
+            if (inner.current_semester_classes || inner.all_classes || inner.courses) return inner;
+            if (inner.data && typeof inner.data === 'object') {
+              const inner2 = inner.data;
+              if (inner2.current_semester_classes || inner2.all_classes || inner2.courses) return inner2;
+            }
+          }
+          return d;
+        }
+        if (res.response) return res.response;
+        if (res.json) return res.json;
+        if (res.current_semester_classes || res.all_classes || typeof res.success === 'boolean') return res;
+        return null;
+      }
+
+      async function tryLogin() {
+        const v = sid.value.trim();
+        const validation = isValid(v);
+
+        if (!validation.valid) {
+          err.textContent = validation.message;
+          sid.classList.add('invalid');
+          sid.focus();
+          return;
+        }
+
+        // 显示加载指示器，清空错误消息
+        const loading = document.getElementById('loading');
+        if (loading) {
+          loading.style.display = 'block';
+          loading.setAttribute('aria-hidden', 'false');
+        }
+        err.textContent = '';
+        sid.disabled = true;
+
+        // 保存记住我设置
+        if (rememberCheckbox) {
+          localStorage.setItem('remember_me', rememberCheckbox.checked.toString());
+          if (rememberCheckbox.checked) {
+            localStorage.setItem('saved_sid', v);
+          } else {
+            localStorage.removeItem('saved_sid');
+          }
+        }
+
+        try {
+          const res = await window.api.validate(v);
+          if (res && res.ok) {
+            sessionStorage.setItem('student_id', v);
+
+            // 移除 offline 标记写入
+            try {
+              const payload = pickPayload(res);
+              if (payload) {
+                await window.api.cacheWrite(v, 'courses.json', JSON.stringify(payload));
+                sessionStorage.setItem('validate_payload', JSON.stringify(payload));
+              }
+            } catch (e) {
+              console.warn('写入课程缓存失败:', e);
+            }
+
+            // 登录成功后，仅在本次应用启动的第一次登录时触发一次静默更新检查
+            if (!updateCheckedThisSession) {
+              updateCheckedThisSession = true;
+              try {
+                // 只用于触发，结果忽略；详细过程看主进程日志
+                window.api.checkUpdate?.();
+              } catch (e) {
+                console.warn('静默更新检查失败（已忽略）:', e);
+              }
+            }
+
+            // 添加成功反馈
+            err.textContent = '验证成功，正在跳转...';
+            err.style.color = '#10b981';
+
+            // 短暂延迟后跳转，让用户看到成功消息
+            setTimeout(() => {
+              window.location.replace('./home.html');
+            }, 500);
+
+          } else {
+            err.textContent = (res && res.error) || '登录失败，请检查学号格式是否正确（12位数字）';
+            err.style.color = '#ef4444';
+            sid.classList.add('invalid');
+          }
+        } catch (e) {
+          console.warn('验证异常:', e);
+          err.textContent = '网络连接失败，请检查网络设置。点击输入框可重试';
+          err.style.color = '#ef4444';
+          sid.classList.add('invalid');
+        } finally {
+          // 隐藏加载指示器
+          const loading = document.getElementById('loading');
+          if (loading) {
+            loading.style.display = 'none';
+            loading.setAttribute('aria-hidden', 'true');
+          }
+          // 确保恢复输入框
+          sid.disabled = false;
+          sid.readOnly = false;
+          setTimeout(() => sid.focus(), 100);
+        }
+      }
+
+      // 仅在用户真正离开且输入框可编辑且有输入时才尝试登录；忽略更新弹窗导致的 blur
+      sid.addEventListener('blur', () => {
+        if (updatePromptOpen) return;
+        if (sid.disabled || sid.readOnly) return;
+        if (!sid.value.trim()) return;
+        tryLogin();
+      });
+
+      // 窗口重新获得焦点时，兜底恢复输入能力与焦点
+      window.addEventListener('focus', () => {
+        if (updatePromptOpen) return;
+        sid.disabled = false;
+        sid.readOnly = false;
+        setTimeout(() => sid.focus(), 0);
+      });
+
+      // 改进的键盘事件处理
+      sid.addEventListener('keydown', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          tryLogin();
+        }
+      });
+
+      // 初始焦点和状态更新
+      sid.focus();
+      updateInputState();
+    </script>
+</body>
+
+</html>

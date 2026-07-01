@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>成绩查询</title>
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <!-- 新增 favicon -->
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    html {
+      overflow: auto;
+      background: var(--bg);
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--bg);
+      overflow-y: auto;
+    }
+
+    .score-page {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+    }
+
+    .score-shell {
+      background: #fff;
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.12);
+      width: 100%;
+      margin: 12px 0 48px;
+    }
+
+    .score-head {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .score-info {
+      color: #475569;
+      font-size: 14px;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 14px;
+      border-radius: 18px;
+      overflow: hidden;
+    }
+
+    th,
+    td {
+      border: 1px solid #e2e8f0;
+      padding: 10px 12px;
+      text-align: center;
+    }
+
+    th {
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 13px;
+    }
+
+    tr.highlight {
+      background: #fff7e6;
+      font-weight: 600;
+    }
+
+    .table-shell {
+      overflow: auto;
+      max-height: 540px;
+      border-radius: 22px;
+      border: 1px solid #e2e8f0;
+      margin-top: 16px;
+    }
+
+    .raw-toggle {
+      font-size: 13px;
+      color: #475569;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    #rawBox {
+      display: none;
+      max-height: 200px;
+      overflow: auto;
+      background: #0f172a;
+      color: #e2e8f0;
+      padding: 12px 16px;
+      font-size: 12px;
+      border-radius: 16px;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page score-page">
+    <div class="header with-back">
+      <a class="back-chip" href="./course.html">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2>成绩查询</h2>
+    </div>
+    <div class="score-shell">
+      <div class="score-head">
+        <div id="info" class="score-info">正在加载数据...</div>
+        <label class="raw-toggle">
+          <input type="checkbox" id="showRaw" style="vertical-align:middle;"> 显示原始返回结构
+        </label>
+      </div>
+      <pre id="rawBox"></pre>
+      <div class="table-shell">
+        <table id="board">
+          <thead></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    function getQueryParam(name) {
+      const params = new URLSearchParams(location.search);
+      return params.get(name) || '';
+    }
+
+    async function loadLeaderboard() {
+      const sid = getQueryParam('student_id') || sessionStorage.getItem('student_id') || '';
+      const base = await window.api.getBaseUrl();
+      const url = `${String(base).replace(/\/+$/, '')}/api/getLeaderboard` + (sid ? ('?student_id=' + encodeURIComponent(sid)) : '');
+      let data;
+      try {
+        const res = await fetch(url);
+        data = await res.json();
+      } catch (e) {
+        document.getElementById('info').textContent = '加载失败: ' + (e.message || e);
+        return;
+      }
+
+      // 原始结构展示（即后端返回的二维数组）
+      const showRaw = document.getElementById('showRaw').checked;
+      const rawBox = document.getElementById('rawBox');
+      if (showRaw) {
+        rawBox.style.display = 'block';
+        rawBox.textContent = JSON.stringify(data, null, 2);
+      } else {
+        rawBox.style.display = 'none';
+      }
+
+      if (data && !Array.isArray(data) && Array.isArray(data.leaderboard)) {
+        const header = ['排名', '学号', '姓名', '分数'];
+        const rows = data.leaderboard.map(item => [
+          item.rank ?? '',
+          item.student_id ?? '',
+          item.name ?? item.student_id ?? '',
+          item.score ?? ''
+        ]);
+        data = [header, ...rows];
+      }
+
+      if (!Array.isArray(data) || data.length === 0) {
+        document.getElementById('info').textContent = '暂无成绩数据';
+        return;
+      }
+      const [header, ...rows] = data;
+      const thead = document.querySelector('#board thead');
+      const tbody = document.querySelector('#board tbody');
+      thead.innerHTML = '<tr>' + header.map(h => '<th>' + h + '</th>').join('') + '</tr>';
+      tbody.innerHTML = '';
+      let found = false;
+      rows.forEach(r => {
+        const tr = document.createElement('tr');
+        r.forEach(cell => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        if (sid && r[1] === sid) {
+          tr.classList.add('highlight');
+          found = true;
+        }
+        tbody.appendChild(tr);
+      });
+      document.getElementById('info').textContent = sid
+        ? (found ? '已高亮当前学号：' + sid : '未在当前范围内找到学号：' + sid)
+        : '显示全部成绩（未指定学号）';
+    }
+
+    document.getElementById('showRaw').addEventListener('change', loadLeaderboard);
+    loadLeaderboard();
+  </script>
+</body>
+
+</html>

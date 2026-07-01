@@ -1,0 +1,576 @@
+<!-- 班级详情页面 -->
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>班级详情 - 期末考试系统</title>
+  <link rel="stylesheet" href="../../../../shared/styles/base.css" />
+  <link rel="stylesheet" href="./class-detail.css">
+  <style>
+    /* ═══ AI 课堂反馈样式 ═══ */
+    #reportContainer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 2rem 3rem;
+    }
+
+    /* 列表视图 */
+    #reportContainer .state-box {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted, #6e6e73);
+    }
+    #reportContainer .state-box .emoji { font-size: 64px; margin-bottom: 16px; }
+    #reportContainer .state-box .msg { font-size: 16px; }
+    #reportContainer .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #4f46e5;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 16px auto;
+    }
+
+    .report-list-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 20px;
+      position: relative;
+      justify-content: center;
+    }
+    .report-list-header .detail-back {
+      position: absolute;
+      left: 0;
+    }
+    .detail-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(15,23,42,.12);
+      background: rgba(255,255,255,.85);
+      color: #0f172a;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: .2s ease;
+      font-family: inherit;
+    }
+    .detail-back:hover { transform: translateY(-1px); box-shadow: 0 8px 16px rgba(15,23,42,.1); }
+    .detail-title { font-weight: 700; font-size: 20px; color: var(--text, #1d1d1f); }
+
+    .report-list-body {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .report-card {
+      background: var(--card, #fff);
+      border-radius: 16px;
+      padding: 18px 22px;
+      box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,.06));
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      border: 1px solid var(--separator, rgba(0,0,0,.08));
+    }
+    .report-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(15,23,42,.12);
+    }
+    .report-card .left { display: flex; align-items: center; gap: 16px; }
+    .report-card .week-badge {
+      width: 52px; height: 52px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #eef2ff, #e0e7ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      font-weight: 700;
+      color: #4f46e5;
+      flex-shrink: 0;
+    }
+    .report-card .info .title { font-weight: 600; font-size: 16px; color: var(--text, #1d1d1f); }
+    .report-card .info .sub { font-size: 13px; color: var(--muted, #6e6e73); margin-top: 4px; }
+    .report-card .status-tag {
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-weight: 500;
+      flex-shrink: 0;
+      margin-left: 12px;
+    }
+    .report-card .status-tag.complete { background: #dcfce7; color: #166534; }
+    .report-card .status-tag.partial { background: #fef3c7; color: #92400e; }
+    .report-card .status-tag.processing {
+      background: #e0e7ff; color: #4338ca;
+      display: flex; align-items: center; gap: 6px;
+    }
+    .report-card .status-tag.processing::before {
+      content: ''; display: inline-block;
+      width: 10px; height: 10px;
+      border: 2px solid #4338ca; border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 详情视图 */
+    .report-detail-view { display: none; flex-direction: column; gap: 20px; }
+    .report-detail-view.active { display: flex; }
+    .report-detail-view .detail-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .report-detail-view.active {
+      display: flex;
+      flex-direction: column;
+      height: calc(100vh - 120px);
+      overflow: hidden;
+    }
+    #reportDetailView .split-container {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+      min-height: 0;
+    }
+    #reportDetailView .panel {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      overflow: hidden;
+    }
+    #reportContainer .split-container {
+      display: flex;
+      flex: 1;
+      gap: 16px;
+      overflow: hidden;
+      min-height: 0;
+    }
+    #reportContainer .panel {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      min-width: 0;
+      background: var(--card, #fff);
+      border-radius: 16px;
+      box-shadow: var(--shadow-sm, 0 2px 8px rgba(0,0,0,.06));
+      border: 1px solid var(--separator, rgba(0,0,0,.08));
+      overflow: hidden;
+    }
+    #reportContainer .panel-header {
+      padding: 16px 20px 12px;
+      font-weight: 700;
+      font-size: 16px;
+      color: #4f46e5;
+      border-bottom: 1px solid #f0f0f0;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #reportContainer .panel-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 16px 20px;
+    }
+    #reportContainer .panel-content .content-block {
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 20px;
+      background: transparent;
+    }
+    #reportContainer .panel-content .content-block h3 {
+      font-size: 15px;
+      margin: 0 0 10px 0;
+    }
+    #reportContainer .panel-content .text {
+      font-size: 14px;
+      line-height: 1.75;
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #reportContainer .panel-content .text.empty {
+      color: #9ca3af;
+      font-style: italic;
+    }
+
+    /* 内容块样式 */
+    #reportContainer .content-block h3 {
+      margin: 0 0 16px 0;
+      font-size: 17px;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #reportContainer .content-block .text {
+      font-size: 15px;
+      line-height: 1.75;
+      color: #374151;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+    #reportContainer .content-block .text.empty {
+      color: #9ca3af;
+      font-style: italic;
+    }
+    #reportContainer .kg-container {
+      background: transparent;
+      border-radius: 16px;
+      padding: 0;
+      box-shadow: none;
+      margin-bottom: 20px;
+    }
+    #reportContainer .kg-container h3 {
+      margin: 0 0 16px 0;
+      font-size: 17px;
+      color: #4f46e5;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    #reportContainer .kg-canvas-wrap {
+      width: 100%;
+      height: 320px;
+      background: #fafbfc;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    #reportContainer .kg-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+    }
+    #reportContainer .kp-list { list-style: none; padding: 0; margin: 0; }
+    #reportContainer .kp-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+    }
+    #reportContainer .kp-item:last-child { border-bottom: none; }
+    #reportContainer .kp-item .kp-name { font-weight: 600; font-size: 15px; color: var(--text); }
+    #reportContainer .kp-item .kp-mastery {
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      white-space: nowrap;
+    }
+    #reportContainer .mastery-优 { background: #dcfce7; color: #166534; }
+    #reportContainer .mastery-良 { background: #dbeafe; color: #1e40af; }
+    #reportContainer .mastery-中 { background: #fef3c7; color: #92400e; }
+    #reportContainer .mastery-需加强 { background: #fee2e2; color: #991b1b; }
+    #reportContainer .kp-item .kp-desc { font-size: 13px; color: var(--muted); margin-top: 2px; }
+    #reportContainer .diff-item {
+      padding: 10px 0;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    #reportContainer .diff-item:last-child { border-bottom: none; }
+    #reportContainer .diff-item .diff-point { font-weight: 600; font-size: 15px; color: var(--text); }
+    #reportContainer .diff-item .diff-analysis,
+    #reportContainer .diff-item .diff-suggestion { font-size: 13px; color: var(--muted); margin-top: 4px; }
+    #reportContainer .suggest-list { list-style: none; padding: 0; margin: 0; }
+    #reportContainer .suggest-list li {
+      padding: 8px 0 8px 20px;
+      position: relative;
+      font-size: 14px;
+      color: #374151;
+      line-height: 1.5;
+    }
+    #reportContainer .suggest-list li::before {
+      content: '→';
+      position: absolute;
+      left: 0;
+      color: #4f46e5;
+    }
+  </style>
+<body>
+  <div id="app-container">
+    <!-- Updated Header with Back Button matching Student Client -->
+    <div class="header with-back">
+      <a href="../dashboard/index.html" class="back-chip">
+        <span aria-hidden="true">←</span>
+        <span>返回</span>
+      </a>
+      <h2 id="classTitle">班级详情</h2>
+    </div>
+
+    <main id="page-container" class="class-main">
+      <!-- class-summary 卡片已移除(用户需求:不显示课程名/学生数/缺勤总数) -->
+      <section class="feature-grid">
+        <div class="feature-item" id="academicIcon">
+          <div class="feature-icon">📊</div>
+          <span>学情分析</span>
+        </div>
+        <div class="feature-item" id="homeworkIcon">
+          <div class="feature-icon">📚</div>
+          <span>作业管理</span>
+        </div>
+        <div class="feature-item" id="midtermIcon">
+          <div class="feature-icon">📝</div>
+          <span>期中考试设置</span>
+        </div>
+        <div class="feature-item" id="studentMidtermIcon">
+          <div class="feature-icon">⏳</div>
+          <span>调整学生期中时间</span>
+        </div>
+        <!-- 期末考试设置 已移除(并入 期末考试管理) -->
+        <div class="feature-item" id="scoreIcon">
+          <div class="feature-icon">📈</div>
+          <span>成绩分析</span>
+        </div>
+        <div class="feature-item" id="reportIcon">
+          <div class="feature-icon">🎙️</div>
+          <span>AI 课堂反馈</span>
+        </div>
+        <div class="feature-item" id="deadlineIcon">
+          <div class="feature-icon">🗓️</div>
+          <span>作业截止时间</span>
+        </div>
+        <!-- 期末大作业时间 已移除(并入 期末考试管理) -->
+        <div class="feature-item" id="finalAssignmentManageIcon">
+          <div class="feature-icon">🧰</div>
+          <span>期末考试管理</span>
+        </div>
+        <!-- 新增：期中/期末分析按钮，默认隐藏，仅对特定课程显示 -->
+        <div class="feature-item" id="midtermAnalyzeIcon" style="display:none">
+          <div class="feature-icon">🔍</div>
+          <span>期中分析</span>
+        </div>
+        <div class="feature-item" id="finalAnalyzeIcon" style="display:none">
+          <div class="feature-icon">🔎</div>
+          <span>期末分析</span>
+        </div>
+      </section>
+
+      <section class="students-section">
+        <div id="serverStatus" class="server-status"></div>
+        <div class="students-container">
+          <h2>作业 / 期中 / 期末状态</h2>
+          <table class="student-table">
+            <thead>
+              <tr>
+                <th>学号</th>
+                <th>作业</th>
+                <th>期中</th>
+                <th>期末</th>
+                <th>学号</th>
+                <th>作业</th>
+                <th>期中</th>
+                <th>期末</th>
+              </tr>
+            </thead>
+            <tbody id="studentStatusTable">
+              <tr><td colspan="8">加载中...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <div id="loadingOverlay" class="loading-overlay">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <p>正在加载数据...</p>
+      </div>
+    </div>
+  </div>
+
+  <div id="midtermModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" data-close="midtermModal">✕</button>
+      <h2>期中考试设置</h2>
+      <div class="form-group">
+        <label for="midtermDateTime">考试时间</label>
+        <input type="datetime-local" id="midtermDateTime">
+      </div>
+      <div class="form-group form-inline">
+        <div>
+          <label for="midtermDurationHours">时长(小时)</label>
+          <input type="number" id="midtermDurationHours" min="0" max="24">
+        </div>
+        <div>
+          <label for="midtermDurationMinutes">分钟</label>
+          <input type="number" id="midtermDurationMinutes" min="0" max="59">
+        </div>
+      </div>
+      <div id="midtermResultMessage" class="result-message"></div>
+      <button class="form-submit" id="midtermSubmit">确认</button>
+    </div>
+  </div>
+
+  <div id="studentMidtermModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" data-close="studentMidtermModal">✕</button>
+      <h2>调整学生期中时间</h2>
+      <div class="form-group">
+        <label for="studentIdInput">学号</label>
+        <input type="text" id="studentIdInput" placeholder="请输入学号">
+      </div>
+      <div class="form-group">
+        <label for="studentExamDateTime">考试时间</label>
+        <input type="datetime-local" id="studentExamDateTime">
+      </div>
+      <div id="studentMidtermResultMessage" class="result-message"></div>
+      <button class="form-submit" id="studentMidtermSubmit">确认</button>
+    </div>
+  </div>
+
+  <div id="finalModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" data-close="finalModal">✕</button>
+      <h2>期末考试设置</h2>
+      <div class="form-group">
+        <label for="finalDateTime">考试时间</label>
+        <input type="datetime-local" id="finalDateTime">
+      </div>
+      <div class="form-group form-inline">
+        <div>
+          <label for="finalDurationHours">时长(小时)</label>
+          <input type="number" id="finalDurationHours" min="0" max="24">
+        </div>
+        <div>
+          <label for="finalDurationMinutes">分钟</label>
+          <input type="number" id="finalDurationMinutes" min="0" max="59">
+        </div>
+      </div>
+      <div id="finalResultMessage" class="result-message"></div>
+      <button class="form-submit" id="finalSubmit">确认</button>
+    </div>
+  </div>
+
+  <div id="deadlineModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" data-close="deadlineModal">✕</button>
+      <h2>作业截止时间设置</h2>
+      <div class="form-group">
+        <label for="deadlineDateTime">截止时间</label>
+        <input type="datetime-local" id="deadlineDateTime">
+      </div>
+      <div class="form-group">
+        <label>
+          <input type="checkbox" id="deadlineApplyAll" checked> 应用到该班级所有作业
+        </label>
+      </div>
+      <div id="deadlineResultMessage" class="result-message"></div>
+      <button class="form-submit" id="deadlineSubmit">确认</button>
+    </div>
+  </div>
+
+  <!-- 期末大作业时间设置 modal 已移除,时间窗功能统一并入 期末考试管理 页 -->
+  <!--
+  <div id="finalAssignModal" class="modal">
+    <div class="modal-content">
+      <button class="close-btn" data-close="finalAssignModal">✕</button>
+      <h2>期末大作业时间设置</h2>
+      <p style="color:#6b7280; font-size:13px; margin-top:4px;">设置学生提交期末大作业的时间窗口</p>
+      <div class="form-group">
+        <label for="finalAssignStart">开始时间</label>
+        <input type="datetime-local" id="finalAssignStart">
+      </div>
+      <div class="form-group">
+        <label for="finalAssignEnd">截止时间</label>
+        <input type="datetime-local" id="finalAssignEnd">
+      </div>
+      <div id="finalAssignResultMessage" class="result-message"></div>
+      <button class="form-submit" id="finalAssignSubmit">确认</button>
+    </div>
+  </div>
+  -->
+
+  <!-- ═══════════ AI 课堂反馈容器 ═══════════ -->
+  <div id="reportContainer" style="display:none;">
+    <!-- 加载区 -->
+    <div class="state-box" id="reportLoadingBox" style="display:none;">
+      <div class="spinner"></div>
+      <div class="msg">正在加载 AI 课堂反馈...</div>
+    </div>
+
+    <!-- 报告列表 -->
+    <div class="report-list" id="teacherReportList" style="display:none;">
+      <div class="report-list-header">
+        <button class="detail-back" id="reportBackToClass">
+          <span aria-hidden="true">←</span> 返回班级详情
+        </button>
+        <span class="detail-title" id="reportListTitle">AI 课堂反馈</span>
+      </div>
+      <div class="report-list-body" id="reportListBody"></div>
+    </div>
+
+    <!-- 空状态 -->
+    <div class="state-box" id="reportEmptyBox" style="display:none;">
+      <div class="emoji">📭</div>
+      <div class="msg">暂无 AI 课堂反馈</div>
+      <div style="font-size:13px; margin-top:8px;">该课程还没有录音转写或AI分析记录</div>
+      <div style="margin-top:14px;">
+        <button class="detail-back" style="border:none;" id="reportEmptyBack">
+          <span aria-hidden="true">←</span> 返回班级详情
+        </button>
+      </div>
+    </div>
+
+    <!-- 错误状态 -->
+    <div class="state-box" id="reportErrorBox" style="display:none;">
+      <div class="emoji">⚠️</div>
+      <div class="msg" id="reportErrorMsg">加载失败</div>
+      <div style="margin-top:14px; display:flex; gap:10px; justify-content:center;">
+        <button onclick="window.loadTeacherReports?.()" style="padding:8px 24px; border-radius:12px; border:1px solid #4f46e5; background:#eef2ff; color:#4f46e5; font-size:14px; cursor:pointer;">重试</button>
+        <button class="detail-back" style="border:none;" id="reportErrorBack">
+          <span aria-hidden="true">←</span> 返回班级详情
+        </button>
+      </div>
+    </div>
+
+    <!-- 详情视图（iframe 嵌入教师 HTML 报告） -->
+    <div class="report-detail-view" id="reportDetailView">
+      <div class="detail-header">
+        <button class="detail-back" id="reportDetailBack">
+          <span aria-hidden="true">←</span> 返回列表
+        </button>
+        <span class="detail-title" id="reportDetailTitle">AI 课堂反馈</span>
+      </div>
+
+      <div class="split-container" style="flex-direction:column;">
+        <div class="panel" style="flex:1;overflow:hidden;">
+          <div class="panel-header">📄 教学诊断报告</div>
+          <div style="flex:1;overflow:hidden;position:relative;">
+            <div id="teacherIframeLoading" style="display:none;text-align:center;padding:60px 20px;color:#6b7280;">
+              <div class="spinner" style="margin:0 auto 16px;"></div>
+              <div class="msg">正在加载教学诊断报告...</div>
+            </div>
+            <iframe id="teacherReportIframe"
+              style="display:none;width:100%;height:100%;border:none;"
+              sandbox="allow-scripts allow-same-origin"
+              title="教学诊断报告">
+            </iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 报告模态框（学情分析 / 成绩分析） -->
+  <div id="reportModal" class="modal">
+    <div class="modal-content report-modal-content">
+      <button class="close-btn" data-close="reportModal">✕</button>
+      <h2 id="reportModalTitle">分析报告</h2>
+      <div id="reportModalBody" class="report-body">
+        <p style="color: #86868b; text-align: center; padding: 40px 0;">加载中...</p>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="./class-detail.js"></script>
+</body>
+</html>

@@ -1,0 +1,917 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy"
+    content="default-src 'self'; img-src 'self' file: data:; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self' data:; connect-src 'self' http: https:;">
+  <title>期末大作业提交</title>
+  <!-- 新增 favicon -->
+  <link rel="icon" type="image/x-icon" href="../../image/tupian.ico">
+  <link rel="stylesheet" href="./styles.css">
+  <style>
+    :root {
+      --c1: linear-gradient(180deg, #ecfeff, #dbeafe);
+      --c2: linear-gradient(180deg, #f0fdf4, #dcfce7);
+      --c3: linear-gradient(180deg, #fff7ed, #ffedd5);
+      --c4: linear-gradient(180deg, #fdf2f8, #fae8ff);
+      --ring: #3b82f6;
+      --text: #0f172a;
+      --muted: #64748b;
+      /* 动态间距：随视口在 10px-18px 之间自适应，略微变小以容纳5列 */
+      --final-gap: clamp(10px, 1.5vw, 18px);
+    }
+
+    .final-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 24px 48px;
+      background: #f1f5f9;
+      min-height: 100vh;
+    }
+
+    .final-page .header.with-back {
+      margin-bottom: 28px;
+    }
+
+    /* 调整：最多 5 列，允许列宽压缩，尽量一行放下 5 张卡片 */
+    .final-grid {
+      display: grid;
+      /* 修改：改为 auto-fit 以便容纳新增的第6张卡片 */
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      /* 每列最小 160px，最大平均分配 */
+      gap: var(--final-gap);
+      align-content: start;
+      justify-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .tile {
+      aspect-ratio: 1 / 1;
+      /* 调整：略微缩小最大宽度，便于一行放下 5 张 */
+      width: min(100%, 200px);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      gap: 12px;
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      background: linear-gradient(135deg, #fefefe, #f1f2f6);
+      box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+    }
+
+    .tile:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 22px 35px rgba(15, 23, 42, 0.12);
+    }
+
+    .icon-bubble {
+      /* 去掉固定宽高和椭圆底座，仅保留居中和字号 */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 50px;
+      /* 去除原来的圆角和白色背景 */
+      /* background: none;  // 可选：显式写出没有背景 */
+    }
+
+    .tile .title {
+      font-weight: 700;
+      font-size: 16px;
+      color: #0f172a;
+      line-height: 1.4;
+    }
+
+    .tile .meta {
+      color: #4b5563;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      line-height: 1.6;
+    }
+
+    /* 删除 .upload-btn 相关样式 */
+
+    .upload-status {
+      font-size: 12px;
+      color: #475569;
+      min-height: 16px;
+      max-width: 180px;
+      word-break: break-all;
+    }
+
+    .submit-time {
+      display: block;
+      margin-top: 4px;
+      color: #10b981;
+      font-weight: 500;
+    }
+
+    .time-bar {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      color: #64748b;
+      font-size: 14px;
+      flex-wrap: wrap;
+    }
+
+    .time-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+      border: 1px solid #e2e8f0;
+    }
+
+    .time-label {
+      font-weight: 600;
+      color: #475569;
+    }
+
+    .time-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #0f172a;
+      font-weight: 500;
+    }
+
+    .time-range {
+      font-size: 12px;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      margin-top: 4px;
+      line-height: 1.4;
+    }
+
+    .time-range .start-label {
+      display: none;
+    }
+    .time-range .end-label {
+      display: flex;
+      gap: 4px;
+    }
+
+    .time-range .start-val,
+    .time-range .end-val {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      color: #0f172a;
+      font-weight: 500;
+    }
+
+    /* 响应式：窄一些时退到 3 列，再到 2 列 */
+    @media (max-width: 1100px) {
+      .final-grid {
+        grid-template-columns: repeat(3, minmax(170px, 1fr));
+      }
+    }
+
+    @media (max-width: 800px) {
+      .final-grid {
+        grid-template-columns: repeat(2, minmax(180px, 1fr));
+      }
+    }
+
+    #final-md {
+      width: 100%;
+      margin-top: 32px;
+      padding-bottom: 32px;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-y: auto;
+      background: #f1f5f9;
+    }
+
+    /* 修复：header 背景 + 拖拽区不显示黑色块 */
+    .header.with-back {
+      background: #f1f5f9;
+    }
+
+    /* 修复：返回按钮前的 ← 字符在某些系统渲染为黑色块，改用内联 SVG 箭头 */
+    .back-chip .arrow-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+    }
+
+    /* 取消上传按钮（不再使用） */
+  </style>
+</head>
+
+<body>
+  <div class="page final-page">
+    <div class="header with-back">
+      <a id="back-btn" class="back-chip" href="./course.html" aria-label="返回上一页">
+        <span class="arrow-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M10 12L6 8L10 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span>返回</span>
+      </a>
+    </div>
+
+    <!-- 页面标题 + 班级信息(由 JS 填充 className) -->
+    <header class="page-hero" style="
+      margin: 14px 18px 18px;
+      padding: 16px 20px;
+      background: linear-gradient(135deg, #1f3a68 0%, #2f8af0 100%);
+      border-radius: 12px;
+      color: #fff;
+      box-shadow: 0 4px 12px rgba(31, 58, 104, 0.15);
+    ">
+      <h1 style="margin:0;font-size:20px;font-weight:600;letter-spacing:0.5px;">
+        期末大作业提交
+      </h1>
+      <div id="page-hero-class" style="
+        margin-top:6px;
+        font-size:12px;
+        color: rgba(255,255,255,0.85);
+      ">加载班级信息中…</div>
+    </header>
+
+    <div class="final-grid grid">
+      <!-- 下载大作业压缩包卡片（保留结构，时间稍后由 JS 覆盖） -->
+      <div id="downloadzip-tile" class="tile" aria-label="下载大作业"
+        style="background: linear-gradient(135deg, #f3e8ff, #e9d5ff); border-color: rgba(216, 180, 254, 0.8);">
+        <div class="icon-bubble">🗂️</div>
+        <div class="title">下载大作业</div>
+        <div class="time-range">
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+        <div class="upload-status" style="margin-top:8px;"></div>
+      </div>
+
+      <!-- 下载 test.csv 卡片 -->
+      <div id="testcsv-tile" class="tile" aria-label="下载测试集"
+        style="background: linear-gradient(135deg, #e5f6ff, #c7f0ff); border-color: rgba(125, 211, 252, 0.8);">
+        <div class="icon-bubble">📥</div>
+        <div class="title">下载test.csv</div>
+        <div class="time-range">
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+        <div class="upload-status" style="margin-top:8px;"></div>
+      </div>
+
+      <!-- 原有结果卡片 -->
+      <div id="result-tile" class="tile" aria-label="结果"
+        style="background: linear-gradient(135deg, #fef6e4, #fde7c8); border-color: rgba(255, 221, 179, 0.6);">
+        <div class="icon-bubble">📊</div>
+        <div class="title">提交CSV文件</div>
+
+        <div class="time-range">
+          <span class="auc-label">AUC: <span id="final-auc">--</span></span>
+
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+
+
+        <!-- 删除按钮 -->
+        <input type="file" hidden accept=".csv">
+        <div class="upload-status"></div>
+      </div>
+      <div id="home-tile" class="tile" aria-label="首页"
+        style="background: linear-gradient(135deg, #e0f2ff, #cfe5ff); border-color: rgba(174, 198, 255, 0.6);">
+        <div class="icon-bubble">🏠</div>
+        <div class="title">提交首页文件</div>
+        <div class="time-range">
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+        <!-- 删除按钮 -->
+        <input type="file" hidden accept=".pdf,.docx">
+        <div class="upload-status"></div>
+      </div>
+      <div id="body-tile" class="tile" aria-label="正文"
+        style="display:none; background: linear-gradient(135deg, #fce7f3, #fbcfe8); border-color: rgba(251, 207, 232, 0.8);">
+        <div class="icon-bubble">📄</div>
+        <div class="title">提交正文文件</div>
+        <div class="time-range">
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+        <!-- 删除按钮 -->
+        <input type="file" hidden accept=".pdf,.docx">
+        <div class="upload-status"></div>
+      </div>
+      <div id="code-tile" class="tile" aria-label="代码"
+        style="background: linear-gradient(135deg, #ecfccb, #d9f99d); border-color: rgba(202, 247, 120, 0.7);">
+        <div class="icon-bubble">💻</div>
+        <div class="title">提交代码文件</div>
+        <div class="time-range">
+          <span class="start-label">Start:
+            <span class="start-val">--</span>
+          </span>
+          <span class="end-label" style="color:red;">DDL:
+            <span class="end-val">--</span>
+          </span>
+        </div>
+        <!-- 删除按钮 -->
+        <input type="file" hidden accept=".rar,.zip,.7z,.py,.ipynb">
+        <div class="upload-status"></div>
+      </div>
+    </div>
+
+    <!-- 班级 AUC 排名(显示在"作业描述"之前) -->
+    <section id="final-ranking" class="ranking-card" style="
+        display: none;
+        margin: 18px 0 24px 0;
+        padding: 16px 18px;
+        border-radius: 10px;
+        background: #f7faff;
+        border: 1px solid #d6e4ff;
+        box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+    ">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
+        <div>
+          <div style="font-size:15px;font-weight:600;color:#1f3a68;">
+            🏆 班级 AUC 排名
+          </div>
+          <div style="font-size:11px;color:#7d8ba6;margin-top:2px;">
+            仅显示与你相近的 前后 3 名,完整排名请到教师端查看
+          </div>
+        </div>
+        <div id="final-ranking-meta" style="font-size:12px;color:#5b6b85;"></div>
+      </div>
+      <div id="final-ranking-body" style="font-size:13px;color:#5b6b85;">
+        正在加载排名...
+      </div>
+    </section>
+
+    <section id="final-md" class="markdown-body"></section>
+  </div>
+  <script>
+    // 新增：绑定返回事件
+    document.getElementById('back-btn')?.addEventListener('click', (e) => {
+      e.preventDefault();
+      history.back();
+    });
+
+    // 时间控制器：只负责 6 个卡片的 Start/DDL & 时间段限制
+    const finalTimeGuard = (() => {
+      const rawStart = sessionStorage.getItem('final_start_raw') || '';
+      const rawEnd = sessionStorage.getItem('final_ddl_raw') || '';
+      const fmtStart = sessionStorage.getItem('final_start_fmt') || '';
+      const fmtEnd = sessionStorage.getItem('final_ddl_fmt') || '';
+
+      let state = { allowed: true, message: '' };
+
+      const parseSafe = (s) => {
+        if (!s) return null;
+        const d = new Date(s);
+        return isNaN(d.getTime()) ? null : d;
+      };
+
+      const start = parseSafe(rawStart);
+      const end = parseSafe(rawEnd);
+
+      (function computeState() {
+        if (!start || !end) {
+          state = { allowed: true, message: '' };
+          return;
+        }
+        const now = new Date();
+        if (now < start) {
+          state = { allowed: false, message: '大作业时间未开始' };
+        } else if (now > end) {
+          state = { allowed: false, message: '大作业时间已结束' };
+        } else {
+          state = { allowed: true, message: '' };
+        }
+      })();
+
+      // 只更新每个卡片自身的 start-val / end-val
+      (function patchTilesTime() {
+        if (!fmtStart && !fmtEnd) return;
+        document.querySelectorAll('.final-grid .tile .time-range').forEach(tr => {
+          const sv = tr.querySelector('.start-val');
+          const ev = tr.querySelector('.end-val');
+          if (sv && fmtStart) sv.textContent = fmtStart;
+          if (ev && fmtEnd) ev.textContent = fmtEnd;
+        });
+      })();
+
+      return {
+        guard(statusEl) {
+          if (state.allowed) return true;
+          if (statusEl) {
+            statusEl.textContent = state.message;
+            statusEl.style.color = 'red';
+          }
+          return false;
+        }
+      };
+    })();
+
+    // 新增：学号和班级（供下载/上传使用）
+    const sid = sessionStorage.getItem('student_id') || localStorage.getItem('studentId') || '';
+    if (sid) sessionStorage.setItem('student_id', sid);
+    const classNameFromUrl = new URL(window.location.href).searchParams.get('class_name') || '';
+    const className = classNameFromUrl || sessionStorage.getItem('class_name') || localStorage.getItem('className') || '';
+    if (className) sessionStorage.setItem('class_name', className);
+
+    // 填充页面顶部 hero 区的班级信息
+    (function fillHero() {
+      const el = document.getElementById('page-hero-class');
+      if (!el) return;
+      if (!className) {
+        el.textContent = '未识别到班级信息,请从班级列表页进入';
+        return;
+      }
+      // 简化显示:CMP245-1 - Python与大数据分析 - 刘宁宁 老师
+      // 提取学期/课号/课程名/教师
+      const parts = className.split('-');
+      // 形如 2025-2026-2-CMP245-1-Python与大数据分析-刘宁宁
+      // 或 2025-2026-2-CMP245-Python与大数据分析-刘宁宁
+      let label = className;
+      if (parts.length >= 6) {
+        const semester = `${parts[0]}-${parts[1]}-${parts[2]}`;
+        const courseSeq = parts.length === 7 ? `${parts[3]}-${parts[4]}` : parts[3];
+        const courseName = parts.length === 7 ? parts[5] : parts[4];
+        const teacher = parts.length === 7 ? parts[6] : parts[5];
+        label = `${semester} · ${courseSeq} · ${courseName} · ${teacher} 老师`;
+      }
+      el.textContent = `班级: ${label}  ·  学号: ${sid || '未识别'}`;
+      // 同步设置文档 title,加上班级信息方便多 tab 区分
+      if (sid) {
+        document.title = `期末大作业提交 · ${sid} · ${className}`;
+      }
+    })();
+
+    // 新增：前两个“下载”卡片的点击处理
+    (function bindDownloadTiles() {
+      const zipTile = document.getElementById('downloadzip-tile');
+      const csvTile = document.getElementById('testcsv-tile');
+      const ensureStatus = (tile) => tile && tile.querySelector('.upload-status');
+
+      // 下载大作业压缩包（弹窗另存为）
+      if (zipTile) {
+        const statusEl = ensureStatus(zipTile);
+        zipTile.addEventListener('click', async () => {
+          if (!finalTimeGuard.guard(statusEl)) return;
+          if (!sid || !className) {
+            statusEl.textContent = '请先验证学号/班级';
+            statusEl.style.color = 'red';
+            return;
+          }
+          statusEl.textContent = '下载中...';
+          statusEl.style.color = '';
+          try {
+            const res = await window.api.downloadFinalZip(sid, className);
+            if (res && res.ok) {
+              statusEl.textContent = `已保存：${res.file}`;
+              statusEl.style.color = '';
+              await window.api.showItem(res.file);
+            } else {
+              // 用户取消保存时不显示错误
+              if (res && res.error === '用户取消保存') {
+                statusEl.textContent = '';
+              } else {
+                statusEl.textContent = (res && res.error) || '下载失败';
+                statusEl.style.color = 'red';
+              }
+            }
+          } catch (e) {
+            statusEl.textContent = e.message || '下载异常';
+            statusEl.style.color = 'red';
+          }
+        });
+      }
+
+      // 下载 test.csv（调用后端 /getTestCsv 接口，基于学号打乱，弹窗另存为）
+      if (csvTile) {
+        const statusEl = ensureStatus(csvTile);
+        csvTile.addEventListener('click', async () => {
+          if (!finalTimeGuard.guard(statusEl)) return;
+          if (!sid) {
+            statusEl.textContent = '请先验证学号';
+            statusEl.style.color = 'red';
+            return;
+          }
+          statusEl.textContent = '下载中...';
+          statusEl.style.color = '';
+          try {
+            const res = await window.api.downloadTestCsv(sid, className);
+            if (res && res.ok) {
+              statusEl.textContent = `已保存：${res.file}`;
+              statusEl.style.color = '';
+              await window.api.showItem(res.file);
+            } else {
+              // 用户取消保存时不显示错误
+              if (res && res.error === '用户取消保存') {
+                statusEl.textContent = '';
+              } else {
+                statusEl.textContent = (res && res.error) || '下载失败';
+                statusEl.style.color = 'red';
+              }
+            }
+          } catch (e) {
+            statusEl.textContent = e.message || '下载异常';
+            statusEl.style.color = 'red';
+          }
+        });
+      }
+    })();
+
+    // 确保 className 在 URL 中（用于下载链接）
+    function ensureClassNameInUrl() {
+      const u = new URL(window.location.href);
+      const className = u.searchParams.get('class_name') || sessionStorage.getItem('class_name') || '';
+      if (className) {
+        u.searchParams.set('class_name', className);
+        window.history.replaceState({}, '', u);
+      }
+    }
+    ensureClassNameInUrl();
+
+    // 恢复并保留 markdown 渲染逻辑（不再与时间条耦合）
+    (async () => {
+      const u = new URL(window.location.href);
+      const className = u.searchParams.get('class_name') || sessionStorage.getItem('class_name') || '';
+      const studentId = sessionStorage.getItem('student_id') || '';
+      const baseDir = className || '.';
+      try {
+        const res = await window.api.finalExamMarkdown({ className, studentId });
+        console.log('Final Exam Info:', res);
+
+        // 保留 AUC / 次数逻辑（与 markdown 无关）
+        if (res?.ok) {
+          const resultTile = document.getElementById('result-tile');
+          if (resultTile) {
+            const auc = parseFloat(res.final_auc);
+            const count = parseInt(res.submit_count) || 0;
+            const max = Number.isFinite(parseInt(res.max_submissions)) ? parseInt(res.max_submissions) : 3;
+            const remaining = Math.max(0, max - count);
+
+            // 保留 #final-auc，仅更新文本
+            setAuc(Number.isFinite(auc) && auc > 0 ? auc : NaN);
+            setRemaining(remaining);
+          }
+        }
+
+        // 关键：markdown 显示（优先用 html 字段，其次用 markdown）
+        const finalMdEl = document.getElementById('final-md');
+        if (res?.html) {
+          // 后端已经返回清洗后的 html 直接渲染
+          finalMdEl.innerHTML = res.html;
+        } else if (res?.markdown) {
+          finalMdEl.innerHTML = window.md.renderLocal(res.markdown, baseDir);
+        } else {
+          finalMdEl.textContent = res?.error || '暂未提供期末大作业说明。';
+        }
+      } catch (err) {
+        console.warn('加载期末大作业说明失败:', err);
+        document.getElementById('final-md').textContent = '加载期末大作业说明失败。';
+      }
+    })();
+
+    // 统一更新 AUC 与“剩余次数”
+    function setAuc(val) {
+      const aucEl = document.getElementById('final-auc');
+      if (!aucEl) return;
+      if (Number.isFinite(val)) {
+        aucEl.textContent = Number(val).toFixed(6);
+      } else {
+        aucEl.textContent = '--';
+      }
+    }
+    function setRemaining(remaining) {
+      const resultTile = document.getElementById('result-tile');
+      if (!resultTile) return;
+      resultTile.dataset.remaining = String(Math.max(0, parseInt(remaining || 0, 10)));
+      const label = resultTile.querySelector('.auc-label');
+      if (!label) return;
+      let remainSpan = document.getElementById('final-remaining');
+      if (!remainSpan) {
+        remainSpan = document.createElement('span');
+        remainSpan.id = 'final-remaining';
+        remainSpan.style.color = '#d97706';
+        // 在 "AUC: <span id='final-auc'>..</span>" 后追加 " / 剩X次"
+        label.appendChild(document.createTextNode(' / '));
+        label.appendChild(remainSpan);
+      }
+      remainSpan.textContent = `剩${resultTile.dataset.remaining}次`;
+    }
+
+    // 新增：查询最终状态的统一函数（有 getFinalStatus 用它；否则回退到 finalExamMarkdown）
+    async function queryFinalStatusWithFallback(className, studentId) {
+      try {
+        if (window.api && typeof window.api.getFinalStatus === 'function') {
+          const items = await window.api.getFinalStatus();
+          const info = items?.result || {};
+          return {
+            auc: Number.isFinite(parseFloat(info.auc)) ? parseFloat(info.auc) : NaN,
+            submit_count: Number.isFinite(parseInt(info.submit_count)) ? parseInt(info.submit_count) : NaN,
+            max_submissions: Number.isFinite(parseInt(info.max_submissions)) ? parseInt(info.max_submissions) : 3
+          };
+        } else {
+          const r = await window.api.finalExamMarkdown({ className, studentId });
+          if (r?.ok) {
+            return {
+              auc: Number.isFinite(parseFloat(r.final_auc)) ? parseFloat(r.final_auc) : NaN,
+              submit_count: Number.isFinite(parseInt(r.submit_count)) ? parseInt(r.submit_count) : NaN,
+              max_submissions: Number.isFinite(parseInt(r.max_submissions)) ? parseInt(r.max_submissions) : 3
+            };
+          }
+        }
+      } catch (_) { /* 静默回退 */ }
+      return { auc: NaN, submit_count: NaN, max_submissions: 3 };
+    }
+
+    // 班级 AUC 排名渲染(显示在"作业描述"之前)
+    const refreshRanking = (function initFinalRanking() {
+      const section = document.getElementById('final-ranking');
+      const body = document.getElementById('final-ranking-body');
+      const meta = document.getElementById('final-ranking-meta');
+      if (!body || !section) return function(){};
+
+      function hideRanking() {
+        section.style.display = 'none';
+      }
+
+      function render(r) {
+        // 网络错误 / 接口不存在 / 返回失败 -> 隐藏整个排名区
+        if (!r || r.ok === false) {
+          hideRanking();
+          return;
+        }
+        // 后端没返回榜单数据(可能尚未有人提交) -> 也隐藏
+        if (typeof r.total_students !== 'number' || r.total_students <= 0) {
+          hideRanking();
+          return;
+        }
+        if (r.my_rank == null) {
+          meta.textContent = `班级已提交 ${r.total_students} 人 · 你尚未提交过`;
+          body.innerHTML = `
+            <div style="color:#5b6b85;">你还没有提交过 result.csv,提交后会自动出现在排名中。</div>
+          `;
+          return;
+        }
+        meta.textContent =
+          `班级已提交 ${r.total_students} 人 · 你的排名: 第 ${r.my_rank} 名` +
+          (r.my_auc != null ? ` · 最高 AUC ${Number(r.my_auc).toFixed(6)}` : '');
+
+        // 显示排名区域
+        section.style.display = '';
+
+        // 拼接"前 3 名 + 我 + 后 3 名"3 列表格
+        const rows = [];
+        const me = {
+          rank: r.my_rank,
+          student_id_masked: maskIdForDisplay(r.student_id || sessionStorage.getItem('student_id') || ''),
+          auc: r.my_auc,
+          is_me: true
+        };
+        (r.above || []).forEach(x => rows.push({ ...x, is_me: false }));
+        rows.push(me);
+        (r.below || []).forEach(x => rows.push({ ...x, is_me: false }));
+
+        let html = `
+          <div style="color:red;font-size:13px;margin-bottom:8px;padding:8px 12px;background:#fff0f0;border:1px solid #ffcccc;border-radius:6px;line-height:1.6;">
+            ⚠️ 此次大作业预测困难，AUC值普遍在 0.6xx，每一学期的大作业都不一样，切勿困扰
+          </div>
+          <table style="
+            width:100%;
+            border-collapse: collapse;
+            font-size:13px;
+            color:#1f2a44;
+        ">
+          <thead>
+            <tr style="background:#eef3ff;color:#1f3a68;">
+              <th style="text-align:left;padding:8px 10px;border-bottom:1px solid #d6e4ff;width:40%;">学号</th>
+              <th style="text-align:right;padding:8px 10px;border-bottom:1px solid #d6e4ff;width:30%;">AUC</th>
+              <th style="text-align:right;padding:8px 10px;border-bottom:1px solid #d6e4ff;width:30%;">排名</th>
+            </tr>
+          </thead>
+          <tbody>`;
+        rows.forEach(row => {
+          const bg = row.is_me ? '#fff7d6' : 'transparent';
+          const weight = row.is_me ? '600' : '400';
+          const rankTag = row.is_me ? ` <span style="color:#c87b00;font-size:11px;">(我)</span>` : '';
+          const aucText = row.auc != null ? Number(row.auc).toFixed(6) : '--';
+          html += `<tr style="background:${bg};font-weight:${weight};">
+            <td style="padding:8px 10px;border-bottom:1px solid #eef0f5;">${row.student_id_masked}</td>
+            <td style="padding:8px 10px;text-align:right;border-bottom:1px solid #eef0f5;">${aucText}</td>
+            <td style="padding:8px 10px;text-align:right;border-bottom:1px solid #eef0f5;">第 ${row.rank} 名${rankTag}</td>
+          </tr>`;
+        });
+        html += `</tbody></table>`;
+        body.innerHTML = html;
+      }
+
+      // 本地也做一次掩码(后端已掩码过一次,这里仅防御)
+      function maskIdForDisplay(sid) {
+        const s = String(sid || '');
+        if (s.length < 7) return s;
+        return s.slice(0, 2) + '*'.repeat(5) + s.slice(-2);
+      }
+
+      // 返回可复用的刷新函数
+      async function loadRanking() {
+        const studentId = sessionStorage.getItem('student_id') || '';
+        const className = sessionStorage.getItem('class_name') ||
+          new URL(location.href).searchParams.get('class_name') || '';
+        if (!body || !section) return;
+        if (!studentId || !className) {
+          section.style.display = 'none';
+          return;
+        }
+        try {
+          const r = await window.api.getFinalRanking(studentId, className, 3);
+          if (r && r.status && (r.status === 404 || r.status >= 500)) {
+            hideRanking();
+            return;
+          }
+          render(r);
+        } catch (e) {
+          hideRanking();
+        }
+      }
+
+      // 初始加载
+      loadRanking();
+      // 返回以便外部调用刷新
+      return loadRanking;
+    })();
+
+    // 上传绑定（使用 finalTimeGuard.guard），只负责 4 个"提交..."卡片
+    (function initFinalUpload() {
+      const studentId = sessionStorage.getItem('student_id') || '';
+      const className = sessionStorage.getItem('class_name') ||
+        new URL(location.href).searchParams.get('class_name') || '';
+      const map = [
+        { id: 'result-tile', uiType: 'result' },
+        { id: 'home-tile', uiType: 'home' },
+        { id: 'body-tile', uiType: 'body' },
+        { id: 'code-tile', uiType: 'code' }
+      ];
+      const allowed = {
+        result: ['.csv'],
+        home: ['.pdf', '.docx'],
+        body: ['.pdf', '.docx'],
+        code: ['.rar', '.zip', '.7z', '.py', '.ipynb'],
+      };
+      const matchExt = (name, list) => {
+        const lower = name.toLowerCase();
+        return list.some(ext => lower.endsWith(ext));
+      };
+
+      function bind({ id, uiType }) {
+        const root = document.getElementById(id);
+        if (!root) return;
+        const input = root.querySelector('input[type=file]');
+        const status = root.querySelector('.upload-status');
+
+        root.addEventListener('click', () => {
+          if (!finalTimeGuard.guard(status)) return;
+
+          if (!studentId) {
+            status.textContent = '请先验证学号';
+            status.style.color = 'red';
+            return;
+          }
+          if (uiType === 'result' && root.dataset.remaining !== undefined) {
+            const rem = parseInt(root.dataset.remaining);
+            if (rem <= 0) {
+              status.textContent = '提交次数已用完';
+              status.style.color = 'red';
+              return;
+            }
+          }
+          status.style.color = '';
+          input.click();
+        });
+
+        input.addEventListener('click', (e) => e.stopPropagation());
+
+        input.addEventListener('change', async () => {
+          const f = input.files && input.files[0];
+          if (!f) return;
+
+          // 只允许对应后缀
+          if (!matchExt(f.name, allowed[uiType] || [])) {
+            status.textContent = `只能提交: ${(allowed[uiType] || []).join('、')}`;
+            status.style.color = 'red';
+            input.value = '';
+            return;
+          }
+
+          status.textContent = '上传中...';
+          status.style.color = '';
+          try {
+            const res = await window.api.uploadFinalFile(uiType, f, studentId, className);
+            if (res && (res.success || res.ok)) {
+              status.textContent = '上传成功';
+              status.style.color = '';
+
+              if (uiType === 'result') {
+                // 后端已用 Test_True_Y.csv 完成比对,AUC 即时可用
+                const serverAuc = Number.isFinite(parseFloat(res.server_verified_auc))
+                  ? parseFloat(res.server_verified_auc)
+                  : NaN;
+                if (Number.isFinite(serverAuc) && serverAuc > 0) {
+                  setAuc(serverAuc);
+                }
+
+                // 先用返回值粗略更新一次
+                const maxFromRes = Number.isFinite(parseInt(res.max_submissions)) ? parseInt(res.max_submissions) : 3;
+                let countFromRes = Number.isFinite(parseInt(res.submit_count)) ? parseInt(res.submit_count) : NaN;
+                if (!Number.isFinite(countFromRes) && typeof res.message === 'string') {
+                  const m = res.message.match(/第(\d+)次提交/);
+                  if (m) countFromRes = parseInt(m[1], 10);
+                }
+                if (Number.isFinite(countFromRes)) setRemaining(Math.max(0, maxFromRes - countFromRes));
+
+                // 显示 AUC 并安排 10s 后刷新排行榜
+                function onAucFound(aucVal) {
+                  setAuc(aucVal);
+                  const displayAuc = Number(aucVal).toFixed(6);
+                  status.textContent = `上传成功 · 此次AUC: ${displayAuc}`;
+                  status.style.color = '';
+                  // 10s 后刷新下方的排行榜
+                  setTimeout(() => { if (typeof refreshRanking === 'function') refreshRanking(); }, 10000);
+                }
+
+                if (Number.isFinite(serverAuc) && serverAuc > 0) {
+                  // 服务端已重算成功,直接显示
+                  onAucFound(serverAuc);
+                } else {
+                  status.textContent = '上传成功,正在计算 AUC...';
+                  // 持续轮询直到拿到 AUC(不显示"计算中"中间消息)
+                  (async () => {
+                    const sleep = (ms) => new Promise(r => setTimeout(r, ms));
+                    const MAX_POLLS = 30;      // 最多轮询约 45s
+                    const POLL_DELAY = 1500;    // 1.5s 间隔
+                    for (let i = 0; i < MAX_POLLS; i++) {
+                      await sleep(POLL_DELAY);
+                      try {
+                        const info = await queryFinalStatusWithFallback(className, studentId);
+                        if (Number.isFinite(info.submit_count)) setRemaining(Math.max(0, info.max_submissions - info.submit_count));
+                        if (Number.isFinite(info.auc) && info.auc > 0) {
+                          onAucFound(info.auc);
+                          return;
+                        }
+                      } catch (_) { /* 继续轮询 */ }
+                    }
+                  })();
+                }
+              }
+            } else {
+              const msg = (res && (res.msg || res.message || res.error)) || '上传失败';
+              status.textContent = msg;
+              status.style.color = 'red';
+            }
+          } catch (err) {
+            status.textContent = '上传异常，请稍后重试';
+            status.style.color = 'red';
+          }
+          input.value = '';
+        });
+      }
+
+      map.forEach(bind);
+    })();
+  </script>
+</body>
+
+</html>
